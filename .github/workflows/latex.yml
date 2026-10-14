@@ -51,16 +51,20 @@ jobs:
             pdf_dir="$GITHUB_WORKSPACE/dist/$course_dir"
 
             mkdir -p "$output_dir" "$pdf_dir"
+
+            # Copy the complete course, preserving chapters and assets.
+            cp -a "$GITHUB_WORKSPACE/$course_dir/." "$output_dir/"
+
             echo "::group::Building $source"
 
             if (
-              cd "$GITHUB_WORKSPACE/$course_dir"
+              cd "$output_dir"
+              export TEXINPUTS="$GITHUB_WORKSPACE/styles//:"
               latexmk \
                 -pdf \
                 -file-line-error \
                 -halt-on-error \
                 -interaction=nonstopmode \
-                -outdir="$output_dir" \
                 main.tex
             ); then
               cp "$output_dir/main.pdf" "$pdf_dir/main.pdf"
