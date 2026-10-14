@@ -1,0 +1,101 @@
+% !TeX root = ../main.tex
+ 
+\chapter{Mengenlehre}
+
+\section{Definitionen}
+\ex{Menge}{
+	$\bbN = \{1, 2, \dots\}, \bbQ = \{\frac{a}{b} \vert a \in \bbZ, b \in \bbN\}, \sqrt{2} \in \bbR, \sqrt{2} \notin \bbQ$
+}
+\dfn{Teilmenge} {
+	Eine Menge $A$ heißt \textbf{Teilmenge} einer Menge $B$, falls $a \in A$ stets $a \in B$ impliziert. Wir schreiben $A \subseteq B$. Die Menge $A$ heißt \textbf{echte Teilmenge} von $B$, falls $A \subseteq B$, aber $A \neq B$ (Schreibweise: $A \subsetneq B$)
+}
+\dfn{Durchschnitt} {
+	$A \cap B = \{x \vert x \in A \land x \in B\}$
+}
+\dfn{Vereinigung} {
+	$A \cup B = \{x \vert x \in A \lor x \in B\}$
+}
+\dfn{Leere Menge $\emptyset$} {
+	Die Menge, die kein Element enthält.
+}
+\ex{Leere Menge} {
+	$A\cap \emptyset = \emptyset, A \cup \emptyset = A$
+}
+\dfn{Dijunktivität} {
+	Zwei Mengen $A$ und $B$ heißen \textbf{disjunkt}, falls $A \cap B = \emptyset$
+}
+\dfn{Kardinalität} {
+	Ist $A$ endlich, so bezeichnet $\#A=\vert A \vert$ ihre \textbf{Kardinalität} (Mächtigkeit).
+}
+\dfn{Differenzmenge} {
+	$A \backslash B = \{x \in A \vert x \notin B\} = A \ (A \cap B).$. \\
+	Ist $A$ aus dem Kontext gegeben und $B \subseteq A$, so schreibt man manchmal $A \backslash B = B^C$
+}
+\nt{Es gilt $A = B$ genau da, wenn $A \subseteq B \land B \subseteq A$}
+\section{Potenzmenge}
+\dfn{Potenzmenge} {
+	Für eine Menge $A$ heißt $\mathcal{P}(A) = \{B \vert B \subseteq A\}$ die \textbf{Potenzmenge} von $A$. Das ist die Menge aller Teilmengen von $A$.
+}
+\ex{Potenzmenge} {
+	$\mathcal{P}(\{1, 2, 3\}) = \{\emptyset, \{1\}, \{2\}, \{3\}, \{1, 2\}, \{1, 3\}, \{2, 3\}, \{1, 2, 3\}\}$
+}
+\nt{Ist $\vert A \vert = n$, so ist $\vert \mathcal{P}(A) \vert = 2^n$, denn in einer beliebigen Teilmenge $B$ von $A$ kann jedes der $n$ Elemente von $A$ entweder enthalten oder nicht enthalten sein.}
+\section{Kartesische Produkt}
+\dfn{Kartesische Produkt} {
+	Für zwei Mengen $A, B$ heißt $A \times B = \{(a, b) \vert a \in A, b \in B\}$ das \textbf{kartesische Produkt}. Es ist $(a_1, b_1) = (a_2, b_2)$ genau dann, wenn $a_1 = a_2$ und $b_1 = b_2$. Ist $A = B$, schreiben wir $A^2 = A \times A$. Allgemeiner schreiben wir $A_1 \times \cdots \times A_n = \{(a_1, \dots, a_n) \vert a_1 \in A_1, \dots, a_n \in A_n\}.$
+}
+\ex{Kartesische Produkt} {
+	\begin{itemize}
+		\item $\{1, 2, 3\} \times \{a, b\}  = \{(1, a), (1, b), (2, a), (2, b), (3, a), (3, b)\}.$
+		\item $A \times \emptyset = \emptyset$.
+		\item $\{0\} \times \bbR \times \{0\} \subseteq \bbR^3 = \bbR \times \bbR \times bbR$
+	\end{itemize}
+}
+\section{Rechenregeln}
+Vereinigung und Schnitt sind \textbf{kommutativ}, \textbf{assoziativ} und \textbf{distributiv}.
+
+\section{Indexmengen}
+\dfn {Indexmengen} {
+	Sei $I \neq \emptyset$ eine Indexmenge. Für $i \in I$ sei $M_i$ eine Menge. Dann schreiben wir
+	$$
+	\bigcap\limits_{i \in I}M_i := \{x \vert x \in M_i \forall i \in I\}, \bigcup\limits_{i \in I}M_i := \{x \vert x \in M_i \text{ für ein } i \in I\}
+	$$
+}
+
+\section{De Morgan}
+\thm{De Morgan} {
+	Seien $I \neq \emptyset$ eine Indexmenge, $M$ eine Menge und $M_i \subseteq M (i \in I)$ eine Familie von Teilmengen. Dann gilt
+	\begin{itemize}
+		\item $\left(\bigcap\limits_{i \in I}M_i\right)^C = \bigcup\limits_{i \in I}M_i^C$;
+		\item $\left(\bigcup\limits_{i \in I}M_i\right)^C = \bigcap\limits_{i \in I}M_i^C$;
+	\end{itemize}
+}
+\mlemma{Siebformel} {
+	Für endliche Menge $A_1, A_2$ gilt $\vert A_1 \cup A_2\vert = \vert A_1 \vert + \vert A_2 \vert - \vert A_1 \cap A_2\vert$.
+}
+\begin{myproof}
+	OBdA seien $A_1 \neq \emptyset, A_2 \neq \emptyset$ (ansonsten ist die Behauptung trivial). Für $a \in A_1 \cup A_2$ unterscheide die disjunkten Fälle $a \in A_1 \backslash A_2, a \in A_2 \backslash A_1$ und $a \in A_1 \cap A_2$. In jedem Fall wird $a$ auf beiden Seiten genau einmal gezählt.
+\end{myproof}
+\nt{
+	Für endliche Mengen $A_1, \dots, A_n$ gilt allgemeiner
+	\begin{align*}
+		\vert A_1 \cup \dots \cup A_n \vert &= \sum_{j = 1}^n\vert A_j\vert - \sum_{i \leq j_1 \leq j_2 \leq n}\vert A_{j_1} \cap A_{j_2} \vert + \sum_{i \leq j_1 \leq j_2 \leq j_3 \leq n} \vert A_{j_1} \cap A_{j_2} \cap A_{j_3} \vert \pm \dots \\
+		&= \sum{\emptyset \neq S \subseteq \{1, \dots , n\}} (-1) ^{\vert S \vert + 1} \left\vert \bigcap\limits_{j \in S} A_j \right\vert
+	\end{align*}
+}
+\section{Präzisierung des Mengenbegriffs}
+\nt{
+	Der naive Mengenbegriff hat ein paar Schwierigkeiten; insbesondere ist die "Menge aller Mengen" keine Menge in unserem Sinne:
+}
+\begin{myproof}
+	Sei $\mathcal{M}$ eine Menge, die alle Mengen enthält. Sei
+	$$
+	N=\{A \in \mathcal{M} \vert A \notin A\} \subseteq \mathcal{M}
+	$$
+	die Teilmenge jener Mengen $A$ von $\mathcal{M}$, die sich nicht selbst enthalten. Ist $N$ in sich selbst enthalten?
+	\begin{enumerate}
+		\item $N \in N$, nach Definition von $N$ folgt dann $N \notin N$. 
+		\item $N \notin N$, nach Definition von $N$ folgt dann $N \in N$. 
+	\end{enumerate}
+	Dieser Widerspruch zeigt, dass es eine solche Menge $\mathcal{M}$ nicht geben kann.
+\end{myproof}

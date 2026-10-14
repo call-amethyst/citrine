@@ -1,0 +1,41 @@
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.xdv
+
+# Generated listings and indexes
+*.listing
+*.idx
+*.ilg
+*.ind
+*.ist
+*.glo
+*.gls
+*.glg
+*.acn
+*.acr
+*.alg
+
+# Generated PDFs — keep source PDFs explicitly if needed
+*.pdf
+
+# Temporary and editor files
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db

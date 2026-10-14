@@ -1,0 +1,43 @@
+% !TeX root = ../main.tex
+ 
+\chapter{Template}
+
+\section{Reference Examples}
+
+\begin{Definition}{Referenceable Definition}{referenceable-definition}
+	A labeled definition uses the third argument as the label key.
+\end{Definition}
+
+\begin{Lemma}{Referenceable Lemma}{referenceable-lemma}
+	A labeled lemma works the same way.
+\end{Lemma}
+
+\begin{theorem}{Referenceable Theorem}{referenceable-theorem}
+	A labeled theorem also works the same way.
+\end{theorem}
+
+\Cref{def:referenceable-definition}, \Cref{th:referenceable-lemma}, and
+\Cref{th:referenceable-theorem} are clickable references.
+
+\begin{latexcodeblock}[title={Reference Syntax}]
+\begin{Definition}{Referenceable Definition}{referenceable-definition}
+Body
+\end{Definition}
+
+\begin{Lemma}{Referenceable Lemma}{referenceable-lemma}
+Body
+\end{Lemma}
+
+\begin{theorem}{Referenceable Theorem}{referenceable-theorem}
+Body
+\end{theorem}
+
+\Cref{def:referenceable-definition}
+\Cref{th:referenceable-lemma}
+\Cref{th:referenceable-theorem}
+\end{latexcodeblock}
+
+\cor{}{By the result of the proof, we can then show...}
+\mlemma{}{Suppose $\vec{v_1}, \dots, \vec{v_n} \in \RR[n]$ is subspace of $\RR^n$.}
+\mprop{}{$1 + 1 = 2$.}
+

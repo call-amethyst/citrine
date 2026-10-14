@@ -1,0 +1,396 @@
+% !TeX root = ../main.tex
+ 
+\chapter{Gruppentheorie}
+
+\section{Körper und Ordnung auf $\bbQ$}
+
+\dfn{Addition auf $\bbQ$}{
+	Die rationalen Zahlen $\bbQ$ bilden zusammen mit der Addition
+	\[
+	+ \colon \bbQ \times \bbQ \to \bbQ,
+	\qquad (a,b) \mapsto a+b
+	\]
+	eine algebraische Struktur.
+}
+
+\dfn{Gruppe}{
+	Eine Menge $G$ mit einer Verknüpfung $+$ heißt \textbf{Gruppe}, falls die folgenden Eigenschaften erfüllt sind:
+	\begin{enumerate}
+		\item \textbf{Assoziativgesetz:}
+		$\forall a,b,c \in G$ gilt
+		\[
+		a+(b+c)=(a+b)+c.
+		\]
+		\item \textbf{Neutrales Element:}
+		Es existiert ein Element $e \in G$ mit
+		\[
+		e+a=a+e=a \qquad \forall a \in G.
+		\]
+		\item \textbf{Inverses Element:}
+		Zu jedem $a \in G$ existiert ein Element $-a \in G$ mit
+		\[
+		a+(-a)=(-a)+a=e.
+		\]
+	\end{enumerate}
+	Die Gruppe heißt \textbf{kommutativ} (oder \textbf{abelsch}), falls zusätzlich das Kommutativgesetz gilt:
+	\[
+	\forall a,b \in G: \quad a+b=b+a.
+	\]
+}
+
+\nt{
+	Die rationalen Zahlen $(\bbQ,+)$ bilden eine kommutative Gruppe mit dem neutralen Element $0$.
+}
+
+\cor{}{
+	Das neutrale Element einer Gruppe ist eindeutig. Ebenso ist das inverse Element zu jedem Gruppenelement eindeutig.
+}
+
+\dfn{Multiplikation auf $\bbQ$}{
+	Die rationalen Zahlen ohne die Null bilden zusammen mit der Multiplikation eine kommutative Gruppe:
+	\[
+	(\bbQ \setminus \{0\},\cdot).
+	\]
+	Das neutrale Element ist $1$, und das inverse Element zu $x \neq 0$ ist $x^{-1}=\frac{1}{x}$.
+}
+
+\dfn{Körper}{
+	Ein \textbf{Körper} ist eine Menge $K$ mit zwei Verknüpfungen $+$ und $\cdot$, sodass gilt:
+	\begin{enumerate}
+		\item $(K,+)$ ist eine kommutative Gruppe mit neutralem Element $0$.
+		\item $(K \setminus \{0\},\cdot)$ ist eine kommutative Gruppe mit neutralem Element $1$.
+		\item Es gilt das \textbf{Distributivgesetz}:
+		\[
+		\forall x,y,z \in K:
+		\quad x\cdot(y+z)=x\cdot y+x\cdot z.
+		\]
+	\end{enumerate}
+}
+
+\nt{
+	Die rationalen Zahlen $\bbQ$ bilden mit der Addition und der Multiplikation einen Körper.
+}
+
+Aus den Körperaxiomen lassen sich elementare Rechenregeln herleiten.
+
+\mlemma{Rechenregeln}{
+	Für alle $x,y \in K$ gilt:
+	\[
+	x\cdot 0=0,
+	\qquad
+	(-x)\cdot y=-(x\cdot y).
+	\]
+}
+
+\begin{myproof}
+	Mit dem Distributivgesetz folgt
+	\begin{align*}
+		x\cdot 0
+		&=x\cdot(0+0)\\
+		&=x\cdot 0+x\cdot 0.
+	\end{align*}
+	Durch Addition des inversen Elements $-(x\cdot 0)$ auf beiden Seiten erhalten wir
+	\[
+	x\cdot 0=0.
+	\]
+	Weiter gilt
+	\begin{align*}
+		x\cdot y+(-x)\cdot y
+		&=(x+(-x))\cdot y\\
+		&=0\cdot y\\
+		&=0.
+	\end{align*}
+	Somit ist $(-x)\cdot y$ das additive Inverse von $x\cdot y$. Wegen der Eindeutigkeit des inversen Elements folgt
+	\[
+	(-x)\cdot y=-(x\cdot y).
+	\]
+\end{myproof}
+
+\section{Ordnung auf $\bbQ$}
+
+\dfn{Ordnung}{
+	Eine Relation $<$ auf einem Körper $K$ heißt \textbf{vollständige Ordnung}, falls für alle $x,y,z \in K$ gilt:
+	\begin{enumerate}
+		\item \textbf{Trichotomie:} Genau eine der drei Aussagen
+		\[
+		x<y,\qquad x=y,\qquad x>y
+		\]
+		ist erfüllt.
+		\item \textbf{Transitivität:}
+		\[
+		x<y \land y<z \implies x<z.
+		\]
+		\item \textbf{Kompatibilität mit der Addition:}
+		\[
+		x<y \implies x+z<y+z.
+		\]
+		\item \textbf{Kompatibilität mit der Multiplikation:}
+		\[
+		x<y \land z>0 \implies xz<yz.
+		\]
+	\end{enumerate}
+}
+
+Der Körper $\bbQ$ besitzt eine vollständige Ordnung, die mit der Addition und der Multiplikation verträglich ist.
+
+\nt{
+	Für alle $x,y \in \bbQ$ gilt
+	\[
+	x<y \iff 0<y-x.
+	\]
+}
+
+\mlemma{Positive rationale Zahlen}{
+	Für alle $x,y \in \bbQ$ gilt:
+	\begin{enumerate}
+		\item Sind $x>0$ und $y>0$, so ist $x+y>0$.
+		\item Sind $x>0$ und $y>0$, so ist $xy>0$.
+	\end{enumerate}
+}
+
+\cor{Transitivität der Ordnung}{
+	Aus $x<y$ und $y<z$ folgt $x<z$.
+
+	\begin{myproof}
+		Aus den Voraussetzungen folgt
+		\[
+		0<y-x,\qquad 0<z-y.
+		\]
+		Durch Addition erhalten wir
+		\[
+		0<(y-x)+(z-y)=z-x.
+		\]
+		Also gilt $x<z$.
+	\end{myproof}
+}
+
+\cor{Multiplikation mit positiven Zahlen}{
+	Für $x,y,z \in \bbQ$ gilt
+	\[
+	x<y \land z>0 \implies xz<yz.
+	\]
+	\begin{myproof}
+		Aus $x<y$ folgt $0<y-x$. Wegen $z>0$ gilt
+		\[
+		0<z(y-x)=zy-zx.
+		\]
+		Damit folgt $xz<yz$.
+	\end{myproof}
+}
+
+\cor{Quadrate sind nichtnegativ}{
+	Für alle $x\in\bbQ$ gilt $x^2\geq 0$. Insbesondere gilt für $x\neq 0$:
+	\[
+	x^2>0.
+	\]
+	\begin{myproof}
+		Wir unterscheiden zwei Fälle:
+		\begin{enumerate}
+			\item Falls $x>0$, folgt aus der Verträglichkeit der Ordnung mit der Multiplikation $x^2>0$.
+			\item Falls $x<0$, gilt $-x>0$. Somit ist
+			\[
+			x^2=(-x)(-x)>0.
+			\]
+		\end{enumerate}
+		Für $x=0$ gilt $x^2=0$. Insgesamt folgt $x^2\geq 0$ für alle $x\in\bbQ$.
+	\end{myproof}
+}
+
+\cor{}{
+	Insbesondere gilt
+	\[
+	1>0,
+	\]
+	da $1=1^2$ und $1\neq 0$.
+}
+
+\cor{Es gibt stets eine größere rationale Zahl}{
+	Für jedes $q\in\bbQ$ existiert ein $q'\in\bbQ$ mit
+	\[
+	q<q'.
+	\]
+
+	\begin{myproof}
+		Zunächst gilt $0<1$. Aufgrund der Kompatibilität der Ordnung mit der Addition folgt
+		\[
+		q=q+0<q+1.
+		\]
+		Wir wählen also $q'=q+1\in\bbQ$. 
+	\end{myproof}
+}
+
+\cor{Zwischen $0$ und jeder positiven rationalen Zahl liegt eine weitere rationale Zahl}{
+	Für jedes $q\in\bbQ$ mit $q>0$ existiert ein $q'\in\bbQ$ mit
+	\[
+	0<q'<q.
+	\]
+
+	\begin{myproof}
+		Sei $q>0$. Dann gilt auch $q+1>0$, sodass $(q+1)^{-1}>0$ existiert.
+
+		Da $q<q+1$ und $(q+1)^{-1}>0$, folgt aus der Kompatibilität der Ordnung mit der Multiplikation:
+		\[
+		\frac{q}{q+1}<1.
+		\]
+		Insbesondere gilt
+		\[
+		0<\frac{q}{q+1}<1.
+		\]
+		Wir setzen
+		\[
+		q'=\frac{q}{q+1}\cdot q=\frac{q^2}{q+1}.
+		\]
+		Dann ist $q'>0$. Außerdem gilt wegen $q<q+1$:
+		\[
+		\frac{q}{q+1}<1
+		\implies
+		\frac{q^2}{q+1}<q.
+		\]
+		Somit erhalten wir
+		\[
+		0<q'<q.
+		\]
+	\end{myproof}
+}
+
+\dfn{Absolutbetrag}{
+	$\vert x \vert =
+	\begin{cases}
+		\vert x \vert &= x \text{ falls } x \ge 0 \\
+		\vert x \vert &= -x \text{ falls } x < 0
+	\end{cases}$
+}
+
+\mlemma{}{
+	\begin{enumerate}
+		\item $\vert x \vert = 0 \Leftrightarrow x = 0$
+		\item $\vert x \cdot y \vert = \vert x \vert \cdot \vert y \vert$.
+		\item \textbf{Dreiecksungleichung} $\vert x + y \vert \leq \vert x \vert + \vert y \vert.$
+		\item $\vert \vert x \vert - \vert y \vert \vert \leq \vert x + y \vert $
+	\end{enumerate}
+}
+\begin{myproof}
+	Wegen $\pm x \leq \vert x \vert \land \pm y \leq \vert y \vert$ gilt auch $\pm \vert (x + y) \vert$ 
+\end{myproof}
+
+\newpage
+\section{Lösungen von Gleichungen}
+
+\qs{}{
+	Beweise, dass die Gleichung $x^2=2$ keine Lösung in $\bbQ$ besitzt.
+}
+
+\begin{myproof}
+	Wir führen einen Widerspruchsbeweis.
+
+	Angenommen, es existiert eine rationale Zahl $x\in\bbQ$ mit
+	\[
+	x^2=2.
+	\]
+	Dann lässt sich $x$ als vollständig gekürzter Bruch
+	\[
+	x=\frac{p}{q}, \qquad p,q\in\bbN,\quad \gcd(p,q)=1
+	\]
+	schreiben. Durch Quadrieren erhalten wir
+	\begin{align*}
+		\frac{p^2}{q^2}&=2\\
+		\implies p^2&=2q^2.
+	\end{align*}
+	Somit ist $p^2$ gerade. Daher ist auch $p$ gerade, also existiert ein $k\in\bbN$ mit $p=2k$.
+
+	Einsetzen liefert
+	\begin{align*}
+		(2k)^2&=2q^2\\
+		4k^2&=2q^2\\
+		\implies q^2&=2k^2.
+	\end{align*}
+	Also ist auch $q^2$ gerade und damit $q$ gerade.
+
+	Dies bedeutet, dass sowohl $p$ als auch $q$ durch $2$ teilbar sind. Das widerspricht der Annahme $\gcd(p,q)=1$.
+
+	Somit besitzt die Gleichung $x^2=2$ keine rationale Lösung.
+\end{myproof}
+
+\section{Supremum und Vollständigkeit}
+
+\dfn{Obere Schranke und Supremum}{
+	Sei $A\subseteq\bbR$ eine nichtleere Menge.
+
+	\begin{itemize}
+		\item Die Menge $A$ heißt \textbf{nach oben beschränkt}, falls es ein $s\in\bbR$ gibt, sodass
+		\[
+		\forall x\in A:\quad x\leq s.
+		\]
+		\item Ein solches $s$ heißt \textbf{obere Schranke} von $A$.
+		\item Eine obere Schranke $s_0$ heißt \textbf{Supremum} von $A$, falls sie kleiner oder gleich jeder anderen oberen Schranke ist:
+		\[
+		\forall s\in\bbR:
+		\quad
+		s\text{ obere Schranke von }A
+		\implies s_0\leq s.
+		\]
+		Wir schreiben
+		\[
+		s_0=\sup A.
+		\]
+	\end{itemize}
+}
+
+\ex{Supremum}{
+	Wir betrachten die Mengen
+	\[
+	A=[0,1]=\{x\in\bbR\mid 0\leq x\leq 1\}
+	\]
+	und
+	\[
+	B=[0,1)=\{x\in\bbR\mid 0\leq x<1\}.
+	\]
+
+	Für beide Mengen gilt
+	\[
+	\sup A=\sup B=1.
+	\]
+
+	Bei $A$ ist $1$ sogar das größte Element der Menge, da $1\in A$ gilt.
+
+	Bei $B$ ist $1$ dagegen kein Element der Menge. Dennoch ist $1$ die kleinste obere Schranke.
+
+	\begin{myproof}
+		Wir zeigen, dass $1=\sup B$ gilt.
+
+		Zunächst ist $1$ eine obere Schranke von $B$, denn für alle $x\in B$ gilt $x<1$.
+
+		Sei nun $s<1$ eine beliebige Zahl. Wir unterscheiden zwei Fälle:
+		\begin{enumerate}
+			\item Falls $s<0$, ist $s$ keine obere Schranke von $B$, da $0\in B$ gilt.
+			\item Falls $0\leq s<1$, setzen wir
+			\[
+			\varepsilon=\frac{1-s}{2}>0.
+			\]
+			Dann gilt
+			\[
+			s<s+\varepsilon=\frac{1+s}{2}<1.
+			\]
+			Somit ist $s+\varepsilon\in B$ und $s$ keine obere Schranke von $B$.
+		\end{enumerate}
+		Also ist keine Zahl $s<1$ eine obere Schranke von $B$. Folglich ist $1$ die kleinste obere Schranke und damit
+		\[
+		\sup B=1.
+		\]
+	\end{myproof}
+}
+
+\dfn{Vollständigkeitsaxiom für $\bbR$}{
+	Die reellen Zahlen $\bbR$ heißen \textbf{vollständig}, falls jede nichtleere, nach oben beschränkte Teilmenge $A\subseteq\bbR$ ein Supremum besitzt, das heißt:
+	\[
+	\forall A\subseteq\bbR:
+	\quad
+	\left.
+	\begin{array}{l}
+		A\neq\emptyset,\\
+		A\text{ ist nach oben beschränkt}
+	\end{array}
+	\right\}
+	\implies \sup A\in\bbR.
+	\]
+}
