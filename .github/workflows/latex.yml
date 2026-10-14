@@ -43,6 +43,9 @@ jobs:
           found=0
           failed=0
 
+          rm -rf "$RUNNER_TEMP/latex-build"
+          mkdir -p dist "$RUNNER_TEMP/latex-build"
+
           while IFS= read -r -d '' source; do
             found=1
             source="${source#./}"
@@ -60,6 +63,13 @@ jobs:
             if (
               cd "$output_dir"
               export TEXINPUTS="$GITHUB_WORKSPACE/styles//:"
+                echo "Working directory: $(pwd)"
+                echo "Chapter directory:"
+                ls -ld chapters
+                echo "Chapter source and write permissions:"
+                ls -l chapters/
+                touch chapters/.write-test
+                rm chapters/.write-test
               latexmk \
                 -pdf \
                 -file-line-error \
