@@ -1,0 +1,158 @@
+name: Build math notes
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 2 * * *"
+    - cron: "17 3 * * 0"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Compile all courses
+    runs-on: ubuntu-latest
+    outputs:
+      compiled: ${{ steps.compile.outputs.compiled }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            latexmk \
+            texlive-latex-recommended \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
+            texlive-science \
+            biber
+
+      - name: Compile every main.tex
+        id: compile
+        shell: bash
+        run: |
+          mkdir -p dist "$RUNNER_TEMP/latex-build"
+          export TEXINPUTS="$GITHUB_WORKSPACE/styles//:"
+
+          found=0
+          failed=0
+
+          while IFS= read -r -d '' source; do
+            found=1
+            source="${source#./}"
+            course_dir="$(dirname "$source")"
+            output_dir="$RUNNER_TEMP/latex-build/$course_dir"
+            pdf_dir="$GITHUB_WORKSPACE/dist/$course_dir"
+
+            mkdir -p "$output_dir" "$pdf_dir"
+            echo "::group::Building $source"
+
+            if (
+              cd "$GITHUB_WORKSPACE/$course_dir"
+              latexmk \
+                -pdf \
+                -file-line-error \
+                -halt-on-error \
+                -interaction=nonstopmode \
+                -outdir="$output_dir" \
+                main.tex
+            ); then
+              cp "$output_dir/main.pdf" "$pdf_dir/main.pdf"
+              echo "SUCCESS: $source"
+            else
+              echo "::error::Failed: $source"
+              failed=1
+            fi
+
+            echo "::endgroup::"
+          done < <(
+            find . \
+              -type d \( -name .git -o -name .github \
+                -o -name dist \) -prune \
+              -o -type f -name main.tex -print0
+          )
+
+          if [[ "$found" -eq 0 ]]; then
+            echo "::error::No main.tex files found"
+            failed=1
+          fi
+
+          if [[ "$failed" -eq 0 ]]; then
+            echo "compiled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "compiled=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate PDF index
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo '<!doctype html>'
+            echo '<html lang="en"><meta charset="utf-8">'
+            echo '<meta name="viewport" content="width=device-width">'
+            echo '<title>University Math Notes</title>'
+            echo '<h1>University Math Notes</h1>'
+            echo '<p>Latest successfully compiled PDFs.</p>'
+            echo '<ul>'
+
+            while IFS= read -r -d '' pdf; do
+              rel="${pdf#dist/}"
+              printf '<li><a href="%s">%s</a></li>\n' \
+                "$rel" "$rel"
+            done < <(find dist -type f -name '*.pdf' -print0 | sort -z)
+
+            echo '</ul></html>'
+          } > dist/index.html
+
+      - name: Upload nightly artifact
+        if: always() && (github.event_name != 'schedule' || github.event.schedule == '17 2 * * *')
+        uses: actions/upload-artifact@v4
+        with:
+          name: math-notes-nightly
+          path: dist/
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload weekly artifact
+        if: always() && github.event_name == 'schedule' && github.event.schedule == '17 3 * * 0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: math-notes-weekly
+          path: dist/
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Prepare Pages artifact
+        if: steps.compile.outputs.compiled == 'true'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist/
+
+      - name: Fail if any course did not compile
+        if: steps.compile.outputs.compiled != 'true'
+        run: exit 1
+
+  deploy:
+    name: Publish latest PDFs
+    needs: build
+    if: >-
+      needs.build.result == 'success' &&
+      github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
