@@ -8,9 +8,9 @@ The repository is organized by semester and course. Each course has a `main.tex`
 
 The latest successfully compiled PDFs are published on GitHub Pages:
 
-**[Browse the notes](https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/)**
+**[Browse the notes](https://call-amethyst.github.io/citrine/)**
 
-Automated builds are available from the [GitHub Actions workflow](https://github.com/YOUR-USERNAME/YOUR-REPOSITORY/actions/workflows/latex.yml).
+Automated builds are available from the [GitHub Actions workflow](https://github.com/call-amethyst/citrine/actions/workflows/latex.yml).
 
 - **Nightly builds:** run daily; artifacts are retained for 7 days.
 - **Weekly builds:** run on Sundays; artifacts are retained for 90 days.
@@ -28,9 +28,8 @@ math-notes/
 │   ├── analysis-1/
 │   │   ├── main.tex
 │   │   └── chapters/
-│   └── linear-algebra/
-│       ├── main.tex
-│       └── chapters/
+│   ├── linear-algebra-1/
+│   └── algorithmic-mathematics/
 ├── styles/
 │   ├── cmt.sty
 │   └── LICENSE-MIT
