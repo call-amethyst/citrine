@@ -104,3 +104,201 @@
   Es gilt $R \subseteq A \times B$. Die Relation enthält genau die
   ausgewählten geordneten Paare.
 }
+
+\dfn{Abbildung}{
+  Seien $A$ und $B$ Mengen. Eine Teilmenge $f \subseteq A \times B$
+  heißt \textbf{Funktion} oder \textbf{Abbildung} von $A$ nach $B$,
+  falls für jedes $a \in A$ genau ein $b \in B$ existiert, sodass
+  $(a,b) \in f$ gilt.
+
+  Schreibweisen:
+  \[
+    f \colon A \to B, \qquad
+    (a,b) \in f \iff f(a)=b, \qquad
+    a \mapsto f(a).
+  \]
+  Die Menge $A$ heißt \textbf{Definitionsbereich}, die Menge $B$
+  \textbf{Zielmenge} von $f$.
+}
+
+\dfn{Injektivität}{
+  Eine Funktion $f \colon A \to B$ heißt \textbf{injektiv}, falls
+  für alle $x,y \in A$ gilt:
+  \[
+    f(x)=f(y) \implies x=y.
+  \]
+  Äquivalent dazu gilt
+  \[
+    x \neq y \implies f(x) \neq f(y).
+  \]
+}
+
+\dfn{Surjektivität}{
+  Eine Funktion $f \colon A \to B$ heißt \textbf{surjektiv}, falls
+  jedes Element der Zielmenge angenommen wird, das heißt
+  \[
+    \forall b \in B\ \exists a \in A: f(a)=b.
+  \]
+}
+
+\dfn{Bijektivität}{
+  Eine Funktion $f \colon A \to B$ heißt \textbf{bijektiv}, falls
+  sie sowohl injektiv als auch surjektiv ist.
+  In diesem Fall wird jedes Element von $B$ von genau einem Element
+  aus $A$ angenommen.
+}
+
+\ex{Injektivität und Surjektivität}{
+  Betrachte die Funktion
+  \[
+    f \colon \bbN \to \bbN, \qquad f(x)=x^2.
+  \]
+  Für $a,a' \in \bbN$ gilt
+  \[
+    a^2=(a')^2 \implies a=a',
+  \]
+  also ist $f$ injektiv.
+
+  Die Funktion ist jedoch nicht surjektiv, da beispielsweise
+  $2 \in \bbN$ kein Urbild besitzt: Es gibt kein $a \in \bbN$
+  mit $a^2=2$. Folglich ist $f$ nicht bijektiv.
+
+  Dagegen ist die Funktion
+  \[
+    f \colon \{0\} \to \{0\}, \qquad f(0)=0,
+  \]
+  bijektiv.
+}
+
+\dfn{Ganzzahlige Intervalle}{
+  Für $a,b \in \bbZ$ bezeichne
+  \[
+    \{a,\dots,b\}
+    := \{x \in \bbZ \mid a \leq x \leq b\}.
+  \]
+  Für $b<a$ setzen wir
+  \[
+    \{a,\dots,b\} := \emptyset.
+  \]
+}
+
+\dfn{Endlichkeit}{
+  Eine Menge $A$ heißt \textbf{endlich}, falls ein $n \in \bbN_0$
+  und eine injektive Funktion
+  \[
+    f \colon A \to \{1,\dots,n\}
+  \]
+  existieren.
+
+  Andernfalls heißt $A$ \textbf{unendlich}.
+  Für eine endliche Menge $A$ bezeichnet $|A|$ die Anzahl ihrer
+  Elemente.
+}
+
+\dfn{Abzählbarkeit}{
+  Eine Menge $A$ heißt \textbf{abzählbar}, falls eine injektive
+  Funktion $f \colon A \to \bbN$ existiert.
+
+  Eine Menge, die nicht abzählbar ist, heißt
+  \textbf{überabzählbar}.
+}
+
+\dfn{Wörter und Sprachen}{
+  Sei $A$ eine endliche, nicht leere Menge, die als
+  \textbf{Alphabet} bezeichnet wird. Für $k \in \bbN_0$ sei
+  \[
+    A^k := \{f \mid f \colon \{1,\dots,k\} \to A\}
+  \]
+  die Menge aller Wörter der Länge $k$ über dem Alphabet $A$.
+
+  Ein Element $f \in A^k$ wird mit der Folge
+  \[
+    f(1)f(2)\cdots f(k)
+  \]
+  identifiziert und als \textbf{Wort der Länge $k$} bezeichnet.
+
+  Die Menge $A^0$ enthält genau ein Element, das
+  \textbf{leere Wort} $\varepsilon$.
+
+  Die Menge aller endlichen Wörter über $A$ ist
+  \[
+    A^* := \bigcup_{k \in \bbN_0} A^k.
+  \]
+  Eine \textbf{Sprache} über dem Alphabet $A$ ist eine Teilmenge
+  von $A^*$.
+}
+
+\dfn{Berechnungsproblem}{
+  Ein \textbf{Berechnungsproblem} ist eine Relation
+  \[
+    P \subseteq D \times E,
+  \]
+  wobei $D$ die Menge der Eingaben und $E$ die Menge der möglichen
+  Ausgaben bezeichnet. Es wird vorausgesetzt, dass zu jeder Eingabe
+  $d \in D$ mindestens eine Ausgabe $e \in E$ existiert, sodass
+  $(d,e) \in P$ gilt.
+}
+
+\nt{
+  Ein Paar $(d,e) \in P$ beschreibt eine Lösung des Problems für
+  die Eingabe $d$. In diesem Fall heißt $e$ eine
+  \textbf{korrekte Ausgabe} für die Eingabe $d$.
+
+  Die Elemente von $D$ heißen \textbf{Instanzen} des Problems.
+}
+
+\dfn{Eindeutigkeit und Problemtypen}{
+  Ein Berechnungsproblem $P \subseteq D \times E$ heißt
+  \textbf{eindeutig}, falls zu jeder Eingabe $d \in D$ genau eine
+  korrekte Ausgabe $e \in E$ existiert. In diesem Fall beschreibt
+  $P$ eine Funktion $P \colon D \to E$.
+
+  Sind $D$ und $E$ Sprachen über einem endlichen Alphabet $A$,
+  so heißt $P$ ein \textbf{diskretes Berechnungsproblem}.
+
+  Sind $D \subseteq \bbR^m$ und $E \subseteq \bbR^n$ für
+  $m,n \in \bbN$, so heißt $P$ ein \textbf{numerisches
+  Berechnungsproblem}.
+
+  Ein eindeutiges Berechnungsproblem $P \colon D \to E$ mit
+  $|E|=2$ heißt \textbf{Entscheidungsproblem}.
+}
+
+\section{Algorithmen und Programme}
+
+\dfn{Bit}{
+  Ein \textbf{Bit} (binary digit) ist eine Informationseinheit,
+  die genau einen von zwei Werten annehmen kann: $0$ oder $1$.
+}
+
+\ex{Binärdarstellung}{
+  Die Zahl $10$ lässt sich im Binärsystem wie folgt darstellen:
+  \[
+    (1010)_2 = 1\cdot 2^3 + 0\cdot 2^2
+             + 1\cdot 2^1 + 0\cdot 2^0 = 10.
+  \]
+}
+
+\nt{
+  Unterschiedliche formale Definitionen von Algorithmen können
+  unter geeigneten Voraussetzungen dieselbe Berechenbarkeit
+  beschreiben.
+}
+
+\nt{
+  Ein typischer Kompilierungsprozess lässt sich vereinfacht
+  folgendermaßen darstellen:
+  \[
+    \text{Quellcode}
+    \longrightarrow
+    \text{Maschinencode}.
+  \]
+  Dazwischen können weitere Darstellungen liegen, beispielsweise
+  Zwischencode oder eine interne Repräsentation.
+}
+
+\dfn{Programm}{
+  Ein \textbf{Programm} ist eine Zeichenfolge, die den syntaktischen
+  Regeln einer Programmiersprache genügt. Seine Ausführung wird
+  durch die Semantik der jeweiligen Programmiersprache bestimmt.
+}
