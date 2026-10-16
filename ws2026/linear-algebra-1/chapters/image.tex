@@ -1,0 +1,341 @@
+\section{Abbildungen}
+
+\dfn{Abbildungen}{Seien \(A\) und \(B\) Mengen. Eine \textbf{Abbildung} \(f\colon A\to B\) ordnet jedem Element \(a\in A\) genau ein Element \(f(a)\in B\) zu.
+
+Die Menge \(A\) heißt \textbf{Urbildbereich} und die Menge \(B\) \textbf{Bildbereich} von \(f\). Wir schreiben
+\[
+f\colon A\to B,\qquad a\mapsto f(a).
+\]
+Dabei muss jedes Element aus \(A\) genau einen zugeordneten Wert besitzen. Verschiedene Elemente aus \(A\) dürfen aber durchaus auf dasselbe Element aus \(B\) abgebildet werden.}
+
+\nt{Eine Abbildung besteht nicht nur aus einer Zuordnungsvorschrift. Auch der Urbildbereich und der Bildbereich gehören zu ihr. Beispielsweise sind
+\[
+f\colon \bbR\to\bbR,\quad x\mapsto x^2
+\]
+und
+\[
+g\colon \bbR_{\geq 0}\to\bbR_{\geq 0},\quad x\mapsto x^2
+\]
+verschiedene Abbildungen, obwohl beide dieselbe Zuordnungsvorschrift verwenden. Sie unterscheiden sich in ihren Definitions- und Wertebereichen.}
+
+\dfn{Bild einer Teilmenge}{Sei \(f\colon A\to B\) eine Abbildung und \(T\subseteq A\). Das \textbf{Bild} von \(T\) unter \(f\) ist die Menge
+\[
+f(T):=\{f(t)\mid t\in T\}\subseteq B.
+\]
+Es enthält genau diejenigen Elemente aus \(B\), die durch \(f\) aus mindestens einem Element von \(T\) entstehen. Insbesondere heißt
+\[
+f(A)=\{f(a)\mid a\in A\}
+\]
+das Bild der gesamten Abbildung.}
+
+\dfn{Urbild einer Teilmenge}{Sei \(f\colon A\to B\) eine Abbildung und \(S\subseteq B\). Das \textbf{Urbild} von \(S\) unter \(f\) ist die Menge
+\[
+f^{-1}(S):=\{a\in A\mid f(a)\in S\}\subseteq A.
+\]
+Das Urbild besteht also aus allen Elementen des Urbildbereichs, deren Bild in \(S\) liegt. Das Urbild kann auch leer sein.
+
+\textbf{Achtung:} Die Schreibweise \(f^{-1}(S)\) bezeichnet hier eine Menge und setzt nicht voraus, dass \(f\) umkehrbar ist. Die Umkehrabbildung \(f^{-1}\) wird später für bijektive Abbildungen definiert.}
+
+\ex{Beispiele zu Bild und Urbild}{
+Sei \(f\colon\bbR\to\bbR\), \(f(x)=x^2\). Dann gilt
+\[
+f(\{-2,1,3\})=\{1,4,9\}.
+\]
+Für \(S=\{4,9\}\) ist
+\[
+f^{-1}(S)=\{-3,-2,2,3\},
+\]
+denn genau diese Zahlen werden auf \(4\) oder \(9\) abgebildet. Dagegen gilt
+\[
+f^{-1}(\{-1\})=\varnothing,
+\]
+weil das Quadrat einer reellen Zahl niemals negativ ist.
+}
+
+\ex{Drei grundlegende Beispiele}{
+\begin{enumerate}[label=\alph*)]
+\item Die Abbildung
+\[
+f\colon\bbR\to\bbR,\qquad x\mapsto 2x
+\]
+hat \(f(\bbR)=\bbR\). Denn für jedes \(y\in\bbR\) gilt \(f(y/2)=y\).
+
+\item Die Abbildung
+\[
+g\colon\bbZ\to\bbZ,\qquad x\mapsto 2x
+\]
+hat als Bildmenge die Menge der geraden ganzen Zahlen:
+\[
+g(\bbZ)=2\bbZ=\{2k\mid k\in\bbZ\}\subsetneq\bbZ.
+\]
+Die Bildmenge hängt also auch vom Urbildbereich ab.
+
+\item Die Abbildung
+\[
+h\colon\bbR\times\bbR\to\bbR,\qquad (x,y)\mapsto x+y
+\]
+ordnet jedem geordneten Paar seine Summe zu.
+\end{enumerate}
+}
+
+\dfn{Injektivität, Surjektivität und Bijektivität}{Sei \(f\colon A\to B\) eine Abbildung.
+\begin{enumerate}[label=\alph*)]
+\item \(f\) heißt \textbf{injektiv}, wenn
+\[
+f(a_1)=f(a_2)\implies a_1=a_2
+\]
+für alle \(a_1,a_2\in A\) gilt. Verschiedene Elemente aus \(A\) haben also verschiedene Bilder. Gleichbedeutend damit ist: Jedes Element aus \(B\) hat höchstens ein Urbild.
+
+\item \(f\) heißt \textbf{surjektiv}, wenn
+\[
+f(A)=B.
+\]
+Jedes Element aus \(B\) wird also tatsächlich getroffen und besitzt mindestens ein Urbild.
+
+\item \(f\) heißt \textbf{bijektiv}, wenn \(f\) sowohl injektiv als auch surjektiv ist. Dann hat jedes Element aus \(B\) genau ein Urbild.
+\end{enumerate}}
+
+\nt{Die drei Begriffe beantworten unterschiedliche Fragen:
+\begin{itemize}
+\item Injektiv: Können zwei verschiedene Elemente denselben Funktionswert haben? Nein.
+\item Surjektiv: Wird jedes Element des Bildbereichs getroffen? Ja.
+\item Bijektiv: Wird jedes Element des Bildbereichs genau einmal getroffen? Ja.
+\end{itemize}}
+
+\ex{Beispiele}{
+\begin{enumerate}[label=\alph*)]
+\item \(f\colon\bbR\to\bbR\), \(f(x)=x^2\), ist weder injektiv noch surjektiv. Es gilt beispielsweise \(f(1)=f(-1)\), obwohl \(1\neq-1\). Außerdem wird \(-1\in\bbR\) nicht getroffen.
+
+\item \(g\colon\bbR_{\geq0}\to\bbR_{\geq0}\), \(g(x)=x^2\), ist bijektiv. Für jedes \(y\geq0\) ist \(x=\sqrt y\) das eindeutig bestimmte Urbild von \(y\).
+\end{enumerate}}
+
+\nt{Zum Nachweis von Injektivität beginnt man mit zwei beliebigen Elementen \(a_1,a_2\in A\) und nimmt an, dass \(f(a_1)=f(a_2)\) gilt. Daraus muss man \(a_1=a_2\) folgern.
+
+Zum Nachweis von Surjektivität wählt man ein beliebiges \(b\in B\) und findet ein \(a\in A\) mit \(f(a)=b\). Wichtig ist, dass \(b\) beliebig war.}
+
+\mlemma{Injektivität und Surjektivität bei endlichen Mengen}{Seien \(A,B\) endliche, nichtleere Mengen mit \(|A|=|B|\) und \(f\colon A\to B\). Dann sind folgende Aussagen äquivalent:
+\[
+f\text{ ist injektiv},\qquad
+f\text{ ist surjektiv},\qquad
+f\text{ ist bijektiv}.
+\]}
+
+\begin{myproof}
+Es genügt, die Implikationen
+\[
+\text{injektiv}\implies\text{surjektiv}
+\quad\text{und}\quad
+\text{surjektiv}\implies\text{injektiv}
+\]
+zu zeigen.
+
+Sei zunächst \(f\) injektiv. Dann haben verschiedene Elemente aus \(A\) verschiedene Bilder. Daher ist
+\[
+|f(A)|=|A|=|B|.
+\]
+Da \(f(A)\subseteq B\) gilt und beide Mengen gleich viele Elemente besitzen, folgt \(f(A)=B\). Also ist \(f\) surjektiv.
+
+Sei nun \(f\) surjektiv. Angenommen, \(f\) wäre nicht injektiv. Dann gäbe es verschiedene \(a_1,a_2\in A\) mit \(f(a_1)=f(a_2)\). Somit würden mindestens zwei Elemente von \(A\) auf dasselbe Element abgebildet. Da \(f\) surjektiv ist, müsste trotzdem jedes Element von \(B\) getroffen werden. Es folgte
+\[
+|B|=|f(A)|\leq |A|-1,
+\]
+im Widerspruch zu \(|A|=|B|\). Also ist \(f\) injektiv.
+
+Die Bijektivität ist genau die Kombination aus Injektivität und Surjektivität.
+\end{myproof}
+
+\nt{Die Voraussetzung \(|A|=|B|\) ist wesentlich. Bei unendlichen Mengen kann eine Abbildung injektiv sein, ohne surjektiv zu sein, und umgekehrt.}
+
+\dfn{Komposition von Abbildungen}{Seien \(f\colon A\to B\) und \(g\colon B\to C\) Abbildungen. Die \textbf{Komposition} von \(f\) und \(g\) ist die Abbildung
+\[
+g\circ f\colon A\to C,\qquad
+(g\circ f)(a):=g(f(a)).
+\]
+Zuerst wird also \(f\) angewendet, danach \(g\).}
+
+\ex{Komposition ist im Allgemeinen nicht kommutativ}{
+Seien
+\[
+f\colon\bbR\to\bbR,\quad f(x)=x^2,
+\qquad
+g\colon\bbR\to\bbR,\quad g(x)=x+1.
+\]
+Dann gilt
+\[
+(g\circ f)(x)=x^2+1,
+\qquad
+(f\circ g)(x)=(x+1)^2.
+\]
+Diese Abbildungen sind im Allgemeinen verschieden. Die Reihenfolge der Komposition ist also wichtig.
+}
+
+\thm{Assoziativität der Komposition}{Seien \(f\colon A\to B\), \(g\colon B\to C\) und \(h\colon C\to D\) Abbildungen. Dann gilt
+\[
+h\circ(g\circ f)=(h\circ g)\circ f.
+\]
+Beide Seiten ordnen jedem \(a\in A\) den Wert \(h(g(f(a)))\) zu.}
+
+\thm{Linksinverse und Rechtsinverse}{Sei \(f\colon A\to B\) eine Abbildung zwischen nichtleeren Mengen.
+\begin{enumerate}[label=\alph*)]
+\item \(f\) ist genau dann injektiv, wenn es eine Abbildung \(g\colon B\to A\) gibt, sodass
+\[
+g\circ f=\operatorname{id}_A.
+\]
+Eine solche Abbildung \(g\) heißt \textbf{Linksinverse} von \(f\).
+
+\item \(f\) ist genau dann surjektiv, wenn es eine Abbildung \(g\colon B\to A\) gibt, sodass
+\[
+f\circ g=\operatorname{id}_B.
+\]
+Eine solche Abbildung \(g\) heißt \textbf{Rechtsinverse} von \(f\).
+
+\item \(f\) ist genau dann bijektiv, wenn es eine Abbildung \(g\colon B\to A\) gibt, die sowohl Links- als auch Rechtsinverse ist, also
+\[
+g\circ f=\operatorname{id}_A,
+\qquad
+f\circ g=\operatorname{id}_B.
+\]
+In diesem Fall ist \(g\) eindeutig bestimmt und selbst bijektiv.
+\end{enumerate}}
+
+\begin{myproof}
+\textbf{a) Injektivität.}
+
+Angenommen, es gibt \(g\colon B\to A\) mit \(g\circ f=\operatorname{id}_A\). Sei \(f(a_1)=f(a_2)\). Dann gilt
+\[
+a_1=g(f(a_1))=g(f(a_2))=a_2.
+\]
+Also ist \(f\) injektiv.
+
+Sei umgekehrt \(f\) injektiv. Für jedes \(b\in f(A)\) gibt es genau ein \(a\in A\) mit \(f(a)=b\). Wir setzen \(g(b)=a\). Für \(b\notin f(A)\) wählen wir ein beliebiges festes \(a_0\in A\) und setzen \(g(b)=a_0\). Damit ist \(g\colon B\to A\) definiert und es gilt \(g(f(a))=a\) für alle \(a\in A\).
+
+\textbf{b) Surjektivität.}
+
+Angenommen, \(f\circ g=\operatorname{id}_B\). Für jedes \(b\in B\) gilt dann
+\[
+b=f(g(b))\in f(A).
+\]
+Also ist \(f\) surjektiv.
+
+Sei umgekehrt \(f\) surjektiv. Dann besitzt jedes \(b\in B\) mindestens ein Urbild. Wähle für jedes \(b\) ein solches Urbild \(g(b)\in A\). Dann gilt \(f(g(b))=b\), also \(f\circ g=\operatorname{id}_B\).
+
+\textbf{c) Bijektivität.}
+
+Ist \(f\) bijektiv, so ist \(f\) sowohl injektiv als auch surjektiv. Nach a) und b) existieren eine Linksinverse \(g\) und eine Rechtsinverse \(h\). Es gilt
+\[
+g=g\circ\operatorname{id}_B
+=g\circ(f\circ h)
+=(g\circ f)\circ h
+=\operatorname{id}_A\circ h=h.
+\]
+Somit stimmen Links- und Rechtsinverse überein.
+
+Die Eindeutigkeit folgt daraus, dass jedes \(b\in B\) genau ein Urbild \(a\in A\) besitzt. Die inverse Abbildung ordnet \(b\) genau dieses \(a\) zu. Da diese Abbildung selbst eine Inverse besitzt, ist sie ebenfalls bijektiv.
+\end{myproof}
+
+\dfn{Umkehrabbildung}{Sei \(f\colon A\to B\) bijektiv. Die eindeutig bestimmte Abbildung \(f^{-1}\colon B\to A\), für die
+\[
+f^{-1}\circ f=\operatorname{id}_A,
+\qquad
+f\circ f^{-1}=\operatorname{id}_B
+\]
+gilt, heißt \textbf{Umkehrabbildung} von \(f\). Es gilt
+\[
+(f^{-1})^{-1}=f.
+\]}
+
+\nt{Die Umkehrabbildung \(f^{-1}\) ist nicht mit dem Urbild \(f^{-1}(S)\) einer Teilmenge \(S\subseteq B\) zu verwechseln. Das Urbild einer Menge ist für jede Abbildung definiert. Eine Umkehrabbildung als Funktion \(B\to A\) existiert dagegen genau dann, wenn \(f\) bijektiv ist.
+
+Ist \(f\) bijektiv, dann gilt für jedes \(b\in B\):
+\[
+f^{-1}(\{b\})=\{f^{-1}(b)\}.
+\]}
+
+\dfn{Einschränkung einer Abbildung}{Sei \(f\colon A\to B\) eine Abbildung und \(T\subseteq A\). Die \textbf{Einschränkung} von \(f\) auf \(T\) ist die Abbildung
+\[
+f|_T\colon T\to B,\qquad t\mapsto f(t).
+\]
+Die Zuordnungsvorschrift bleibt dieselbe; lediglich der Urbildbereich wird verkleinert.}
+
+\thm{Komposition bijektiver Abbildungen}{Seien \(f\colon A\to B\) und \(g\colon B\to C\) bijektiv. Dann ist \(g\circ f\colon A\to C\) bijektiv und
+\[
+(g\circ f)^{-1}=f^{-1}\circ g^{-1}.
+\]}
+
+\begin{myproof}
+Wir überprüfen die beiden Identitäten:
+\[
+(g\circ f)\circ(f^{-1}\circ g^{-1})
+=g\circ(f\circ f^{-1})\circ g^{-1}
+=g\circ\operatorname{id}_B\circ g^{-1}
+=\operatorname{id}_C.
+\]
+Ebenso gilt
+\[
+(f^{-1}\circ g^{-1})\circ(g\circ f)
+=f^{-1}\circ(g^{-1}\circ g)\circ f
+=\operatorname{id}_A.
+\]
+Somit ist \(f^{-1}\circ g^{-1}\) die Umkehrabbildung von \(g\circ f\).
+\end{myproof}
+
+\dfn{Gleichmächtigkeit und Abzählbarkeit}{Zwei Mengen \(A\) und \(B\) heißen \textbf{gleichmächtig}, wenn es eine bijektive Abbildung \(f\colon A\to B\) gibt. Bei endlichen Mengen ist das genau dann der Fall, wenn sie gleich viele Elemente besitzen.
+
+Eine Menge heißt \textbf{abzählbar unendlich}, wenn sie gleichmächtig zu \(\bbN\) ist.}
+
+\ex{Abzählbare Mengen}{
+\begin{enumerate}[label=\alph*)]
+\item Die ganzen Zahlen sind abzählbar, denn man kann sie beispielsweise in der Reihenfolge
+\[
+0,1,-1,2,-2,3,-3,\ldots
+\]
+auflisten. Jede ganze Zahl kommt dabei genau einmal vor.
+
+\item Auch die rationalen Zahlen sind abzählbar. Eine Möglichkeit besteht darin, Brüche nach Zähler und Nenner systematisch anzuordnen und doppelte Darstellungen wie \(1/2=2/4\) nur einmal zu berücksichtigen.
+
+\item Die reellen Zahlen sind überabzählbar. Das heißt, es gibt keine Auflistung aller reellen Zahlen durch die natürlichen Zahlen.
+\end{enumerate}}
+
+\thm{Cantors Satz}{Für jede Menge \(M\) sind \(M\) und ihre Potenzmenge \(\mathcal P(M)\) nicht gleichmächtig.}
+
+\begin{myproof}
+Angenommen, es gäbe eine bijektive Abbildung
+\[
+f\colon M\to\mathcal P(M).
+\]
+Für jedes \(x\in M\) ist also \(f(x)\) eine Teilmenge von \(M\). Wir schreiben \(M_x:=f(x)\) und betrachten die Menge
+\[
+A:=\{x\in M\mid x\notin M_x\}.
+\]
+Da \(A\subseteq M\) gilt, ist \(A\in\mathcal P(M)\). Wegen der Surjektivität von \(f\) gibt es ein \(y\in M\) mit \(f(y)=A\), also \(M_y=A\).
+
+Nun fragen wir, ob \(y\in A\) gilt.
+
+Falls \(y\in A\), folgt nach Definition von \(A\), dass \(y\notin M_y=A\). Widerspruch.
+
+Falls \(y\notin A\), folgt nach Definition von \(A\), dass \(y\in M_y=A\). Wieder ein Widerspruch.
+
+Beide Möglichkeiten führen zu einem Widerspruch. Eine solche bijektive Abbildung kann daher nicht existieren.
+\end{myproof}
+
+\nt{Der entscheidende Gedanke ist, eine Menge \(A\) zu konstruieren, die sich genau in denjenigen Elementen unterscheidet, die bei der Zuordnung \(x\mapsto M_x\) nicht in ihrer eigenen zugeordneten Teilmenge liegen. Diese Konstruktion widerspricht der Annahme, dass jede Teilmenge getroffen wird.}
+
+\cor{Umnummerieren endlicher Summen und Produkte}{Sei \(M\) eine endliche Menge, \(\varphi\colon M\to M\) bijektiv und \(f\colon M\to\bbR\) eine Abbildung. Dann gilt
+\[
+\sum_{m\in M}f(m)=\sum_{m\in M}f(\varphi(m))
+\]
+und
+\[
+\prod_{m\in M}f(m)=\prod_{m\in M}f(\varphi(m)).
+\]
+Die Bijektion \(\varphi\) ordnet die Elemente lediglich neu an. Da jedes Element genau einmal vorkommt, ändern sich Summe und Produkt nicht.}
+
+\nt{Auch beliebige kartesische Produkte lassen sich mit Abbildungen beschreiben. Für eine Indexmenge \(I\) und Mengen \(A_i\) ist
+\[
+\prod_{i\in I}A_i
+=
+\left\{f\colon I\to\bigcup_{i\in I}A_i
+\;\middle|\;
+f(i)\in A_i\text{ für alle }i\in I\right\}.
+\]
+Ein Element des Produkts wählt also für jeden Index \(i\) genau ein Element aus \(A_i\) aus.}

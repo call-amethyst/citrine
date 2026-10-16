@@ -1,0 +1,386 @@
+\chapter{}
+\section{Gruppentheorie}
+
+\dfn{Gruppe}{Eine \textbf{Gruppe} \((G,\circ)\) besteht aus einer nichtleeren Menge \(G\) und einer Verknüpfung
+\[
+\circ\colon G\times G\to G,
+\]
+die folgende Axiome erfüllt:
+\begin{enumerate}[label=\alph*)]
+\item \textbf{Assoziativität:} Für alle \(a,b,c\in G\) gilt
+\[
+(a\circ b)\circ c=a\circ(b\circ c).
+\]
+
+\item \textbf{Neutrales Element:} Es gibt ein Element \(e\in G\), sodass für alle \(g\in G\)
+\[
+e\circ g=g\circ e=g.
+\]
+
+\item \textbf{Inverse Elemente:} Für jedes \(g\in G\) gibt es ein \(h\in G\), sodass
+\[
+g\circ h=h\circ g=e.
+\]
+Das Element \(h\) heißt Inverses zu \(g\) und wird mit \(g^{-1}\) bezeichnet.
+\end{enumerate}
+Gilt zusätzlich
+\[
+g\circ h=h\circ g\qquad\text{für alle }g,h\in G,
+\]
+so heißt die Gruppe \textbf{abelsch} oder \textbf{kommutativ}.}
+
+\ex{Grundlegende Beispiele}{
+\begin{enumerate}[label=\alph*)]
+\item \((\bbZ,+)\) ist eine abelsche Gruppe. Das neutrale Element ist \(0\), denn \(a+0=0+a=a\). Das Inverse von \(a\) ist \(-a\), denn \(a+(-a)=(-a)+a=0\).
+
+\item \((\bbR\setminus\{0\},\cdot)\) ist eine abelsche Gruppe. Das neutrale Element ist \(1\), und das Inverse eines Elements \(a\neq0\) ist \(a^{-1}=1/a\). Das Produkt zweier von null verschiedener reeller Zahlen ist wieder von null verschieden, sodass die Verknüpfung tatsächlich auf dieser Menge definiert ist.
+
+\item Sei \(M\) eine nichtleere Menge und
+\[
+\operatorname{Bij}(M):=\{f\colon M\to M\mid f\text{ bijektiv}\}.
+\]
+Dann ist \((\operatorname{Bij}(M),\circ)\) eine Gruppe. Die Verknüpfung ist die Komposition von Abbildungen, das neutrale Element ist die Identität \(\operatorname{id}_M\), und das Inverse von \(f\) ist die Umkehrabbildung \(f^{-1}\). Die Assoziativität folgt aus der Assoziativität der Komposition.
+
+\item \((\bbN,+)\) ist keine Gruppe: Es gibt kein neutrales Element in \(\bbN=\{1,2,\ldots\}\). Auch \((\bbN_0,+)\) ist keine Gruppe, denn zwar ist \(0\) neutral, aber beispielsweise besitzt \(1\) kein additives Inverses in \(\bbN_0\).
+
+\item Sind \((G_1,\circ)\) und \((G_2,\ast)\) Gruppen, so wird \(G_1\times G_2\) mit der komponentenweisen Verknüpfung
+\[
+(g_1,g_2)\cdot(h_1,h_2)
+=(g_1\circ h_1,g_2\ast h_2)
+\]
+ebenfalls zu einer Gruppe. Das neutrale Element ist \((e_1,e_2)\), und das Inverse von \((g_1,g_2)\) ist \((g_1^{-1},g_2^{-1})\).
+\end{enumerate}}
+
+\dfn{Addition modulo \(m\)}{Sei \(m\in\bbN\). Wir betrachten die Äquivalenzklassen der Kongruenzrelation modulo \(m\) auf \(\bbZ\). Die Menge dieser Klassen wird mit
+\[
+\bbZ/m\bbZ
+\]
+bezeichnet. Auf ihr definieren wir
+\[
+[x]+[y]:=[x+y].
+\]
+Diese Verknüpfung ist wohldefiniert: Das Ergebnis hängt nicht von der Wahl der Vertreter \(x\) und \(y\) ab. Mit dieser Verknüpfung ist \(\bbZ/m\bbZ\) eine abelsche Gruppe.}
+
+\nt{Die Wohldefiniertheit ist wichtig, weil eine Äquivalenzklasse viele verschiedene Vertreter haben kann. Wenn wir etwa \([x]=[x']\) und \([y]=[y']\) haben, müssen wir sicherstellen, dass auch
+\[
+[x+y]=[x'+y']
+\]
+gilt. Dies folgt daraus, dass \(m\mid(x-x')\) und \(m\mid(y-y')\) zusammen \(m\mid((x+y)-(x'+y'))\) ergeben.}
+
+\mlemma{Eindeutigkeit des neutralen und inversen Elements}{Sei \((G,\circ)\) eine Gruppe.
+\begin{enumerate}[label=\alph*)]
+\item Das neutrale Element \(e\) ist eindeutig bestimmt.
+\item Zu jedem \(a\in G\) ist das inverse Element \(a^{-1}\) eindeutig bestimmt.
+\end{enumerate}}
+
+\begin{myproof}
+\textbf{a)} Seien \(e_1\) und \(e_2\) zwei neutrale Elemente. Dann gilt
+\[
+e_1=e_1\circ e_2=e_2,
+\]
+weil \(e_2\) rechtsneutral und \(e_1\) linksneutral ist. Also sind sie gleich.
+
+\textbf{b)} Seien \(b_1\) und \(b_2\) beide inverse Elemente zu \(a\). Dann gilt
+\[
+\begin{aligned}
+b_1
+&=b_1\circ e\\
+&=b_1\circ(a\circ b_2)\\
+&=(b_1\circ a)\circ b_2\\
+&=e\circ b_2\\
+&=b_2.
+\end{aligned}
+\]
+Also ist das inverse Element eindeutig.
+\end{myproof}
+
+\thm{Rechenregeln in Gruppen}{Sei \((G,\circ)\) eine Gruppe und seien \(a,b,x,x'\in G\).
+\begin{enumerate}[label=\alph*)]
+\item Das Inverse eines Produkts ist
+\[
+(a\circ b)^{-1}=b^{-1}\circ a^{-1}.
+\]
+
+\item Es gelten die Kürzungsregeln:
+\[
+a\circ x=a\circ x'\implies x=x',
+\]
+sowie
+\[
+x\circ a=x'\circ a\implies x=x'.
+\]
+
+\item Für jedes \(a\in G\) sind die Abbildungen
+\[
+r_a\colon G\to G,\quad g\mapsto g\circ a,
+\]
+und
+\[
+l_a\colon G\to G,\quad g\mapsto a\circ g
+\]
+bijektiv. Sie heißen Rechts- beziehungsweise Linkstranslation.
+\end{enumerate}}
+
+\begin{myproof}
+\textbf{a)} Wir zeigen, dass \(b^{-1}\circ a^{-1}\) das Inverse von \(a\circ b\) ist:
+\[
+\begin{aligned}
+(a\circ b)\circ(b^{-1}\circ a^{-1})
+&=a\circ(b\circ b^{-1})\circ a^{-1}\\
+&=a\circ e\circ a^{-1}=e.
+\end{aligned}
+\]
+In umgekehrter Reihenfolge ergibt sich ebenso
+\[
+(b^{-1}\circ a^{-1})\circ(a\circ b)=e.
+\]
+Wegen der Eindeutigkeit des Inversen folgt die Behauptung.
+
+\textbf{b)} Aus \(a\circ x=a\circ x'\) folgt durch Verknüpfung von links mit \(a^{-1}\):
+\[
+x=e\circ x=a^{-1}\circ a\circ x
+=a^{-1}\circ a\circ x'=e\circ x'=x'.
+\]
+Die zweite Kürzungsregel wird analog durch Verknüpfung von rechts mit \(a^{-1}\) bewiesen.
+
+\textbf{c)} Die Abbildung \(r_a\) besitzt die Umkehrabbildung
+\[
+r_{a^{-1}}\colon g\mapsto g\circ a^{-1},
+\]
+denn \(r_{a^{-1}}(r_a(g))=(g\circ a)\circ a^{-1}=g\). Analog ist \(l_{a^{-1}}\) die Umkehrabbildung von \(l_a\). Damit sind beide Abbildungen bijektiv.
+\end{myproof}
+
+\cor{Translationsinvarianz der Mächtigkeit}{Sei \(G\) eine Gruppe, \(M\subseteq G\) endlich und \(g\in G\). Dann gilt
+\[
+|gM|=|M|,
+\qquad
+gM:=\{g\circ m\mid m\in M\}.
+\]
+Denn die Linkstranslation \(m\mapsto g\circ m\) ist bijektiv und erhält daher die Anzahl der Elemente.}
+
+\ex{Die Gruppentafel von \(\bbZ/3\bbZ\)}{
+Die Gruppe \((\bbZ/3\bbZ,+)\) besteht aus den drei Klassen
+\([0]\), \([1]\) und \([2]\). Die Addition erfolgt modulo \(3\):
+\[
+\begin{array}{c|ccc}
++ &[0]&[1]&[2] \\ \hline
+{[0]}&[0]&[1]&[2] \\
+{[1]}&[1]&[2]&[0] \\
+{[2]}&[2]&[0]&[1]
+\end{array}
+\]
+Beispielsweise gilt $[1]+[2]=[0]$, da $1+2=3$
+durch $3$ teilbar ist. Das neutrale Element ist $[0]$.
+Die Elemente $[1]$ und $[2]$ sind zueinander invers.
+}
+
+\nt{Für \(g\in G\) und \(n\in\bbN\) schreiben wir
+\[
+g^n=\underbrace{g\circ\cdots\circ g}_{n\text{-mal}},
+\qquad
+g^{-n}=\underbrace{g^{-1}\circ\cdots\circ g^{-1}}_{n\text{-mal}}.
+\]
+Außerdem setzen wir \(g^0=e\). Für \(n,m\in\bbZ\) gilt dann
+\[
+g^n\circ g^m=g^{n+m}.
+\]
+Diese Schreibweise beschreibt wiederholte Verknüpfung in der Gruppe. Sie muss nicht mit gewöhnlichen Potenzen reeller Zahlen verwechselt werden. Häufig lassen wir das Verknüpfungszeichen weg und schreiben \(gh\) statt \(g\circ h\).}
+
+\dfn{Ordnung einer Gruppe und eines Elements}{Sei \(G\) eine Gruppe.
+\begin{enumerate}[label=\alph*)]
+\item Ist \(G\) endlich, so heißt \(|G|\) die \textbf{Ordnung der Gruppe}.
+\item Sei \(g\in G\). Falls es ein kleinstes \(n\in\bbN\) mit \(g^n=e\) gibt, heißt dieses \(n\) die \textbf{Ordnung des Elements} \(g\).
+\end{enumerate}}
+
+\dfn{Symmetrische Gruppe}{Sei \(n\in\bbN\). Die Menge aller bijektiven Abbildungen
+\[
+\pi\colon\{1,\ldots,n\}\to\{1,\ldots,n\}
+\]
+heißt \textbf{symmetrische Gruppe} und wird mit \(S_n\) bezeichnet. Die Verknüpfung ist die Komposition von Abbildungen. Ihre Elemente heißen \textbf{Permutationen}.}
+
+\nt{Eine Permutation ordnet die Zahlen \(1,\ldots,n\) neu an. Weil sie bijektiv ist, kommt jede Zahl genau einmal als Bild vor. Für \(\pi\in S_n\) gibt es \(n\) Möglichkeiten für \(\pi(1)\), danach noch \(n-1\) Möglichkeiten für \(\pi(2)\), und so weiter. Daher gilt
+\[
+|S_n|=n!.
+\]}
+
+\ex{Die Gruppe \(S_3\)}{
+Die Gruppe \(S_3\) besteht aus den sechs Permutationen der Menge \(\{1,2,3\}\). Beispielsweise ist
+\[
+\pi=
+\begin{pmatrix}
+1&2&3\\
+2&3&1
+\end{pmatrix}
+\]
+die Abbildung \(1\mapsto2\), \(2\mapsto3\), \(3\mapsto1\).
+
+Die Gruppe \(S_n\) ist für \(n\geq3\) nicht abelsch. Im Allgemeinen hängt die Komposition zweier Permutationen also von der Reihenfolge ab:
+\[
+\pi\circ\sigma\neq\sigma\circ\pi.
+\]
+}
+
+\dfn{Zyklen}{Eine Permutation \(\pi\in S_n\) heißt \textbf{Zyklus}, wenn es paarweise verschiedene Elemente \(a_1,\ldots,a_m\) gibt, sodass
+\[
+\pi(a_i)=a_{i+1}\quad(1\leq i<m),
+\qquad
+\pi(a_m)=a_1,
+\]
+und alle übrigen Elemente fest bleiben. Man schreibt
+\[
+\pi=(a_1\,a_2\,\cdots\,a_m).
+\]
+Ein Zyklus der Länge \(2\) heißt \textbf{Transposition}. Zwei Zyklen heißen \textbf{disjunkt}, wenn sie keine gemeinsamen Elemente bewegen. Disjunkte Zyklen kommutieren.}
+
+\ex{Zyklenschreibweise}{
+Der Zyklus \((1\,2\,3)\) bildet \(1\) auf \(2\), \(2\) auf \(3\) und \(3\) auf \(1\) ab. Alle anderen Zahlen bleiben unverändert. Die Schreibweisen
+\[
+(1\,2\,3)=(2\,3\,1)=(3\,1\,2)
+\]
+beschreiben dieselbe Permutation, weil sie dieselbe zyklische Reihenfolge angeben.
+}
+
+\thm{Zerlegung in disjunkte Zyklen}{Jede Permutation \(\pi\in S_n\) lässt sich als Produkt paarweise disjunkter Zyklen schreiben.}
+
+\begin{myproof}
+Wähle ein Element \(a_1\in\{1,\ldots,n\}\). Betrachte die Folge
+\[
+a_1,\ \pi(a_1),\ \pi^2(a_1),\ \ldots.
+\]
+Da die Menge endlich ist, müssen zwei Elemente der Folge übereinstimmen. Weil \(\pi\) bijektiv ist, folgt daraus, dass es ein kleinstes \(m\geq1\) gibt, für das \(\pi^m(a_1)=a_1\) gilt. Die Elemente
+\[
+a_1,\pi(a_1),\ldots,\pi^{m-1}(a_1)
+\]
+sind paarweise verschieden und bilden einen Zyklus.
+
+Falls dieser Zyklus noch nicht alle Elemente umfasst, wählen wir ein Element \(a_2\), das darin nicht vorkommt, und konstruieren auf dieselbe Weise einen weiteren Zyklus. Die so entstehenden Zyklen sind disjunkt: Würde die Bahn eines Elements aus dem ersten Zyklus mit der Bahn eines Elements aus dem zweiten zusammentreffen, lägen beide Elemente in derselben Bahn und damit im selben Zyklus.
+
+Da die Menge endlich ist, endet dieses Verfahren nach endlich vielen Schritten. Das Produkt der entstandenen disjunkten Zyklen wirkt auf jedem Element genauso wie \(\pi\). Damit ist die Zerlegung gezeigt.
+\end{myproof}
+
+\thm{Zerlegung in Transpositionen}{Jede Permutation \(\pi\in S_n\) mit \(n\geq2\) lässt sich als Produkt von Transpositionen schreiben.}
+
+\begin{myproof}
+Nach dem vorherigen Satz genügt es, einen Zyklus in Transpositionen zu zerlegen. Für \(m>1\) gilt
+\[
+(a_1\,a_2\,\cdots\,a_m)
+=(a_1\,a_m)(a_1\,a_{m-1})\cdots(a_1\,a_2),
+\]
+wobei bei der Komposition von rechts nach links angewendet wird. Somit ist jeder Zyklus ein Produkt von Transpositionen und folglich jede Permutation.
+\end{myproof}
+
+\thm{Signum einer Permutation}{Für \(n\geq2\) gibt es genau eine Abbildung
+\[
+\operatorname{sgn}\colon S_n\to\{+1,-1\},
+\]
+für die gilt:
+\begin{enumerate}[label=\alph*)]
+\item Für jede Transposition \(\tau\) gilt \(\operatorname{sgn}(\tau)=-1\).
+\item Für alle \(\pi,\sigma\in S_n\) gilt
+\[
+\operatorname{sgn}(\pi\sigma)
+=\operatorname{sgn}(\pi)\operatorname{sgn}(\sigma).
+\]
+\end{enumerate}
+Das Signum einer Permutation beschreibt, ob sie gerade oder ungerade ist.}
+
+\begin{myproof}
+\textbf{Eindeutigkeit.} Seien \(\operatorname{sgn}\) und \(\operatorname{sgn}'\) zwei Abbildungen mit den geforderten Eigenschaften. Nach dem vorherigen Satz lässt sich jede Permutation als Produkt von Transpositionen schreiben, etwa
+\[
+\pi=\tau_1\cdots\tau_k.
+\]
+Damit folgt
+\[
+\operatorname{sgn}(\pi)
+=\operatorname{sgn}(\tau_1)\cdots\operatorname{sgn}(\tau_k)
+=(-1)^k.
+\]
+Genauso gilt \(\operatorname{sgn}'(\pi)=(-1)^k\). Also stimmen die beiden Abbildungen überein.
+
+\textbf{Existenz.} Wir definieren
+\[
+\operatorname{sgn}(\pi)
+:=
+\prod_{1\leq i<j\leq n}
+\frac{\pi(j)-\pi(i)}{j-i}.
+\]
+Da \(\pi\) bijektiv ist, sind die Zahlen \(\pi(1),\ldots,\pi(n)\) paarweise verschieden. Die Faktoren sind daher alle von null verschieden. Die Produktformel ergibt stets \(+1\) oder \(-1\).
+
+Durch Umordnen der Faktoren erhält man
+\[
+\operatorname{sgn}(\pi\sigma)
+=\operatorname{sgn}(\pi)\operatorname{sgn}(\sigma).
+\]
+Für eine Transposition \(\tau=(1\,2)\) ergibt die Produktformel \(\operatorname{sgn}(\tau)=-1\). Jede Transposition \((i\,j)\) ist zu \((1\,2)\) durch Umbenennung der Elemente konjugiert; aus der Multiplikativität folgt daher ebenfalls \(\operatorname{sgn}((i\,j))=-1\).
+
+Damit erfüllt die definierte Abbildung die beiden geforderten Eigenschaften. Zusammen mit der Eindeutigkeit ist der Satz bewiesen.
+\end{myproof}
+
+\cor{Parität der Anzahl von Transpositionen}{Jede Permutation kann entweder als Produkt einer geraden Anzahl oder als Produkt einer ungeraden Anzahl von Transpositionen geschrieben werden. Die beiden Möglichkeiten schließen sich gegenseitig aus.}
+
+\begin{myproof}
+Sei
+\[
+\pi=\tau_1\cdots\tau_k=\tau'_1\cdots\tau'_\ell
+\]
+eine Darstellung derselben Permutation als Produkt von Transpositionen. Wegen der Multiplikativität des Signums gilt
+\[
+(-1)^k=\operatorname{sgn}(\pi)=(-1)^\ell.
+\]
+Somit haben \(k\) und \(\ell\) dieselbe Parität: Sie sind beide gerade oder beide ungerade.
+\end{myproof}
+
+\dfn{Gerade und ungerade Permutationen}{Eine Permutation \(\pi\in S_n\) heißt \textbf{gerade}, wenn \(\operatorname{sgn}(\pi)=1\), und \textbf{ungerade}, wenn \(\operatorname{sgn}(\pi)=-1\).
+
+Die Menge aller geraden Permutationen heißt \textbf{alternierende Gruppe}:
+\[
+A_n:=\{\pi\in S_n\mid \operatorname{sgn}(\pi)=1\}.
+\]}
+
+\thm{Die alternierende Gruppe ist eine Gruppe}{Die Menge \(A_n\) bildet bezüglich der Komposition von Permutationen eine Gruppe.}
+
+\begin{myproof}
+Die Identität ist gerade, also \(\operatorname{id}\in A_n\). Sind \(\pi,\sigma\in A_n\), so gilt
+\[
+\operatorname{sgn}(\pi\sigma)
+=\operatorname{sgn}(\pi)\operatorname{sgn}(\sigma)
+=1\cdot1=1.
+\]
+Also liegt \(\pi\sigma\in A_n\). Außerdem gilt
+\[
+1=\operatorname{sgn}(\operatorname{id})
+=\operatorname{sgn}(\pi\pi^{-1})
+=\operatorname{sgn}(\pi)\operatorname{sgn}(\pi^{-1}),
+\]
+und da \(\operatorname{sgn}(\pi)=1\) ist, folgt \(\operatorname{sgn}(\pi^{-1})=1\). Somit liegt auch \(\pi^{-1}\in A_n\).
+
+Die Assoziativität der Komposition gilt bereits in \(S_n\) und damit auch in \(A_n\). Alle Gruppenaxiome sind erfüllt.
+\end{myproof}
+
+\mlemma{Ungerade Permutationen als Nebenmenge}{Sei \(\tau\in S_n\) eine Transposition. Dann ist
+\[
+A_n\tau:=\{\sigma\tau\mid\sigma\in A_n\}
+\]
+genau die Menge der ungeraden Permutationen.}
+
+\begin{myproof}
+Für \(\sigma\in A_n\) gilt
+\[
+\operatorname{sgn}(\sigma\tau)
+=\operatorname{sgn}(\sigma)\operatorname{sgn}(\tau)
+=1\cdot(-1)=-1.
+\]
+Also ist jedes Element von \(A_n\tau\) ungerade.
+
+Sei umgekehrt \(\pi\) eine beliebige ungerade Permutation. Setze \(\sigma:=\pi\tau^{-1}\). Da \(\tau^{-1}=\tau\), gilt
+\[
+\operatorname{sgn}(\sigma)
+=\operatorname{sgn}(\pi)\operatorname{sgn}(\tau^{-1})
+=(-1)(-1)=1.
+\]
+Somit ist \(\sigma\in A_n\), und wegen \(\tau^2=\operatorname{id}\) gilt
+\[
+\pi=\sigma\tau.
+\]
+Also liegt jede ungerade Permutation in \(A_n\tau\).
+\end{myproof}

@@ -1,0 +1,185 @@
+\section{Vollständige Induktion}
+
+\dfn{Prinzip der vollständigen Induktion}{
+  Sei $A(n)$ eine Aussage, die von einer natürlichen Zahl
+  $n \in \bbN_0$ abhängt, wobei
+  $\bbN_0 := \bbN \cup \{0\}$.
+
+  Um zu zeigen, dass $A(n)$ für alle $n \in \bbN_0$ gilt,
+  genügt es, die folgenden beiden Schritte zu beweisen:
+
+  \begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item \textbf{Induktionsanfang:} Die Aussage $A(0)$ ist wahr.
+
+    \item \textbf{Induktionsschritt:} Für jedes $n \in \bbN_0$
+    gilt die Implikation
+    \[
+      A(n) \implies A(n+1).
+    \]
+  \end{enumerate}
+
+  Dann gilt $A(n)$ für alle $n \in \bbN_0$.
+}
+
+\nt{
+  Die Idee der vollständigen Induktion ist, dass man eine Aussage
+  zunächst für den Startwert beweist und anschließend zeigt, dass
+  ihre Gültigkeit immer auf die nächste natürliche Zahl übertragen
+  werden kann.
+
+  Ist also $A(0)$ wahr, so folgt aus dem Induktionsschritt zunächst
+  $A(1)$, daraus $A(2)$, daraus $A(3)$ und so weiter.
+
+  Wichtig ist, dass man im Induktionsschritt nicht einfach annimmt,
+  dass die Behauptung für alle Zahlen gilt. Man nimmt sie nur für
+  ein beliebiges, aber festes $n$ an und beweist daraus die Aussage
+  für $n+1$.
+}
+
+\ex{Summenformel}{
+  Wir zeigen, dass für alle $n \in \bbN_0$ gilt:
+  \[
+    \sum_{k=0}^{n} k = \frac{n(n+1)}{2}.
+  \]
+
+  \begin{myproof}
+    Wir führen den Beweis durch vollständige Induktion über $n$.
+
+    \textbf{Induktionsanfang:}
+
+    Für $n=0$ ist die linke Seite gleich $0$. Somit gilt
+    \[
+      \sum_{k=0}^{0} k
+      = 0
+      = \frac{0\cdot(0+1)}{2}.
+    \]
+    Die Behauptung gilt also für $n=0$.
+
+    \textbf{Induktionsannahme:}
+
+    Sei $n \in \bbN_0$ beliebig und es gelte
+    \[
+      \sum_{k=0}^{n} k = \frac{n(n+1)}{2}.
+    \]
+
+    \textbf{Induktionsschritt:}
+
+    Wir zeigen die Behauptung für $n+1$. Dazu verwenden wir
+    die Induktionsannahme:
+    \begin{align*}
+      \sum_{k=0}^{n+1} k
+      &= \sum_{k=0}^{n} k + (n+1) \\
+      &= \frac{n(n+1)}{2} + (n+1) \\
+      &= \frac{n(n+1)+2(n+1)}{2} \\
+      &= \frac{(n+1)(n+2)}{2}.
+    \end{align*}
+
+    Dies ist genau die behauptete Formel mit $n+1$ anstelle
+    von $n$. Damit ist der Induktionsschritt bewiesen.
+
+    Folglich gilt
+    \[
+      \sum_{k=0}^{n} k = \frac{n(n+1)}{2}
+      \qquad\text{für alle } n \in \bbN_0.
+      \qedhere
+    \]
+  \end{myproof}
+}
+
+\nt{
+  Die Summenformel lässt sich auch durch einen Trick zeigen,
+  der häufig Gauß zugeschrieben wird. Man schreibt die Summe
+  einmal vorwärts und einmal rückwärts:
+  \begin{align*}
+    S &= 0+1+2+\dots+n,\\
+    S &= n+(n-1)+(n-2)+\dots+0.
+  \end{align*}
+  Addiert man beide Zeilen, erhält man
+  \[
+    2S = n(n+1).
+  \]
+  Also folgt $S=\frac{n(n+1)}{2}$.
+}
+
+\ex{Teilbarkeit}{
+  Wir zeigen, dass
+  \[
+    7 \mid \bigl(2^{3n}-1\bigr)
+    \qquad\text{für alle } n\in\bbN_0.
+  \]
+
+  \begin{myproof}
+    Wir führen eine vollständige Induktion über $n$.
+
+    \textbf{Induktionsanfang:}
+
+    Für $n=0$ gilt
+    \[
+      2^{3\cdot 0}-1 = 1-1=0.
+    \]
+    Da $0=7\cdot 0$ ist, gilt $7\mid 0$.
+
+    \textbf{Induktionsannahme:}
+
+    Sei $n\in\bbN_0$ und es gelte
+    \[
+      7\mid \bigl(2^{3n}-1\bigr).
+    \]
+    Das bedeutet, dass es ein $q\in\bbZ$ gibt mit
+    \[
+      2^{3n}-1=7q.
+    \]
+
+    \textbf{Induktionsschritt:}
+
+    Wir betrachten den Ausdruck für $n+1$:
+    \begin{align*}
+      2^{3(n+1)}-1
+      &= 2^3\cdot 2^{3n}-1\\
+      &= 8\cdot 2^{3n}-1\\
+      &= 7\cdot 2^{3n}+(2^{3n}-1).
+    \end{align*}
+    Nach der Induktionsannahme ist $2^{3n}-1$ durch $7$
+    teilbar. Auch $7\cdot 2^{3n}$ ist durch $7$ teilbar.
+    Daher ist ihre Summe durch $7$ teilbar.
+
+    Somit gilt
+    \[
+      7\mid \bigl(2^{3(n+1)}-1\bigr).
+    \]
+    Der Induktionsschritt ist bewiesen, also gilt die Behauptung
+    für alle $n\in\bbN_0$.
+  \end{myproof}
+}
+
+\dfn{Induktion ab einem Startwert}{
+  Sei $k\in\bbN_0$ und $A(n)$ eine Aussage für $n\geq k$.
+  Gilt
+  \begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item $A(k)$,
+    \item $A(n)\implies A(n+1)$ für alle $n\geq k$,
+  \end{enumerate}
+  so gilt $A(n)$ für alle $n\geq k$.
+}
+
+\dfn{Starke Induktion}{
+  Sei $k\in\bbN_0$ und $A(n)$ eine Aussage für $n\geq k$.
+  Gilt $A(k)$ und lässt sich für jedes $n\geq k$ zeigen, dass
+  \[
+    \bigl(A(k)\land A(k+1)\land\dots\land A(n)\bigr)
+    \implies A(n+1),
+  \]
+  so gilt $A(n)$ für alle $n\geq k$.
+}
+
+\nt{
+  Bei der gewöhnlichen Induktion verwendet man im Induktionsschritt
+  nur die Aussage $A(n)$. Bei der starken Induktion darf man
+  dagegen alle vorherigen Aussagen
+  $A(k),A(k+1),\dots,A(n)$ verwenden.
+
+  Beide Varianten beruhen auf dem Prinzip der vollständigen
+  Induktion. Welche Variante geeigneter ist, hängt davon ab,
+  welche Informationen man für den nächsten Schritt benötigt.
+}
+

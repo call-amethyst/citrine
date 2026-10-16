@@ -1,0 +1,474 @@
+
+\section{Relationen}
+
+
+\dfn{Relation}{
+  Seien $A$ und $B$ Mengen. Eine \textbf{Relation} $R$ zwischen
+  $A$ und $B$ ist eine Teilmenge des kartesischen Produkts:
+  \[
+    R\subseteq A\times B.
+  \]
+
+  Das bedeutet, dass eine Relation bestimmte geordnete Paare
+  aus $A\times B$ auswählt.
+
+  Ist $A=B=M$, so heißt $R$ eine \textbf{Relation auf} $M$.
+}
+
+\nt{
+  Eine Relation beschreibt, welche Elemente miteinander in
+  Beziehung stehen. Sie muss nicht alle möglichen Paare enthalten.
+
+  Beispielsweise seien $A$ die Menge der Studierenden und $B$
+  die Menge der Professoren. Wir definieren
+  \[
+    (s,p)\in R
+    \iff
+    \text{die Person }s\text{ eine Vorlesung von }p\text{ hört}.
+  \]
+  Dann ist $R\subseteq A\times B$ eine Relation zwischen
+  Studierenden und Professoren.
+
+  Eine Relation kann auch auf einer einzigen Menge definiert sein.
+  Beispielsweise beschreibt die Relation $\leq$ auf $\bbR$,
+  welche reellen Zahlen kleiner oder gleich anderen sind.
+}
+
+\dfn{Eigenschaften von Relationen}{
+  Sei $R$ eine Relation auf einer Menge $M$, also
+  $R\subseteq M\times M$.
+
+  \begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item \textbf{Reflexivität:}
+    $R$ heißt reflexiv, falls jedes Element zu sich selbst
+    in Relation steht:
+    \[
+      \forall a\in M:\ (a,a)\in R.
+    \]
+
+    \item \textbf{Symmetrie:}
+    $R$ heißt symmetrisch, falls die Relation in beide Richtungen
+    gilt:
+    \[
+      \forall a,b\in M:\ 
+      (a,b)\in R\implies (b,a)\in R.
+    \]
+
+    \item \textbf{Antisymmetrie:}
+    $R$ heißt antisymmetrisch, falls zwei Elemente, die in
+    beiden Richtungen miteinander in Relation stehen, gleich
+    sein müssen:
+    \[
+      \forall a,b\in M:\ 
+      \bigl((a,b)\in R\land(b,a)\in R\bigr)
+      \implies a=b.
+    \]
+
+    \item \textbf{Transitivität:}
+    $R$ heißt transitiv, falls aus zwei aufeinanderfolgenden
+    Relationen auch die direkte Relation folgt:
+    \[
+      \forall a,b,c\in M:\ 
+      \bigl((a,b)\in R\land(b,c)\in R\bigr)
+      \implies (a,c)\in R.
+    \]
+
+    \item \textbf{Totalität:}
+    $R$ heißt total, falls je zwei Elemente miteinander
+    vergleichbar sind:
+    \[
+      \forall a,b\in M:\ 
+      (a,b)\in R\ \lor\ (b,a)\in R.
+    \]
+  \end{enumerate}
+}
+
+\nt{
+  Die Begriffe lassen sich anhand der üblichen Relation $\leq$
+  auf den reellen Zahlen verstehen.
+
+  \begin{itemize}
+    \item \textbf{Reflexiv:} Es gilt $a\leq a$ für jede Zahl $a$.
+
+    \item \textbf{Nicht symmetrisch:} Aus $2\leq 5$ folgt nicht
+    $5\leq 2$.
+
+    \item \textbf{Antisymmetrisch:} Wenn $a\leq b$ und $b\leq a$,
+    dann muss $a=b$ gelten.
+
+    \item \textbf{Transitiv:} Aus $a\leq b$ und $b\leq c$ folgt
+    $a\leq c$.
+
+    \item \textbf{Total:} Für je zwei reelle Zahlen $a,b$ gilt
+    stets $a\leq b$ oder $b\leq a$.
+  \end{itemize}
+
+  Besonders wichtig ist die Unterscheidung zwischen Symmetrie und
+  Antisymmetrie. Symmetrie verlangt, dass die Relation auch in
+  umgekehrter Richtung gilt. Antisymmetrie verlangt dagegen, dass
+  zwei Elemente, die in beide Richtungen in Relation stehen,
+  tatsächlich gleich sind.
+}
+
+\ex{Relationen auf einer Menge}{
+  Sei $M=\{1,2,3\}$.
+
+  Betrachte zunächst die Relation
+  \[
+    R_1=\{(1,1),(2,2),(3,3)\}.
+  \]
+  Jedes Element steht genau mit sich selbst in Relation.
+  Deshalb ist $R_1$ reflexiv, symmetrisch, antisymmetrisch
+  und transitiv.
+
+  Betrachte nun
+  \[
+    R_2=\{(1,2),(2,1)\}.
+  \]
+  Diese Relation ist symmetrisch, weil sie sowohl $(1,2)$
+  als auch $(2,1)$ enthält. Sie ist aber nicht reflexiv, da
+  beispielsweise $(1,1)\notin R_2$ gilt.
+}
+
+\dfn{Äquivalenzrelation}{
+  Eine Relation $R$ auf einer Menge $M$ heißt
+  \textbf{Äquivalenzrelation}, falls sie die folgenden drei
+  Eigenschaften erfüllt:
+  \begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item Reflexivität,
+    \item Symmetrie,
+    \item Transitivität.
+  \end{enumerate}
+  Statt $(a,b)\in R$ schreibt man bei einer Äquivalenzrelation
+  häufig $a\sim b$.
+}
+
+\nt{
+  Eine Äquivalenzrelation beschreibt, wann zwei Elemente im
+  betrachteten Zusammenhang als gleichartig angesehen werden.
+  Die Elemente müssen dabei nicht identisch sein.
+
+  Ein einfaches Beispiel ist die Relation auf $\bbZ$, bei der
+  zwei ganze Zahlen genau dann miteinander in Relation stehen,
+  wenn sie denselben Rest bei Division durch eine festgelegte
+  natürliche Zahl haben.
+}
+
+\dfn{Ordnungsrelation}{
+  Eine Relation $R$ auf einer Menge $M$ heißt
+  \textbf{Ordnungsrelation} oder \textbf{Halbordnung}, falls sie
+  reflexiv, antisymmetrisch und transitiv ist.
+
+  Eine Ordnungsrelation heißt \textbf{Totalordnung}, falls
+  zusätzlich je zwei Elemente vergleichbar sind, also
+  \[
+    \forall a,b\in M:\ 
+    (a,b)\in R\lor(b,a)\in R.
+  \]
+}
+
+\ex{Teilmengen als Ordnungsrelation}{
+  Sei $M$ eine Menge und $\mathcal P(M)$ ihre Potenzmenge,
+  also die Menge aller Teilmengen von $M$.
+
+  Auf $\mathcal P(M)$ betrachten wir die Relation $\subseteq$.
+  Für $A,B\in\mathcal P(M)$ gilt also
+  \[
+    A\subseteq B
+    \iff
+    \text{jedes Element von }A\text{ auch in }B\text{ liegt}.
+  \]
+
+  Diese Relation ist reflexiv, antisymmetrisch und transitiv:
+
+  \begin{itemize}
+    \item $A\subseteq A$ für jede Menge $A$.
+    \item Aus $A\subseteq B$ und $B\subseteq A$ folgt $A=B$.
+    \item Aus $A\subseteq B$ und $B\subseteq C$ folgt
+    $A\subseteq C$.
+  \end{itemize}
+
+  Daher ist $\subseteq$ eine Ordnungsrelation auf $\mathcal P(M)$.
+
+  Sie ist im Allgemeinen keine Totalordnung: Zwei Mengen müssen
+  nicht ineinander enthalten sein. Beispielsweise sind
+  $\{1\}$ und $\{2\}$ nicht miteinander vergleichbar.
+}
+
+\nt{
+  Eine Halbordnung verlangt also nicht, dass sich alle Elemente
+  vergleichen lassen. Bei einer Totalordnung ist dies dagegen
+  vorgeschrieben. Die Relation $\leq$ auf $\bbR$ ist eine
+  Totalordnung, während die Teilmengenrelation $\subseteq$
+  im Allgemeinen nur eine Halbordnung ist.
+}
+
+\dfn{Kongruenz modulo $m$}{
+  Sei $m\in\bbN$ mit $m\geq 1$. Für $a,b\in\bbZ$ definieren wir
+  \[
+    a\equiv b\pmod m
+    \iff
+    m\mid(a-b).
+  \]
+  Das bedeutet, dass $a-b$ durch $m$ teilbar ist.
+
+  Gleichwertig dazu haben $a$ und $b$ bei Division durch $m$
+  denselben Rest.
+}
+
+\mlemma{Die Kongruenz modulo $m$ ist eine Äquivalenzrelation}{
+  Für jedes $m\in\bbN$ mit $m\geq1$ ist die Relation
+  $\equiv\pmod m$ auf $\bbZ$ reflexiv, symmetrisch und transitiv.
+}
+
+\begin{myproof}
+  \textbf{Reflexivität:}
+
+  Für jedes $a\in\bbZ$ gilt
+  \[
+    a-a=0.
+  \]
+  Da $m\mid0$ gilt, folgt
+  \[
+    a\equiv a\pmod m.
+  \]
+
+  \textbf{Symmetrie:}
+
+  Seien $a,b\in\bbZ$ und es gelte
+  \[
+    a\equiv b\pmod m.
+  \]
+  Dann ist $m\mid(a-b)$. Es gibt also ein $s\in\bbZ$ mit
+  \[
+    a-b=sm.
+  \]
+  Durch Multiplikation mit $-1$ erhalten wir
+  \[
+    b-a=(-s)m.
+  \]
+  Somit gilt $m\mid(b-a)$ und daher
+  \[
+    b\equiv a\pmod m.
+  \]
+
+  \textbf{Transitivität:}
+
+  Seien $a,b,c\in\bbZ$ und es gelte
+  \[
+    a\equiv b\pmod m
+    \qquad\text{und}\qquad
+    b\equiv c\pmod m.
+  \]
+  Dann existieren $s,t\in\bbZ$ mit
+  \[
+    a-b=sm,\qquad b-c=tm.
+  \]
+  Durch Addition folgt
+  \[
+    a-c=(a-b)+(b-c)=(s+t)m.
+  \]
+  Also ist $m\mid(a-c)$ und somit
+  \[
+    a\equiv c\pmod m.
+  \]
+
+  Damit ist die Relation reflexiv, symmetrisch und transitiv,
+  also eine Äquivalenzrelation.
+\end{myproof}
+
+\ex{Kongruenz modulo $3$}{
+  Zwei ganze Zahlen sind genau dann kongruent modulo $3$,
+  wenn sie bei Division durch $3$ denselben Rest haben.
+
+  Beispielsweise gilt
+  \[
+    8\equiv 2\pmod 3,
+  \]
+  denn $8-2=6$ ist durch $3$ teilbar. Ebenso gilt
+  \[
+    5\equiv 2\pmod 3,
+    \qquad
+    8\equiv 5\pmod 3.
+  \]
+
+  Dagegen gilt
+  \[
+    8\not\equiv 4\pmod 3,
+  \]
+  denn $8-4=4$ ist nicht durch $3$ teilbar.
+}
+
+\dfn{Äquivalenzklasse}{
+  Sei $\sim$ eine Äquivalenzrelation auf einer Menge $M$.
+  Für $a\in M$ heißt die Menge
+  \[
+    [a]:=\{x\in M\mid x\sim a\}
+  \]
+  die \textbf{Äquivalenzklasse} von $a$.
+
+  Sie besteht aus allen Elementen von $M$, die zu $a$
+  in Relation stehen.
+}
+
+\nt{
+  Die Schreibweise $[a]$ bezeichnet nicht nur das einzelne
+  Element $a$, sondern eine ganze Menge von Elementen.
+
+  Da eine Äquivalenzrelation reflexiv ist, gilt immer
+  $a\sim a$. Somit liegt $a$ selbst in seiner Äquivalenzklasse:
+  \[
+    a\in[a].
+  \]
+
+  Bei der Kongruenz modulo $3$ ist zum Beispiel
+  \[
+    [0]=\{\dots,-6,-3,0,3,6,9,\dots\}.
+  \]
+  Diese Klasse enthält alle durch $3$ teilbaren ganzen Zahlen.
+  Entsprechend enthält $[1]$ alle Zahlen mit Rest $1$ und
+  $[2]$ alle Zahlen mit Rest $2$.
+}
+
+\thm{Eigenschaften von Äquivalenzklassen}{
+  Sei $\sim$ eine Äquivalenzrelation auf einer Menge $M$.
+  Dann gilt:
+
+  \begin{enumerate}[label=\textbf{(\alph*)}]
+    \item Jede Äquivalenzklasse ist nicht leer:
+    \[
+      [a]\neq\emptyset
+      \qquad\text{für alle }a\in M.
+    \]
+
+    \item Die Vereinigung aller Äquivalenzklassen ist ganz $M$:
+    \[
+      \bigcup_{a\in M}[a]=M.
+    \]
+
+    \item Zwei Äquivalenzklassen sind entweder gleich oder
+    disjunkt:
+    \[
+      [a]=[b]
+      \quad\text{oder}\quad
+      [a]\cap[b]=\emptyset
+      \qquad\text{für alle }a,b\in M.
+    \]
+  \end{enumerate}
+}
+
+\begin{myproof}
+  \textbf{(a) Nichtleere Äquivalenzklassen:}
+
+  Sei $a\in M$ beliebig. Wegen der Reflexivität gilt $a\sim a$.
+  Daher ist $a\in[a]$, also
+  \[
+    [a]\neq\emptyset.
+  \]
+
+  \textbf{(b) Vereinigung aller Äquivalenzklassen:}
+
+  Sei $x\in M$. Wegen $x\sim x$ gilt $x\in[x]$. Somit liegt
+  jedes Element von $M$ in mindestens einer Äquivalenzklasse:
+  \[
+    M\subseteq\bigcup_{a\in M}[a].
+  \]
+  Umgekehrt ist jede Äquivalenzklasse eine Teilmenge von $M$.
+  Daher gilt auch
+  \[
+    \bigcup_{a\in M}[a]\subseteq M.
+  \]
+  Insgesamt folgt
+  \[
+    \bigcup_{a\in M}[a]=M.
+  \]
+
+  \textbf{(c) Gleichheit oder Disjunktheit:}
+
+  Seien $a,b\in M$. Wir nehmen an, dass
+  \[
+    [a]\cap[b]\neq\emptyset.
+  \]
+  Dann gibt es ein Element $x\in M$ mit
+  \[
+    x\in[a]\quad\text{und}\quad x\in[b].
+  \]
+  Nach Definition der Äquivalenzklassen bedeutet dies
+  \[
+    x\sim a\quad\text{und}\quad x\sim b.
+  \]
+  Wegen der Symmetrie folgt $a\sim x$. Zusammen mit $x\sim b$
+  ergibt die Transitivität
+  \[
+    a\sim b.
+  \]
+
+  Nun zeigen wir $[a]\subseteq[b]$. Sei dazu $y\in[a]$.
+  Dann gilt $y\sim a$. Aus $a\sim b$ folgt mit der
+  Transitivität
+  \[
+    y\sim a\quad\text{und}\quad a\sim b
+    \implies y\sim b.
+  \]
+  Also ist $y\in[b]$ und damit $[a]\subseteq[b]$.
+
+  Analog zeigt man $[b]\subseteq[a]$. Somit gilt
+  $[a]=[b]$.
+
+  Wir haben gezeigt: Sobald zwei Äquivalenzklassen ein
+  gemeinsames Element besitzen, sind sie gleich. Andernfalls
+  ist ihr Schnitt leer.
+\end{myproof}
+
+\nt{
+  Der Satz bedeutet, dass eine Äquivalenzrelation die Menge $M$
+  in disjunkte Klassen aufteilt. Jedes Element gehört zu genau
+  einer solchen Klasse.
+
+  Man kann sich das so vorstellen: Zunächst werden Elemente,
+  die miteinander in Relation stehen, zu Gruppen zusammengefasst.
+  Aufgrund der Eigenschaften einer Äquivalenzrelation überlappen
+  sich diese Gruppen nicht – sie sind entweder identisch oder
+  haben kein gemeinsames Element.
+
+  Eine Teilmenge von $M$, die aus jeder Äquivalenzklasse genau
+  ein Element enthält, heißt \textbf{Repräsentantensystem}.
+  Ein solches System muss im Allgemeinen nicht eindeutig sein.
+}
+
+\ex{Äquivalenzklassen der Gleichheitsrelation}{
+  Sei $M$ eine Menge und definiere
+  \[
+    a\sim b\iff a=b.
+  \]
+  Dies ist eine Äquivalenzrelation auf $M$.
+
+  Für jedes $a\in M$ ist die Äquivalenzklasse
+  \[
+    [a]=\{a\}.
+  \]
+  Jede Klasse enthält also genau ein Element.
+}
+
+\ex{Äquivalenzklassen modulo $m$}{
+  Betrachte die Kongruenzrelation modulo $m$ auf $\bbZ$.
+  Zwei ganze Zahlen gehören genau dann zur selben
+  Äquivalenzklasse, wenn sie denselben Rest bei Division
+  durch $m$ haben.
+
+  Es gibt genau $m$ verschiedene Äquivalenzklassen. Man kann
+  sie durch die Vertreter $0,1,\dots,m-1$ beschreiben:
+  \[
+    [0],[1],\dots,[m-1].
+  \]
+
+  Beispielsweise gilt für $m=3$:
+  \begin{align*}
+    [0] &= \{\dots,-6,-3,0,3,6,\dots\},\\
+    [1] &= \{\dots,-5,-2,1,4,7,\dots\},\\
+    [2] &= \{\dots,-4,-1,2,5,8,\dots\}.
+  \end{align*}
+
+  Jede ganze Zahl liegt in genau einer dieser Klassen, je nachdem,
+  ob ihr Rest bei Division durch $3$ gleich $0$, $1$ oder $2$ ist.
+}
