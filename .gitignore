@@ -31,7 +31,7 @@
 *.alg
 
 # Generated PDFs — keep source PDFs explicitly if needed
-*.pdf
+main.pdf
 
 # Temporary and editor files
 *.swp
