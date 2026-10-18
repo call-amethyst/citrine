@@ -1,0 +1,331 @@
+\documentclass{report}
+\usepackage{cmt}
+
+\title{\huge{Algorithmische Mathematik I \\ Übungszettel 1}}
+\author{\huge{Amy}}
+\date{2026-10-18}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+\chapter{}
+
+\nt{
+Den Übungszettel gibt es \href{run:./Zettel 1.pdf}{hier}.
+}
+
+\section{Injektive und surjektive Abbildungen}
+
+\qs{}{Es seien \(A\) und \(B\) zwei nichtleere endliche Mengen. Beweisen Sie: Es gibt genau dann eine injektive Abbildung \(f\colon A\to B\), wenn es eine surjektive Abbildung \(g\colon B\to A\) gibt.}
+
+\sol Wir beweisen beide Richtungen getrennt.
+
+\textbf{"\(\Rightarrow\)":} Es gebe eine injektive Abbildung \(f\colon A\to B\). Wir zeigen, dass dann eine surjektive Abbildung \(g\colon B\to A\) existiert.
+
+Sei
+\[
+B':=f(A)=\{f(a)\mid a\in A\}\subseteq B
+\]
+die Bildmenge von \(f\). Da \(f\) injektiv ist, ist die eingeschränkte Abbildung
+\[
+f\colon A\to B'
+\]
+bijektiv. Daher existiert die Umkehrabbildung
+\[
+f^{-1}\colon B'\to A.
+\]
+
+Da \(A\) nichtleer ist, können wir ein Element \(a_0\in A\) wählen. Wir definieren \(g\colon B\to A\) durch
+\[
+g(b):=
+\begin{cases}
+f^{-1}(b),&\text{falls }b\in B',\\
+a_0,&\text{falls }b\in B\setminus B'.
+\end{cases}
+\]
+Für jedes \(a\in A\) gilt dann
+\[
+g(f(a))=f^{-1}(f(a))=a.
+\]
+Somit wird jedes Element aus \(A\) von \(g\) getroffen. Also ist \(g\) surjektiv.
+
+\textbf{"\(\Leftarrow\)":} Es gebe eine surjektive Abbildung \(g\colon B\to A\). Da \(g\) surjektiv ist, existiert für jedes \(a\in A\) mindestens ein \(b_a\in B\) mit
+\[
+g(b_a)=a.
+\]
+Wir wählen für jedes \(a\in A\) ein solches Element \(b_a\) und definieren
+\[
+f\colon A\to B,\qquad f(a):=b_a.
+\]
+Seien \(a_1,a_2\in A\) mit \(f(a_1)=f(a_2)\). Dann gilt
+\[
+a_1=g(f(a_1))
+=g(f(a_2))
+=a_2.
+\]
+Also ist \(f\) injektiv.
+
+Damit ist die Behauptung bewiesen:
+\[
+\boxed{
+\begin{aligned}
+&\exists\text{ injektives }f\colon A\to B\\
+&\quad\Longleftrightarrow\\
+&\exists\text{ surjektives }g\colon B\to A.
+\end{aligned}}
+\]
+
+\section{Transitivität und Verkettung von Abbildungen}
+
+\qs{Transitivität}{
+Es seien \(X,Y,Z\) drei Mengen und
+\[
+f\colon X\to Y
+\qquad\text{und}\qquad
+g\colon Y\to Z
+\]
+zwei Abbildungen. Es sei \(g\circ f\) die Hintereinanderausführung von \(f\) und \(g\), also
+\[
+(g\circ f)(x)=g(f(x))
+\qquad\text{für alle }x\in X.
+\]
+Welche dieser Aussagen folgen aus diesen Voraussetzungen?
+
+\begin{enumerate}[label=(\alph*)]
+  \item Sind \(f\) und \(g\) injektiv, so ist \(g\circ f\) injektiv.
+  \item Ist \(g\circ f\) injektiv, so ist \(f\) injektiv.
+  \item Ist \(g\circ f\) injektiv, so ist \(g\) injektiv.
+  \item Sind \(f\) und \(g\) surjektiv, so ist \(g\circ f\) surjektiv.
+  \item Ist \(g\circ f\) surjektiv, so ist \(f\) surjektiv.
+  \item Ist \(g\circ f\) surjektiv, so ist \(g\) surjektiv.
+\end{enumerate}
+}
+
+\begin{enumerate}[label=(\alph*)]
+  \item Sind \(f\) und \(g\) injektiv, so ist \(g\circ f\) injektiv.
+
+  \textbf{Wahr.} Seien \(x_1,x_2\in X\) und gelte
+  \[
+  (g\circ f)(x_1)=(g\circ f)(x_2).
+  \]
+  Dann ist
+  \[
+  g(f(x_1))=g(f(x_2)).
+  \]
+  Da \(g\) injektiv ist, folgt
+  \[
+  f(x_1)=f(x_2).
+  \]
+  Wegen der Injektivität von \(f\) erhalten wir \(x_1=x_2\). Somit ist \(g\circ f\) injektiv.
+
+  \item Ist \(g\circ f\) injektiv, so ist \(f\) injektiv.
+
+  \textbf{Wahr.} Seien \(x_1,x_2\in X\) mit \(f(x_1)=f(x_2)\). Dann gilt
+  \[
+  g(f(x_1))=g(f(x_2)).
+  \]
+  Da \(g\circ f\) injektiv ist, folgt \(x_1=x_2\). Also ist \(f\) injektiv.
+
+  \item Ist \(g\circ f\) injektiv, so ist \(g\) injektiv.
+
+  \textbf{Falsch.} Wir betrachten das Gegenbeispiel
+  \[
+  X=\{1\},\qquad Y=\{1,2\},\qquad Z=\{1\}.
+  \]
+  Definiere
+  \[
+  f\colon X\to Y,\qquad f(1)=1,
+  \]
+  sowie
+  \[
+  g\colon Y\to Z,\qquad g(1)=g(2)=1.
+  \]
+  Die Abbildung \(f\) ist injektiv. Die Abbildung \(g\) ist dagegen nicht injektiv, da \(g(1)=g(2)\), obwohl \(1\ne2\).
+
+  Die Verkettung \(g\circ f\colon X\to Z\) bildet das einzige Element \(1\) auf \(1\) ab. Da \(X\) nur ein Element besitzt, ist \(g\circ f\) injektiv. Die Aussage ist daher falsch.
+
+  \item Sind \(f\) und \(g\) surjektiv, so ist \(g\circ f\) surjektiv.
+
+  \textbf{Wahr.} Sei \(z\in Z\) beliebig. Da \(g\) surjektiv ist, existiert ein \(y\in Y\) mit \(g(y)=z\). Da \(f\) surjektiv ist, existiert ein \(x\in X\) mit \(f(x)=y\). Folglich gilt
+  \[
+  (g\circ f)(x)=g(f(x))=g(y)=z.
+  \]
+  Somit wird jedes Element von \(Z\) getroffen und \(g\circ f\) ist surjektiv.
+
+  \item Ist \(g\circ f\) surjektiv, so ist \(f\) surjektiv.
+
+  \textbf{Falsch.} Wir betrachten erneut
+  \[
+  X=\{1\},\qquad Y=\{1,2\},\qquad Z=\{1\},
+  \]
+  mit
+  \[
+  f(1)=1,\qquad g(1)=g(2)=1.
+  \]
+  Die Verkettung \(g\circ f\colon X\to Z\) ist surjektiv, da das einzige Element \(1\in Z\) getroffen wird.
+
+  Die Abbildung \(f\) ist jedoch nicht surjektiv, da das Element \(2\in Y\) nicht im Bild von \(f\) liegt. Die Aussage ist somit falsch.
+
+  \item Ist \(g\circ f\) surjektiv, so ist \(g\) surjektiv.
+
+  \textbf{Wahr.} Sei \(z\in Z\) beliebig. Da \(g\circ f\) surjektiv ist, existiert ein \(x\in X\) mit
+  \[
+  (g\circ f)(x)=z.
+  \]
+  Setzen wir \(y:=f(x)\in Y\), so gilt
+  \[
+  g(y)=g(f(x))=z.
+  \]
+  Also besitzt jedes Element \(z\in Z\) ein Urbild unter \(g\). Damit ist \(g\) surjektiv.
+\end{enumerate}
+
+\section{Abbildungszählung}
+
+\qs{Abbildungszählung}{
+Es seien \(m,n\in\bbN_0\) und
+\[
+A:=\{1,\dots,m\},\qquad B:=\{1,\dots,n\}.
+\]
+Für \(m=0\) beziehungsweise \(n=0\) sei die entsprechende Menge leer.
+
+Bestimmen Sie in Abhängigkeit von \(m\) und \(n\) die Anzahl der
+\begin{enumerate}[label=(\alph*)]
+  \item Abbildungen von \(A\) nach \(B\),
+  \item injektiven Abbildungen von \(A\) nach \(B\),
+  \item bijektiven Abbildungen von \(A\) nach \(B\),
+  \item Relationen von \(A\) nach \(B\).
+\end{enumerate}
+}
+
+\sol
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{Beliebige Abbildungen}
+
+  Für jedes \(a\in A\) können wir \(f(a)\) frei aus \(B\) wählen. Da \(B\) genau \(n\) Elemente besitzt, gibt es für jedes \(a\) genau \(n\) Möglichkeiten. Die Wahl für ein Element von \(A\) schränkt die Wahl für die übrigen Elemente nicht ein.
+
+  Da \(A\) genau \(m\) Elemente besitzt, ergibt sich nach der Produktregel
+  \[
+  \boxed{n^m}.
+  \]
+
+  \item \textbf{Injektive Abbildungen}
+
+  Bei einer injektiven Abbildung müssen verschiedene Elemente aus \(A\) auf verschiedene Elemente aus \(B\) abgebildet werden. Daher kann jedes Element von \(B\) höchstens einmal als Bild auftreten.
+
+  Für das erste Element von \(A\) gibt es \(n\) Möglichkeiten, für das zweite \(n-1\), für das dritte \(n-2\) und so weiter. Für das letzte Element bleiben \(n-m+1\) Möglichkeiten. Für \(m\le n\) ergibt sich damit
+  \[
+  n(n-1)\cdots(n-m+1)
+  =\frac{n!}{(n-m)!}.
+  \]
+  Falls \(m>n\), existiert keine injektive Abbildung, da \(A\) mehr Elemente als \(B\) besitzt. Also gilt
+  \[
+  \boxed{
+  \#\{\text{injektive Abbildungen }A\to B\}
+  =
+  \begin{cases}
+  \dfrac{n!}{(n-m)!},&m\le n,\\[6pt]
+  0,&m>n.
+  \end{cases}}
+  \]
+
+  \item \textbf{Bijektive Abbildungen}
+
+  Eine bijektive Abbildung ist sowohl injektiv als auch surjektiv. Bei endlichen Mengen ist dies nur möglich, wenn beide Mengen gleich viele Elemente besitzen, also \(m=n\).
+
+  Für \(m=n\) gibt es \(n\) Möglichkeiten für das Bild des ersten Elements, \(n-1\) Möglichkeiten für das zweite und so weiter bis zu einer Möglichkeit für das letzte Element. Daher gibt es \(n!\) Bijektionen.
+
+  Somit gilt
+  \[
+  \boxed{
+  \#\{\text{Bijektionen }A\to B\}
+  =
+  \begin{cases}
+  n!,&m=n,\\
+  0,&m\ne n.
+  \end{cases}}
+  \]
+
+  \item \textbf{Relationen von \(A\) nach \(B\)}
+
+  Eine Relation von \(A\) nach \(B\) ist eine Teilmenge des kartesischen Produkts \(A\times B\). Da
+  \[
+  |A\times B|=|A|\cdot|B|=mn
+  \]
+  gilt, enthält \(A\times B\) genau \(mn\) geordnete Paare.
+
+  Für jedes Paar gibt es zwei Möglichkeiten: Es gehört zur Relation oder es gehört nicht zur Relation. Somit ergeben sich insgesamt
+  \[
+  \underbrace{2\cdot2\cdots2}_{mn\text{-mal}}
+  =2^{mn}
+  \]
+  verschiedene Relationen. Also ist die gesuchte Anzahl
+  \[
+  \boxed{2^{mn}}.
+  \]
+\end{enumerate}
+
+\section{Abzählbarkeit}
+
+\qs{Abzählbarkeit von \(\bbZ\times\bbN\)}{
+Zeigen Sie, dass \(\bbZ\times\bbN\) abzählbar ist.
+}
+
+
+\sol Wir zeigen, dass sich die Elemente von \(\bbZ \times \bbN\) in einer Folge aufzählen lassen.
+
+Wir ordnen diese Paare in einer Tabelle an. Die Zeilen stehen für die ganzen Zahlen, die Spalten für die natürlichen Zahlen.
+\[
+\begin{array}{c|ccccc}
+z\backslash n & 1&2&3&4&\cdots\\ \hline
+0  &(0,1)&(0,2)&(0,3)&(0,4)&\cdots\\
+1  &(1,1)&(1,2)&(1,3)&(1,4)&\cdots\\
+-1 &(-1,1)&(-1,2)&(-1,3)&(-1,4)&\cdots\\
+2  &(2,1)&(2,2)&(2,3)&(2,4)&\cdots\\
+-2 &(-2,1)&(-2,2)&(-2,3)&(-2,4)&\cdots\\
+\vdots&\vdots&\vdots&\vdots&\vdots&\ddots
+\end{array}
+\]
+Für jedes \(k\in\bbN\) definieren wir
+\[
+D_k:=\{(z,n)\in\bbZ\times\bbN\mid |z|+n=k\}.
+\]
+Die Menge \(D_k\) enthält genau die Paare, deren Summe \(|z|+n\)
+gleich \(k\) ist. Beispielsweise gilt
+\begin{align*}
+D_1&=\{(0,1)\},\\
+D_2&=\{(0,2),(1,1),(-1,1)\},\\
+D_3&=\{(0,3),(1,2),(-1,2),(2,1),(-2,1)\}.
+\end{align*}
+
+Jede Menge \(D_k\) ist endlich. Denn aus \(|z|+n=k\) folgt
+\[
+1\le n\le k
+\qquad\text{und}\qquad
+-(k-1)\le z\le k-1.
+\]
+Es gibt somit nur endlich viele Paare in \(D_k\).
+
+Wir zählen nun zunächst alle Elemente von \(D_1\), danach alle Elemente von \(D_2\), anschließend alle Elemente von \(D_3\) und so weiter auf. Die Reihenfolge innerhalb einer Diagonale ist für den Beweis unerheblich; entscheidend ist, dass jedes Element der jeweiligen Diagonale genau einmal aufgezählt wird.
+
+Wir zeigen nun, dass auf diese Weise jedes Element von
+\(\bbZ\times\bbN\) erreicht wird.
+
+Sei dazu \((z,n)\in\bbZ\times\bbN\) beliebig. Setzen wir
+\[
+k:=|z|+n,
+\]
+so gilt \((z,n)\in D_k\). Da nur endlich viele "Diagonalen" vor \(D_k\) liegen und jede dieser Diagonalen endlich ist, werden vor dem Durchlaufen von \(D_k\) nur endlich viele Paare aufgezählt. Da außerdem jedes Element von \(D_k\) beim Durchlaufen dieser Diagonale erreicht wird, wird insbesondere auch \((z,n)\) nach endlich vielen Schritten aufgezählt.
+
+Jedes Paar liegt zudem in genau einer Diagonale, denn der Wert \(k=|z|+n\) ist eindeutig bestimmt. Da innerhalb jeder Diagonale kein Paar doppelt aufgezählt wird, kommt jedes Element genau einmal
+vor.
+
+Damit erhalten wir eine Aufzählung aller Elemente von
+\(\bbZ\times\bbN\). Folglich ist
+\[
+\boxed{\bbZ\times\bbN\text{ abzählbar}.}
+\]
+
+\end{document}
