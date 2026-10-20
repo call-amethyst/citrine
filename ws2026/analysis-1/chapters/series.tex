@@ -1,0 +1,188 @@
+% !TeX root = ../main.tex
+
+\chapter{Folgen und Konvergenz}\label{chap:Folgen und Konvergenz} % (fold)
+\section{Folgen}
+
+\dfn{Folge} {
+  Eine Folge in $\bbK(\bbQ, \bbR)$ ist eine Abbildung von $\bbN \to \bbK$. \\
+  Jedem $n \in \bbN$ wird eine Zahl $a_n \in \bbK$ zugeordnet.
+}
+\ex{Folge} {
+  \begin{enumerate}
+    \item $a_n = n \cdot \frac1n$ konstante Folge
+    \item $a_n = \frac1n$
+    \item $a_n = \begin{cases}
+        n, &\text{ falls } n \text{ ungerade}\\
+        \frac1n &\text{ falls } n \text{ gerade}
+      \end{cases}$
+    \item Rekursive Folgen: 
+      $a_1 = a$ für ein $a \in \bbR$.
+      $$
+    a_n = \frac12 \left(a_{n-1} + \frac1{a_{n-1}}\right)
+      $$
+  \end{enumerate}
+}
+
+\thm{Existenz und Eindeutigkeit der Abbildungen \(A_n\)}{
+  Sei \(a\in\bbK\) so gewählt, dass die folgende rekursive Definition
+  wohldefiniert ist. Für jedes \(n\in\bbN\) existiert genau eine
+  Abbildung
+  \[
+  A_n\colon \{1,\dots,n\}\to\bbK
+  \]
+  mit
+  \[
+  A_n(1)=a
+  \]
+  und
+  \[
+  A_n(k)=\frac12\left(
+  A_n(k-1)+\frac{1}{A_n(k-1)}
+  \right)
+  \qquad\text{für }2\le k\le n.
+  \]
+}
+
+\begin{myproof}
+  Wir beweisen die Aussage durch vollständige Induktion nach \(n\).
+
+  \textbf{Induktionsanfang:}
+  Für \(n=1\) ist
+  \[
+  A_1\colon\{1\}\to\bbK,\qquad A_1(1)=a.
+  \]
+  Damit ist \(A_1\) eindeutig bestimmt.
+
+  \textbf{Induktionsvoraussetzung:}
+  Sei \(n\ge 2\). Wir nehmen an, dass die Abbildung
+  \[
+  A_{n-1}\colon\{1,\dots,n-1\}\to\bbK
+  \]
+  existiert und eindeutig bestimmt ist.
+
+  \textbf{Induktionsschritt:}
+  Wir definieren \(A_n\colon\{1,\dots,n\}\to\bbK\) durch
+  \[
+  A_n(k):=
+  \begin{cases}
+  A_{n-1}(k),&1\le k\le n-1,\\[4pt]
+  \displaystyle
+  \frac12\left(
+  A_{n-1}(n-1)+\frac{1}{A_{n-1}(n-1)}
+  \right),&k=n.
+  \end{cases}
+  \]
+  Für \(k\le n-1\) erfüllt \(A_n\) die gewünschten Eigenschaften
+  aufgrund der Induktionsvoraussetzung. Für \(k=n\) erfüllt \(A_n\)
+  die Rekursionsgleichung nach Definition.
+
+  Die Abbildung \(A_n\) existiert somit. Sie ist auch eindeutig:
+  Die Werte \(A_n(1),\dots,A_n(n-1)\) sind durch die
+  Induktionsvoraussetzung eindeutig bestimmt, und der Wert \(A_n(n)\)
+  ist durch die Rekursionsgleichung eindeutig festgelegt.
+
+  Damit ist die Aussage für alle \(n\in\bbN\) bewiesen.
+  \end{myproof}
+
+Aus dieser Konstruktion ergibt sich unmittelbar die folgende Definition:
+
+\dfn{Die zugehörige Folge}{
+  Wir definieren die Folge \((a_n)_{n\in\bbN}\) durch
+  \[
+  a_n:=A_n(n).
+  \]
+  Insbesondere gilt
+  \[
+  a_1=a,\qquad
+  a_n=\frac12\left(a_{n-1}+\frac1{a_{n-1}}\right)
+  \quad\text{für }n\ge 2.
+  \]
+}
+
+\nt{
+  Damit der Beweis vollständig mathematisch korrekt ist, müssen die Voraussetzungen an \(\bbK\) und \(a\) sicherstellen, dass die Division durch \(A_n(k-1)\) stets möglich ist. Beispielsweise genügt \(\bbK=\bbR\) und \(a>0\).
+}
+
+\section{Konvergenz und Beschränktheit}
+\dfn{Konvergenz} {
+  Eine Folge $a_n$ heißt konvergent gegen $a \in \bbR$ falls es zu jeden $\epsilon > 0$ ein $n(\epsilon) > 0$ mit $\vert A_n - a\vert < \epsilon \forall n \ge n(\epsilon)$ \\
+  $$\lim_{n \to \infty} a_n= a$$
+}
+\ex{} {
+  \begin{enumerate}
+    \item $a_n  = a = \lim_{n \to \infty} a_n = 1$
+    \item $a_n = \frac1n, \lim_{n \to \infty} a_n = 0$, denn zu $\epsilon > 0 $ wähle $n(\epsilon) > \frac1\epsilon \implies \frac1{n(\epsilon)} < \epsilon$ \\
+      \begin{align*} 
+        \frac1m < \frac1{n(\epsilon)} &< \epsilon &\forall m > n(\epsilon) \\
+        \vert \frac1n - 0 \vert &= \frac1n < \epsilon &\text{ für } n \ge n(\epsilon)
+      \end{align*}
+  \end{enumerate}
+}
+
+\dfn{Beschränktheit} {
+  Eine Folge heißt \textbf{beschränkt}, falls die Menge $M = {a_n \vert n}$ beschränkt ist.
+}
+\nt {
+  $(a_n)$ ist beschränkt $\Leftrightarrow$ $(\vert a_n \vert)$ ist beschränkt. \\
+  Eine Menge ist beschränkt, falls es eine obere und eine untere Schranke gibt.
+}
+\thm{Beschränktheit konvergenter Folgen}{
+  Jede konvergente Folge \((a_n)_{n\in\bbN}\) reeller Zahlen ist
+  beschränkt. Das heißt: Ist
+  \[
+  \lim_{n\to\infty}a_n=a\in\bbR,
+  \]
+  so existieren \(m,M\in\bbR\) mit
+  \[
+  m\le a_n\le M
+  \qquad\text{für alle }n\in\bbN.
+  \]
+}
+
+\begin{myproof}
+  Sei \(a_n\to a\). Nach Definition der Konvergenz existiert zu
+  \(\varepsilon=1\) ein \(n_0\in\bbN\), sodass
+  \[
+  |a_n-a|<1
+  \qquad\text{für alle }n\ge n_0.
+  \]
+  Daraus folgt
+  \[
+  a-1<a_n<a+1
+  \qquad\text{für alle }n\ge n_0.
+  \]
+
+  Die Folgenglieder ab dem Index \(n_0\) sind somit nach oben durch
+  \(a+1\) und nach unten durch \(a-1\) beschränkt.
+
+  Die ersten \(n_0-1\) Folgenglieder bilden eine endliche Menge.
+  Daher existieren
+  \[
+  M:=\max\{a_1,\dots,a_{n_0-1},a+1\}
+  \]
+  und
+  \[
+  m:=\min\{a_1,\dots,a_{n_0-1},a-1\}.
+  \]
+  Falls \(n_0=1\), entfallen die endlich vielen Anfangsglieder in
+  diesen Mengen, sodass \(M=a+1\) und \(m=a-1\) gewählt werden können.
+
+  Für \(n<n_0\) gilt aufgrund der Definition von \(m\) und \(M\)
+  \[
+  m\le a_n\le M.
+  \]
+  Für \(n\ge n_0\) folgt dieselbe Ungleichung aus
+  \[
+  a-1<a_n<a+1
+  \]
+  und der Wahl von \(m\) und \(M\).
+
+  Somit gilt insgesamt
+  \[
+  m\le a_n\le M
+  \qquad\text{für alle }n\in\bbN.
+  \]
+  Also ist die Folge \((a_n)_{n\in\bbN}\) beschränkt.
+\end{myproof}
+
+\nt{$(-1)^n$ ist beschränkt, aber nicht konvergent.}
