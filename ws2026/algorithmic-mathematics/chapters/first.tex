@@ -302,3 +302,74 @@
   Regeln einer Programmiersprache genügt. Seine Ausführung wird
   durch die Semantik der jeweiligen Programmiersprache bestimmt.
 }
+
+\section {Primzahlentester}
+\dfn{Primzahl} {
+  Eine natürliche Zahl $n \in \bbN$ heißt \textbf{prim}, wenn $n \ge 2$ ist und es keine zwei natürliche Zahlen $a$ und $b$ gibt mit $a \ge 2, b \ge 2$, sodass $n = a \cdot b$.
+}
+\dfn{Primzahltest}{
+  Das Entscheidungsproblem des Primzahltests wird definiert als
+  \[
+    P :=
+    \left\{
+      (n,e)\in\bbN\times\{\text{ja},\text{nein}\}
+      \;\middle|\;
+      e=\text{ja}\iff n\text{ ist prim}
+    \right\}.
+  \]
+  Eingabe: \(n\in\bbN\)
+
+  Frage: Ist \(n\) prim?
+
+  Lösung: Probiere alle \(a,b\) mit
+  \[
+    2\le a,b\le \frac{n}{2}
+  \]
+  durch, bis \(a\cdot b=n\) gilt oder alle Möglichkeiten geprüft wurden.
+}
+
+\section{Landau-Symbole}
+
+\dfn{Landau-Symbole}{
+  Sei \(g\colon\bbN\to\bbR^+\). Dann definieren wir:
+  \begin{align*}
+    O(g)
+    &:= \left\{
+      f\colon\bbN\to\bbR^+
+      \;\middle|\;
+      \exists \alpha\in\bbR^+\,
+      \exists n_0\in\bbN\,
+      \forall n\ge n_0:
+      f(n)\le \alpha\cdot g(n)
+    \right\},\\
+    \Omega(g)
+    &:= \left\{
+      f\colon\bbN\to\bbR^+
+      \;\middle|\;
+      \exists \alpha\in\bbR^+\,
+      \exists n_0\in\bbN\,
+      \forall n\ge n_0:
+      f(n)\ge \alpha\cdot g(n)
+    \right\},\\
+    \Theta(g)
+    &:= O(g)\cap\Omega(g).
+  \end{align*}
+}
+
+\ex{}{
+  Sei
+  \[
+    f(n)=2n^2-n+1.
+  \]
+  Dann gilt
+  \begin{align*}
+    f&\in O(n^2)
+      &&\text{mit }\alpha=2,\ n_0=1,\\
+    f&\in\Omega(n^2)
+      &&\text{mit }\alpha=1,\ n_0=1.
+  \end{align*}
+  Somit folgt
+  \[
+    f\in\Theta(n^2).
+  \]
+}
