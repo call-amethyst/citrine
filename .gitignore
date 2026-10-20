@@ -33,6 +33,9 @@
 # Generated PDFs — keep source PDFs explicitly if needed
 main.pdf
 
+# Compiled C++ files
+target/
+
 # Temporary and editor files
 *.swp
 *.swo
