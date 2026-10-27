@@ -1,0 +1,258 @@
+\documentclass{report}
+\usepackage{cmt}
+
+\title{\huge{Algorithmische Mathematik I \\ Übungszettel 2}}
+\author{\huge{Amy, Rojan}}
+\date{2026-10-22}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\chapter{Grundlagen}
+
+\nt{
+  Den Übungszettel gibt es
+  \href{run:./pset_2026-10-22.pdf}{hier}.
+}
+
+\section{Landau-Symbole}
+
+\dfn{}{
+  Sei \(g\colon\bbN\to\bbR_{\ge 0}\). Dann definieren wir:
+  \begin{align*}
+    O(g)
+    &:=
+    \left\{
+      f\colon\bbN\to\bbR_{\ge 0}
+      \;\middle|\;
+      \exists \alpha>0\,\exists n_0\in\bbN\,
+      \forall n\ge n_0:
+      f(n)\le \alpha g(n)
+    \right\},\\
+    \Omega(g)
+    &:=
+    \left\{
+      f\colon\bbN\to\bbR_{\ge 0}
+      \;\middle|\;
+      \exists \alpha>0\,\exists n_0\in\bbN\,
+      \forall n\ge n_0:
+      f(n)\ge \alpha g(n)
+    \right\},\\
+    \Theta(g)&:=O(g)\cap\Omega(g).
+  \end{align*}
+}
+
+\section{Aufgaben}
+
+\qs{}{
+  Beweisen Sie folgende Aussagen:
+  \begin{enumerate}
+    \item Für alle Funktionen
+      \(f,g\colon\bbN\to\bbR_{\ge 0}\) gilt:
+      \[
+        f\in O(g)\iff g\in\Omega(f).
+      \]
+    \item Für alle Funktionen
+      \(f,g,h\colon\bbN\to\bbR_{\ge 0}\) gilt:
+      \[
+        f\in O(g)\land g\in O(h)
+        \implies f\in O(h).
+      \]
+  \end{enumerate}
+}
+
+\begin{myproof}
+  \textbf{1. Hinrichtung:}
+  Sei \(f\in O(g)\). Dann existieren \(\alpha>0\) und
+  \(n_0\in\bbN\), sodass für alle \(n\ge n_0\) gilt:
+  \[
+    f(n)\le \alpha g(n).
+  \]
+  Durch Multiplikation mit \(1/\alpha>0\) folgt
+  \[
+    g(n)\ge \frac{1}{\alpha}f(n).
+  \]
+  Also gilt \(g\in\Omega(f)\).
+
+  \textbf{Rückrichtung:}
+  Sei \(g\in\Omega(f)\). Dann existieren \(\beta>0\) und
+  \(n_0\in\bbN\), sodass für alle \(n\ge n_0\) gilt:
+  \[
+    g(n)\ge \beta f(n).
+  \]
+  Durch Division durch \(\beta>0\) erhalten wir
+  \[
+    f(n)\le \frac{1}{\beta}g(n).
+  \]
+  Also gilt \(f\in O(g)\).
+
+  Damit ist die Äquivalenz bewiesen.
+
+  \medskip
+  \textbf{2.}
+  Seien \(f\in O(g)\) und \(g\in O(h)\). Dann existieren
+  \(\alpha,\beta>0\) und \(n_1,n_2\in\bbN\), sodass für alle
+  \(n\ge n_1\) und \(n\ge n_2\) gilt:
+  \[
+    f(n)\le \alpha g(n)
+    \qquad\text{und}\qquad
+    g(n)\le \beta h(n).
+  \]
+  Setze \(n_0:=\max\{n_1,n_2\}\). Für alle \(n\ge n_0\) folgt
+  \[
+    f(n)\le \alpha g(n)
+    \le \alpha\beta h(n).
+  \]
+  Da \(\alpha\beta>0\), gilt \(f\in O(h)\).
+\end{myproof}
+
+\qs{}{
+  Beweisen Sie:
+  \begin{enumerate}
+    \item \(\log n=\Theta(\ln n)\)
+    \item \(\log(n!)=\Theta(n\log n)\)
+  \end{enumerate}
+}
+
+\begin{myproof}
+  \textbf{1.}
+  Da \(\log\) den Logarithmus zur Basis \(10\) bezeichnet, gilt
+  \[
+    \log n=\frac{1}{\ln 10}\ln n.
+  \]
+  Mit \(\alpha=1/\ln 10>0\) folgt unmittelbar
+  \[
+    \log n\in O(\ln n)
+    \qquad\text{und}\qquad
+    \log n\in\Omega(\ln n).
+  \]
+  Also gilt
+  \[
+    \log n\in\Theta(\ln n).
+  \]
+
+  \medskip
+  \textbf{2.}
+  Für alle \(n\ge 2\) gilt
+  \[
+    n!\le n^n.
+  \]
+  Wegen der Monotonie des Logarithmus folgt
+  \[
+    \log(n!)\le n\log n.
+  \]
+  Somit ist \(\log(n!)\in O(n\log n)\).
+
+  Für die untere Schranke betrachten wir die letzten Faktoren
+  des Produkts \(n!\). Für \(n\ge 4\) sind mindestens \(n/2\)
+  Faktoren mindestens \(n/2\). Daher gilt
+  \[
+    n!\ge \left(\frac n2\right)^{n/2}.
+  \]
+  Durch Logarithmieren erhalten wir
+  \[
+    \log(n!)
+    \ge \frac n2\log\left(\frac n2\right).
+  \]
+  Für \(n\ge 4\) gilt außerdem
+  \[
+    \log\left(\frac n2\right)\ge \frac12\log n.
+  \]
+  Folglich
+  \[
+    \log(n!)\ge \frac n4\log n.
+  \]
+  Damit ist \(\log(n!)\in\Omega(n\log n)\), und insgesamt gilt
+  \[
+    \log(n!)\in\Theta(n\log n).
+  \]
+\end{myproof}
+
+\qs{}{
+  Zeigen Sie, dass für alle \(k,l\in\bbN\) mit \(l\ge 1\) gilt:
+  \begin{enumerate}
+    \item \((\log n)^k=O(n^{1/l})\)
+    \item \(2^{\sqrt{\log n}}=O(n^{1/l})\)
+  \end{enumerate}
+}
+
+\begin{myproof}
+  \textbf{1.}
+  Setze \(x=\log n\). Da \(n=10^x\), genügt es zu zeigen, dass
+  \[
+    \frac{x^k}{10^{x/l}}\longrightarrow 0
+    \qquad\text{für }x\to\infty.
+  \]
+  Die Exponentialfunktion wächst schneller als jedes Polynom.
+  Daher konvergiert dieser Quotient gegen \(0\). Insbesondere
+  existieren \(\alpha>0\) und \(n_0\in\bbN\), sodass für alle
+  \(n\ge n_0\) gilt:
+  \[
+    (\log n)^k\le \alpha n^{1/l}.
+  \]
+  Also ist \((\log n)^k\in O(n^{1/l})\).
+
+  \medskip
+  \textbf{2.}
+  Setze wieder \(x=\log n\). Für hinreichend große \(x\) gilt
+  \[
+    \sqrt{x}\log 2\le \frac{x\log 10}{l},
+  \]
+  denn \(x\) wächst schneller als \(\sqrt{x}\). Durch
+  Exponenzieren folgt
+  \[
+    2^{\sqrt{x}}\le 10^{x/l}.
+  \]
+  Wegen \(x=\log n\) ist dies gleichbedeutend mit
+  \[
+    2^{\sqrt{\log n}}\le n^{1/l}
+  \]
+  für alle hinreichend großen \(n\). Also gilt
+  \[
+    2^{\sqrt{\log n}}\in O(n^{1/l}).
+  \]
+\end{myproof}
+
+\qs{}{
+  Zeigen Sie, dass die Potenzmenge von \(\bbN\), also die Menge
+  aller Teilmengen von \(\bbN\), überabzählbar ist.
+}
+
+\begin{myproof}
+  Wir führen einen Widerspruchsbeweis.
+
+  Angenommen, \(\mathcal P(\bbN)\) sei abzählbar. Dann lassen
+  sich alle Teilmengen von \(\bbN\) in einer Folge auflisten:
+  \[
+    \mathcal P(\bbN)=\{A_1,A_2,A_3,\ldots\}.
+  \]
+  Wir definieren die Menge
+  \[
+    B:=\{n\in\bbN\mid n\notin A_n\}.
+  \]
+  Da \(B\subseteq\bbN\) gilt, muss \(B=A_k\) für ein
+  \(k\in\bbN\) sein.
+
+  Wir unterscheiden zwei Fälle:
+  \begin{itemize}
+    \item Falls \(k\in A_k\), folgt aus der Definition von \(B\),
+      dass \(k\notin B\). Wegen \(B=A_k\) ergibt sich
+      \(k\notin A_k\), ein Widerspruch.
+    \item Falls \(k\notin A_k\), folgt aus der Definition von \(B\),
+      dass \(k\in B\). Wegen \(B=A_k\) ergibt sich
+      \(k\in A_k\), ebenfalls ein Widerspruch.
+  \end{itemize}
+  In beiden Fällen entsteht ein Widerspruch. Daher ist
+  \(\mathcal P(\bbN)\) überabzählbar.
+\end{myproof}
+
+\section{Programmierteil}
+\qs{} {
+Schreiben Sie ein C++-Programm, das alle Primzahlzwillinge (also Paare von Primzahlen, deren Differenz 2 ist) auflistet, die kleiner als 106 sind. Wie viele gibt es?
+}
+
+\codefile{naive.cpp}{C++}
+
+\end{document}
