@@ -195,6 +195,266 @@ Aus dieser Konstruktion ergibt sich unmittelbar die folgende Definition:
   Wenn die Folge $\vert a \vert$ nach oben beschränkt ist, so ist sowohl $a$ als auch $-a$ nach oben beschränkt, also ist $a$ nach oben und nach unten bschränkt, also ist $a$ beschränkt. Umgekehrt sind, wenn $a$ beschränkt ist, sowohl $a$ als auch $-a$ nach oben beschränkt, und daher $\vert a \vert$ nach oben beschränkt.
 \end{myproof}
 
+\section{Konvergente Folgen}
+
+\qs{} {
+  Wann konvergiert eine Folge $(a_n)$?
+}
+
+\sol Die Folge $(a_n)$ konvergiert gegen $a$, falls
+  \[
+    \forall \varepsilon > 0\;
+    \exists n_0 \in \bbN\;
+    \forall n \ge n_0:
+    |a_n-a| < \varepsilon.
+  \]
+
+  Jede konvergente Folge ist beschränkt.
+
+\begin{theorem}{Konvergente Folgen sind Cauchy-Folgen}{conv-cauchy}
+  Jede konvergente Folge ist eine Cauchy-Folge.
+\end{theorem}
+
+\begin{myproof}
+  Sei $(a_n)$ eine Folge mit $a_n \to a$.
+
+  Für jedes $\varepsilon > 0$ existiert ein $n_0 \in \bbN$,
+  sodass für alle $n \ge n_0$ gilt:
+  \[
+    |a_n-a| < \frac{\varepsilon}{2}.
+  \]
+
+  Für alle $n,m \ge n_0$ folgt mit der Dreiecksungleichung:
+  \begin{align*}
+    |a_n-a_m|
+    &= |a_n-a+a-a_m|\\
+    &\le |a_n-a|+|a-a_m|\\
+    &< \frac{\varepsilon}{2}
+       +\frac{\varepsilon}{2}
+     = \varepsilon.
+  \end{align*}
+
+  Also ist $(a_n)$ eine Cauchy-Folge.
+\end{myproof}
+
+\section{Geometrische Folgen}
+
+\ex{Geometrische Folge}{
+  Sei
+  \[
+    a_n=b^n.
+  \]
+
+  Für $0<b<1$ ist $(a_n)$ monoton fallend und
+  nach unten durch $0$ beschränkt.
+}
+
+\thm{Grenzwert einer geometrischen Folge}{
+  Für $0<b<1$ gilt
+  \[
+    \lim_{n\to\infty}b^n=0.
+  \]
+}
+
+\begin{myproof}
+  Da $(b^n)$ monoton fallend und beschränkt ist,
+  ist die Folge konvergent. Sei
+  \[
+    L:=\lim_{n\to\infty}b^n.
+  \]
+
+  Definiere $c_n:=a_{n+1}$. Dann gilt
+  \[
+    \lim_{n\to\infty}c_n
+    =\lim_{n\to\infty}a_n=L.
+  \]
+
+  Andererseits ist
+  \[
+    c_n=b\cdot a_n.
+  \]
+  Mit den Grenzwertsätzen folgt
+  \[
+    L=\lim_{n\to\infty}c_n
+     =b\lim_{n\to\infty}a_n
+     =bL.
+  \]
+
+  Da $b\ne1$, folgt $L=0$.
+\end{myproof}
+
+\section{Algebraische Struktur konvergenter Folgen}
+
+\thm{Ring der konvergenten Folgen}{
+  Die Menge der konvergenten Folgen bildet mit
+  komponentenweiser Addition und Multiplikation
+  einen kommutativen Ring mit Eins.
+}
+
+\nt{
+  Für konvergente Folgen $(a_n)$ und $(b_n)$
+  definieren wir die Operationen durch
+  \begin{align*}
+    (a_n)+(b_n)&:=(a_n+b_n),\\
+    (a_n)\cdot(b_n)&:=(a_nb_n).
+  \end{align*}
+}
+
+\subsection{Addition}
+
+\begin{myproof}
+  Die Assoziativität und Kommutativität der Addition
+  folgen aus den entsprechenden Eigenschaften
+  der rationalen Zahlen.
+
+  Das neutrale Element ist die konstante Nullfolge
+  \[
+    (0)=(0,0,0,\dots).
+  \]
+
+  Das additive Inverse zu $(a_n)$ ist
+  \[
+    -(a_n):=(-a_n).
+  \]
+
+  Es bleibt zu zeigen, dass die Summe zweier
+  konvergenter Folgen wieder konvergiert.
+
+  Seien
+  \[
+    \lim_{n\to\infty}a_n=a,
+    \qquad
+    \lim_{n\to\infty}b_n=b.
+  \]
+
+  Für jedes $\varepsilon>0$ existieren
+  $n_1,n_2\in\bbN$, sodass
+  \begin{align*}
+    |a_n-a|&<\frac{\varepsilon}{2}
+      &&\text{für }n\ge n_1,\\
+    |b_n-b|&<\frac{\varepsilon}{2}
+      &&\text{für }n\ge n_2.
+  \end{align*}
+
+  Setze $n_0:=\max\{n_1,n_2\}$.
+  Für alle $n\ge n_0$ gilt:
+  \begin{align*}
+    |(a_n+b_n)-(a+b)|
+    &=|(a_n-a)+(b_n-b)|\\
+    &\le |a_n-a|+|b_n-b|\\
+    &<\varepsilon.
+  \end{align*}
+
+  Also konvergiert $(a_n+b_n)$ gegen $a+b$.
+\end{myproof}
+
+\subsection{Multiplikation}
+
+\dfn{Multiplikation von Folgen}{
+  Für zwei Folgen $(a_n)$ und $(b_n)$ definieren wir
+  \[
+    (a_n)\cdot(b_n):=(a_nb_n).
+  \]
+}
+
+\thm{Grenzwert eines Produkts}{
+  Sind $(a_n)$ und $(b_n)$ konvergent mit
+  \[
+    \lim_{n\to\infty}a_n=a,
+    \qquad
+    \lim_{n\to\infty}b_n=b,
+  \]
+  so gilt
+  \[
+    \lim_{n\to\infty}(a_nb_n)=ab.
+  \]
+}
+
+\begin{myproof}
+  Wir betrachten
+  \begin{align*}
+    |a_nb_n-ab|
+    &=|a_nb_n-ab_n+ab_n-ab|\\
+    &=|(a_n-a)b_n+a(b_n-b)|\\
+    &\le |a_n-a|\,|b_n|
+       +|a|\,|b_n-b|.
+  \end{align*}
+
+  Da $(b_n)$ konvergiert, ist die Folge beschränkt.
+  Es existiert also $M>0$ mit
+  \[
+    |b_n|\le M
+    \qquad\text{für alle }n\in\bbN.
+  \]
+
+  Sei $\varepsilon>0$. Wegen der Konvergenz
+  existiert ein $n_0\in\bbN$, sodass für
+  alle $n\ge n_0$ gilt:
+  \begin{align*}
+    |a_n-a|&<\frac{\varepsilon}{2M},\\
+    |b_n-b|&<\frac{\varepsilon}{2(|a|+1)}.
+  \end{align*}
+
+  Damit folgt
+  \begin{align*}
+    |a_nb_n-ab|
+    &\le M|a_n-a|+|a|\,|b_n-b|\\
+    &<\frac{\varepsilon}{2}
+      +\frac{|a|}{|a|+1}\frac{\varepsilon}{2}\\
+    &\le\varepsilon.
+  \end{align*}
+
+  Also konvergiert $(a_nb_n)$ gegen $ab$.
+\end{myproof}
+
+\nt{
+  Die Distributivgesetze folgen komponentenweise
+  aus den Distributivgesetzen in $\bbQ$.
+
+  Das multiplikative neutrale Element ist
+  die konstante Einsfolge
+  \[
+    (1)=(1,1,1,\dots).
+  \]
+
+  Somit bilden die konvergenten rationalen Folgen
+  mit den definierten Operationen einen
+  kommutativen Ring mit Eins.
+}
+
+\thm{Grenzwertabbildung als Ringhomomorphismus}{
+  Die Abbildung
+  \[
+    \varphi\colon (a_n)\longmapsto
+    \lim_{n\to\infty}a_n
+  \]
+  ist ein Ringhomomorphismus von der Menge
+  der konvergenten rationalen Folgen nach $\bbQ$.
+}
+
+\begin{myproof}
+  Für zwei konvergente Folgen $(a_n)$ und $(b_n)$
+  gelten die Grenzwertsätze:
+  \begin{align*}
+    \varphi((a_n)+(b_n))
+    &=\lim_{n\to\infty}(a_n+b_n)\\
+    &=\lim_{n\to\infty}a_n
+      +\lim_{n\to\infty}b_n\\
+    &=\varphi((a_n))+\varphi((b_n)),
+  \end{align*}
+  sowie
+  \begin{align*}
+    \varphi((a_n)\cdot(b_n))
+    &=\lim_{n\to\infty}(a_nb_n)\\
+    &=\lim_{n\to\infty}a_n
+      \cdot\lim_{n\to\infty}b_n\\
+    &=\varphi((a_n))\cdot\varphi((b_n)).
+  \end{align*}
+
+  Außerdem gilt $\varphi((1))=1$.
+  Damit ist $\varphi$ ein Ringhomomorphismus.
+\end{myproof}
+
 \section{Cauchy-Folgen}
 \begin{definition}{Cauchy-Folgen}{cauchy}
   Eine Folge $a$ von rationalen Zahlen heißt \textbf{Cauchy-Folge},genau dann wenn folgendes gilt:
@@ -439,23 +699,5 @@ Man prüft leicht nach, dass die Folge mit Folgengliedern
 Grenzwert \(0\) konvergieren, bezeichnen wir als \textbf{Nullfolgen}.
 
 \thm{Konvergente Folgen sind Cauchy-Folgen}{
-  Jede konvergente Folge ist eine Cauchy-Folge.
+  \Cref{th:conv-cauchy}
 }
-\begin{myproof}
-  Sei \(a\) eine Folge, die gegen \(q\) konvergiert. Dann existiert
-  für jedes \(k\in\bbN\) ein \(n_0\in\bbN\), sodass für alle
-  \(n\ge n_0\) gilt:
-  \[
-    \lvert a_n-q\rvert\le\frac1{2k}.
-  \]
-  Für alle \(n\ge n_0\) und \(m\ge 0\) gilt damit nach der
-  Dreiecksungleichung:
-  \begin{align*}
-    \lvert a_n-a_{n+m}\rvert
-    &=\lvert a_n-q+q-a_{n+m}\rvert\\
-    &\le \lvert a_n-q\rvert+\lvert q-a_{n+m}\rvert\\
-    &\le \frac1{2k}+\frac1{2k}
-     =\frac1k.
-  \end{align*}
-  Also ist \(a\) eine Cauchy-Folge.
-\end{myproof}
