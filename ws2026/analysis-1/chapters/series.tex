@@ -186,3 +186,276 @@ Aus dieser Konstruktion ergibt sich unmittelbar die folgende Definition:
 \end{myproof}
 
 \nt{$(-1)^n$ ist beschränkt, aber nicht konvergent.}
+
+\mlemma{Beschränktheit Absolutbetrag von Folgen} {
+  Eine Folge $a$ ist genau dann beschränkt, wenn die Folge $\vert a \vert $ mit Folgengliedern $\vert a_n \vert$ nach oben beschränkt ist.
+}
+
+\begin{myproof}
+  Wenn die Folge $\vert a \vert$ nach oben beschränkt ist, so ist sowohl $a$ als auch $-a$ nach oben beschränkt, also ist $a$ nach oben und nach unten bschränkt, also ist $a$ beschränkt. Umgekehrt sind, wenn $a$ beschränkt ist, sowohl $a$ als auch $-a$ nach oben beschränkt, und daher $\vert a \vert$ nach oben beschränkt.
+\end{myproof}
+
+\section{Cauchy-Folgen}
+\begin{definition}{Cauchy-Folgen}{cauchy}
+  Eine Folge $a$ von rationalen Zahlen heißt \textbf{Cauchy-Folge},genau dann wenn folgendes gilt:
+  $$
+    \forall k \in \bbN \exists n_0 \in \bbN \forall n \ge n_0 \forall m \ge n_0: \vert a_n - a_m \vert \le \frac1k
+    $$
+\end{definition}
+
+Diese komplizierte Definition besagrt einfach, dass sich fast alle Folgenglieder $a_n$ sich kaum mehr von $a_n$ unterscheiden werden.
+
+\nt {
+  Mit Hilfe der Dreiecksungleichung kann man leicht zeigen, dass eine Folge Cauchy-Folge ist, wenn
+  $$
+    \forall k \in \bbN \exists n \in \bbN \forall m \ge 0: \vert a_n - a_{n + m} \le \frac1k
+  $$
+}
+\begin{figure}[htbp]
+    \centering
+    \resizebox{\textwidth}{!}{
+      \begin{tikzpicture}[
+          x=0.65cm,
+          y=1.05cm,
+          >=stealth,
+          every node/.style={font=\small}
+      ]
+
+      % Colors
+      \definecolor{lightblue}{RGB}{105,125,255}
+      \definecolor{lightred}{RGB}{255,105,125}
+
+      % Blue interval (the 1/k-wide "tube")
+      \fill[lightblue,opacity=0.15]
+          (-0.65,-0.8) rectangle (9.5,0.8);
+
+      \draw[lightblue,dashed,line width=0.7pt]
+          (-0.65,0.8) -- (9.5,0.8);
+      \draw[lightblue,dashed,line width=0.7pt]
+          (-0.65,-0.8) -- (9.5,-0.8);
+
+      % Red interval around n_0(3)
+      \fill[lightred,opacity=0.35]
+          (6.9,-0.25) rectangle (9.5,0.25);
+
+      \draw[lightred,dashed,line width=0.7pt]
+          (6.9,-0.25) -- (9.5,-0.25);
+      \draw[lightred,dashed,line width=0.7pt]
+          (6.9,0.25) -- (9.5,0.25);
+
+      % Axes
+      \draw[->,line width=0.6pt]
+          (-0.85,0) -- (10,0);
+      \draw[->,line width=0.6pt]
+          (0, -1.05) -- (0,1.2);
+
+      % Axis labels
+      \node[left] at (-0.03,1) {$1$};
+      \node[left] at (-0.03,-1) {$-1$};
+
+      % Horizontal ticks
+      \foreach \x in {-0.5,0.0,...,9.5} {
+          \draw[gray!80,line width=0.45pt]
+              (\x,-0.09) -- (\x,0.09);
+      }
+
+      % Points above and below the axis
+      \foreach \x/\y in {
+          0.45/0.91,
+          1.25/0.83,
+          2.05/0.67,
+          2.9/0.82,
+          3.75/0.49,
+          4.55/0.34,
+          5.35/0.25,
+          6.15/0.12,
+          6.95/0.08,
+          7.75/0.05,
+          8.55/0.04,
+          9.15/0.03,
+          0.85/-0.91,
+          1.65/-0.72,
+          2.45/-0.32,
+          3.3/-0.18,
+          4.15/-0.32,
+          4.95/-0.19,
+          5.75/-0.33,
+          6.55/-0.19,
+          7.35/-0.26,
+          8.15/-0.12,
+          8.95/-0.20
+      } {
+          \fill (\x,\y) circle (1.35pt);
+      }
+
+      % Markers for n_0(1) and n_0(3)
+      \draw[blue!80!black,line width=0.7pt]
+          (3.35,-0.08) -- (3.35,0.08);
+      \node[blue!80!black,below=5pt] at (3.35,0)
+          {$n_0(1)$};
+
+      \draw[red!80!black,line width=0.7pt]
+          (7.0,-0.08) -- (7.0,0.08);
+      \node[red!80!black,below=5pt] at (7.0,0)
+          {$n_0(3)$};
+
+      % Width annotations on the left
+      \draw[<->,blue!80!black,line width=0.7pt]
+          (-0.83,-0.8) -- (-0.83,0.8);
+      \node[blue!80!black,left=1pt] at (-0.83,0)
+          {$\frac{1}{k}$};
+
+      \draw[<->,red!80!black,line width=0.7pt]
+          (-0.48,-0.25) -- (-0.48,0.25);
+      \node[red!80!black,left=1pt] at (-0.48,0)
+          {$\frac{1}{3k}$};
+
+      \end{tikzpicture}
+    }
+    \caption{Beispiel einer Cauchy-Folge. Ab einem $n_0$,
+    das von $k\in\bbN$ abhängt, liegen alle Folgenglieder
+    in einem $\frac{1}{k}$-weiten "Schlauch".}
+    \label{fig:cauchy-schlauch}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tikzpicture}[
+        x=0.42cm,
+        y=1.15cm,
+        >=stealth,
+        line cap=round
+    ]
+
+    % Shaded band
+    \fill[blue!10] (0,-0.5) rectangle (15,0.5);
+
+    % Blue dashed boundaries
+    \draw[blue,dashed,thick] (-2.2,0.5) -- (15,0.5);
+    \draw[blue,dashed,thick] (-2.2,-0.5) -- (15,-0.5);
+
+    % Red comparison band: width 1/3
+    \draw[red,dashed,thick] (-1.2,1/6) -- (14.7,1/6);
+    \draw[red,dashed,thick] (-1.2,-1/6) -- (14.7,-1/6);
+
+    % Axes
+    \draw[->,thick] (-1.5,0) -- (16.3,0);
+    \draw[->,thick] (0,-0.85) -- (0,0.92);
+
+    % Vertical axis ticks and labels
+    \draw ( -0.6,0.8) -- (0.6,0.8);
+    \draw ( -0.6,-0.8) -- (0.6,-0.8);
+    \node[left] at (-0.65,0.8) {$1$};
+    \node[left] at (-0.65,-0.8) {$-1$};
+
+    % Horizontal axis ticks
+    \foreach \x in {1,...,14} {
+        \draw (\x,-0.055) -- (\x,0.055);
+    }
+
+    % Alternating sequence values +1/2 and -1/2
+    \foreach \x in {2,4,...,14} {
+        \fill (\x,0.5) circle (2pt);
+    }
+    \foreach \x in {1,3,...,15} {
+        \fill (\x,-0.5) circle (2pt);
+    }
+
+    % n_0(1) marker
+    \draw[blue,thick] (1, -0.09) -- (1,0.09);
+    \node[blue] at (1,-0.9) {$n_0(1)$};
+
+    % Blue width annotation: 1
+    \draw[blue,<->,thick] (-2.5,-0.5) -- (-2.5,0.5);
+    \node[blue,left] at (-2.5,0) {$\frac{1}{1}$};
+
+    % Red width annotation: 1/3
+    \draw[red,<->,thick] (-1.2,-1/6) -- (-1.2,1/6);
+    \node[red,left] at (-1.2,0) {$\frac{1}{3}$};
+
+    \end{tikzpicture}%
+    }
+    \caption{Die Folge mit Folgenglieder $a_n=(-1)^n\frac{1}{2}$
+    ist keine Cauchy-Folge. Es gibt kein $n_0$, so dass für alle
+    $n\geq n_0$ und alle $m\in\mathbb{N}$ gilt, dass
+    $|a_n-a_{n+m}|\leq\frac{1}{3}$.}
+    \label{fig:keine-cauchy-folge}
+\end{figure}
+
+\nt{
+  Eine Cauchy-Folge, dessen Folgenglieder rational sind, nennen wir auch eine rationale Cauchy-Folge.
+}
+
+\thm{Beschränktheit von Cauchy-Folgen}{
+  Jede Cauchy-Folge ist beschränkt.
+}
+\begin{myproof}
+  Wähle \(k=10\). Sei \(n_0\) die zugehörige Zahl aus der
+  Cauchy-Bedingung \Cref{def:cauchy}. Die endlich vielen Zahlen
+  \(\lvert a_1\rvert,\lvert a_2\rvert,\dots,\lvert a_{n_0}\rvert\)
+  haben einen maximalen Wert
+  \[
+    M:=\max\{\lvert a_1\rvert,\lvert a_2\rvert,\dots,
+    \lvert a_{n_0}\rvert\}.
+  \]
+  Andererseits gilt für alle \(m\in\bbN\):
+  \[
+    \lvert a_{n_0}-a_{n_0+m}\rvert\le\frac1{10}.
+  \]
+  Wegen der Dreiecksungleichung folgt
+  \[
+    \lvert a_{n_0+m}\rvert
+    \le \lvert a_{n_0}\rvert+\frac1{10}
+    \le M+\frac1{10}.
+  \]
+  Daher sind alle Folgenglieder durch \(M+\frac1{10}\) beschränkt.
+\end{myproof}
+
+Die Folge \(a_n=\frac1n\) ist offenbar eine Cauchy-Folge, denn für
+alle \(m\ge 0\) gilt
+\[
+  \left\lvert\frac1n-\frac1{n+m}\right\rvert\le\frac1n.
+\]
+Für jedes \(k\in\bbN\) ist die Cauchy-Bedingung somit beispielsweise
+mit \(n_0=k\) erfüllt. Da sich \(\frac1n\) zunehmend der Zahl \(0\)
+annähert, lässt sich dies mit dem Begriff der Konvergenz formal
+beschreiben.
+
+\dfn{Konvergenz von Folgen}{ 
+  Eine Folge \(a\) rationaler Zahlen heißt konvergent in \(\bbQ\),
+  falls es eine Zahl \(q\in\bbQ\) gibt, sodass
+  \[
+    \forall k\in\bbN\ \exists n_0\in\bbN\
+    \forall n\ge n_0:
+    \lvert a_n-q\rvert\le\frac1k.
+  \]
+}
+Die Zahl \(q\) heißt der \textbf{Grenzwert} oder \textbf{Limes} der
+Folge \(a\). Wir schreiben \(\lim a=q\) oder \(a\to q\).
+
+Man prüft leicht nach, dass die Folge mit Folgengliedern
+\(a_n=\frac1n\) gegen \(0\) konvergiert. Folgen, die gegen den
+Grenzwert \(0\) konvergieren, bezeichnen wir als \textbf{Nullfolgen}.
+
+\thm{Konvergente Folgen sind Cauchy-Folgen}{
+  Jede konvergente Folge ist eine Cauchy-Folge.
+}
+\begin{myproof}
+  Sei \(a\) eine Folge, die gegen \(q\) konvergiert. Dann existiert
+  für jedes \(k\in\bbN\) ein \(n_0\in\bbN\), sodass für alle
+  \(n\ge n_0\) gilt:
+  \[
+    \lvert a_n-q\rvert\le\frac1{2k}.
+  \]
+  Für alle \(n\ge n_0\) und \(m\ge 0\) gilt damit nach der
+  Dreiecksungleichung:
+  \begin{align*}
+    \lvert a_n-a_{n+m}\rvert
+    &=\lvert a_n-q+q-a_{n+m}\rvert\\
+    &\le \lvert a_n-q\rvert+\lvert q-a_{n+m}\rvert\\
+    &\le \frac1{2k}+\frac1{2k}
+     =\frac1k.
+  \end{align*}
+  Also ist \(a\) eine Cauchy-Folge.
+\end{myproof}
