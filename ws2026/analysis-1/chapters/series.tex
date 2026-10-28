@@ -701,3 +701,479 @@ Grenzwert \(0\) konvergieren, bezeichnen wir als \textbf{Nullfolgen}.
 \thm{Konvergente Folgen sind Cauchy-Folgen}{
   \Cref{th:conv-cauchy}
 }
+
+\section{Teilfolgen}
+
+\dfn{Monotone Folgen}{
+  Eine Folge $(a_n)$ heißt \textbf{monoton wachsend}, falls
+  \[
+    \forall n\in\bbN:\quad a_{n+1}\ge a_n.
+  \]
+  Sie heißt \textbf{streng monoton wachsend}, falls
+  \[
+    \forall n\in\bbN:\quad a_{n+1}>a_n.
+  \]
+  Analog definiert man monoton fallende und streng monoton
+  fallende Folgen.
+}
+
+\nt{
+  Statt monoton wachsend sagt man auch \textbf{nicht fallend}.
+}
+
+\dfn{Teilfolge}{
+  Sei $k\colon\bbN\to\bbN$ eine streng monoton wachsende Folge
+  natürlicher Zahlen und sei $a$ eine Folge.
+
+  Dann heißt
+  \[
+    b:=a\circ k
+  \]
+  eine \textbf{Teilfolge} oder \textbf{Unterfolge} von $a$.
+  Ihre Folgenglieder sind
+  \[
+    b_n=a_{k_n}.
+  \]
+}
+
+\mlemma{Teilfolgen von Cauchy-Folgen}{
+  Ist $a$ eine Cauchy-Folge und $b$ eine Teilfolge von $a$,
+  dann gilt
+  \[
+    a\sim b.
+  \]
+  Insbesondere gilt
+  \[
+    \lim b=\lim a.
+  \]
+}
+
+\begin{myproof}
+  Sei $b_n=a_{k_n}$ eine Teilfolge von $a$.
+  Da $(k_n)$ streng monoton wächst, gilt $k_n\ge n$.
+
+  Weil $a$ eine Cauchy-Folge ist, existiert für jedes
+  $\varepsilon>0$ ein $n_0\in\bbN$, sodass
+  \[
+    |a_n-a_m|<\varepsilon
+    \qquad\forall n,m\ge n_0.
+  \]
+
+  Für alle $n\ge n_0$ gilt insbesondere $k_n\ge n_0$.
+  Somit folgt
+  \[
+    |a_n-b_n|
+    =|a_n-a_{k_n}|<\varepsilon.
+  \]
+
+  Also ist $(a_n-b_n)$ eine Nullfolge und damit
+  $a\sim b$. Folglich besitzen beide Folgen denselben
+  Grenzwert.
+\end{myproof}
+
+\mlemma{Monotone Unterfolgen}{
+  Jede Folge besitzt eine monoton wachsende oder eine
+  monoton fallende Teilfolge.
+}
+
+\begin{myproof}
+  Wir nennen $r\in\bbN$ einen \textbf{Rekord} von $a$, falls
+  \[
+    \forall m>r:\quad a_m\le a_r.
+  \]
+
+  \textbf{Fall 1:} Es gibt unendlich viele Rekorde.
+
+  Dann existiert eine streng monoton wachsende Folge
+  $(r_k)$ von Rekordindizes.
+
+  Die Teilfolge $b_k:=a_{r_k}$ ist monoton fallend,
+  denn für $r_{k+1}>r_k$ gilt
+  \[
+    a_{r_{k+1}}\le a_{r_k}.
+  \]
+
+  \textbf{Fall 2:} Es gibt nur endlich viele Rekorde.
+
+  Wähle $m_1$ größer als alle Rekordindizes.
+  Da $m_1$ kein Rekord ist, existiert $m_2>m_1$ mit
+  \[
+    a_{m_2}>a_{m_1}.
+  \]
+
+  Auch $m_2$ ist kein Rekord. Induktiv erhalten wir
+  eine streng monoton wachsende Indexfolge $(m_k)$ mit
+  \[
+    a_{m_{k+1}}>a_{m_k}.
+  \]
+
+  Somit ist $b_k:=a_{m_k}$ eine monoton wachsende
+  Teilfolge.
+
+  In beiden Fällen existiert also eine monotone Teilfolge.
+\end{myproof}
+
+
+\section{Konvergenz und Häufungspunkte}
+
+\mlemma{Monotone Konvergenz}{
+  Sei $(a_n)$ eine monoton wachsende, beschränkte Folge
+  reeller Zahlen. Dann gilt
+  \[
+    \lim_{n\to\infty}a_n
+    =\sup\{a_n:n\in\bbN\}.
+  \]
+
+  Entsprechend konvergiert jede monoton fallende,
+  beschränkte Folge gegen
+  \[
+    \inf\{a_n:n\in\bbN\}.
+  \]
+}
+
+\begin{myproof}
+  Sei
+  \[
+    A:=\{a_n:n\in\bbN\}.
+  \]
+  Da $A$ nach oben beschränkt ist, existiert
+  $s:=\sup A\in\bbR$.
+
+  Nach der Definition des Supremums existiert für jedes
+  $\varepsilon>0$ ein $n_0\in\bbN$, sodass
+  \[
+    a_{n_0}>s-\varepsilon.
+  \]
+
+  Wegen der Monotonie gilt für alle $n\ge n_0$:
+  \[
+    s-\varepsilon<a_n\le s.
+  \]
+
+  Also folgt
+  \[
+    |a_n-s|<\varepsilon.
+  \]
+
+  Damit konvergiert $(a_n)$ gegen $s$.
+  Der Fall einer monoton fallenden Folge ist analog.
+\end{myproof}
+
+\thm{Bolzano--Weierstraß}{
+  Jede beschränkte Folge reeller Zahlen besitzt mindestens
+  eine konvergente Teilfolge.
+}
+
+\begin{myproof}
+  Nach dem Lemma über monotone Unterfolgen besitzt jede
+  Folge eine monoton wachsende oder monoton fallende
+  Teilfolge.
+
+  Da die ursprüngliche Folge beschränkt ist, ist auch
+  jede ihrer Teilfolgen beschränkt.
+
+  Nach dem Lemma über monotone Konvergenz konvergiert
+  jede beschränkte monotone Folge.
+
+  Also besitzt die ursprüngliche Folge eine konvergente
+  Teilfolge.
+\end{myproof}
+
+
+\section{Limes superior und Limes inferior}
+
+\dfn{Limes superior und Limes inferior}{
+  Sei $(a_n)$ eine reelle Folge.
+
+  Der \textbf{Limes superior} ist durch
+  \[
+    \limsup_{n\to\infty}a_n=z
+  \]
+  charakterisiert, falls
+  \begin{align*}
+    &\forall k\in\bbN\;
+      \exists n_0\in\bbN\;
+      \forall n\ge n_0:
+      a_n\le z+\frac1k,
+    \\
+    &\forall k\in\bbN\;
+      \forall n_0\in\bbN\;
+      \exists n\ge n_0:
+      a_n>z-\frac1k.
+  \end{align*}
+
+  Entsprechend ist der \textbf{Limes inferior} durch
+  \[
+    \liminf_{n\to\infty}a_n=y
+  \]
+  charakterisiert, falls
+  \begin{align*}
+    &\forall k\in\bbN\;
+      \exists n_0\in\bbN\;
+      \forall n\ge n_0:
+      a_n\ge y-\frac1k,
+    \\
+    &\forall k\in\bbN\;
+      \forall n_0\in\bbN\;
+      \exists n\ge n_0:
+      a_n<y+\frac1k.
+  \end{align*}
+}
+
+\nt{
+  Der Limes superior beschreibt die kleinste langfristige
+  obere Schranke einer Folge, der Limes inferior die
+  größte langfristige untere Schranke.
+}
+
+
+\section{Häufungspunkte}
+
+\dfn{Häufungspunkt}{
+  Sei $(a_n)$ eine Folge reeller Zahlen.
+
+  Ein Punkt $x\in\bbR$ heißt \textbf{Häufungspunkt} von
+  $(a_n)$, falls eine Teilfolge $(a_{n_k})$ existiert mit
+  \[
+    \lim_{k\to\infty}a_{n_k}=x.
+  \]
+}
+
+\mlemma{Charakterisierung von Häufungspunkten}{
+  Ein Punkt $x\in\bbR$ ist genau dann Häufungspunkt
+  einer Folge $(a_n)$, wenn für jedes $k\in\bbN$
+  eine unendliche Menge $N_k\subseteq\bbN$ existiert,
+  sodass
+  \[
+    \forall n\in N_k:\quad
+    |a_n-x|\le\frac1k.
+  \]
+}
+
+\begin{myproof}
+  \textbf{Hinrichtung:}
+
+  Sei $x$ Häufungspunkt von $(a_n)$. Dann existiert
+  eine Teilfolge $(a_{n_j})$, die gegen $x$ konvergiert.
+
+  Für jedes $k\in\bbN$ gibt es einen Index $j_0$,
+  sodass für alle $j\ge j_0$ gilt:
+  \[
+    |a_{n_j}-x|\le\frac1k.
+  \]
+
+  Die Menge
+  \[
+    N_k:=\{n_j:j\ge j_0\}
+  \]
+  ist unendlich und erfüllt die Behauptung.
+
+  \medskip
+  \textbf{Rückrichtung:}
+
+  Angenommen, für jedes $k\in\bbN$ existiert eine
+  unendliche Menge $N_k\subseteq\bbN$ mit
+  \[
+    \forall n\in N_k:\quad
+    |a_n-x|\le\frac1k.
+  \]
+
+  Wähle $n_1\in N_1$ und anschließend induktiv
+  \[
+    n_{k+1}\in N_{k+1},
+    \qquad n_{k+1}>n_k.
+  \]
+
+  Da jedes $N_k$ unendlich ist, ist diese Wahl möglich.
+
+  Damit ist $(n_k)$ streng monoton wachsend, und es gilt
+  \[
+    |a_{n_k}-x|\le\frac1k.
+  \]
+
+  Folglich konvergiert die Teilfolge $(a_{n_k})$
+  gegen $x$. Somit ist $x$ ein Häufungspunkt.
+\end{myproof}
+
+
+\mlemma{Limes superior und Häufungspunkte}{
+  Sei $(a_n)$ eine reelle Folge.
+
+  Falls
+  \[
+    \limsup_{n\to\infty}a_n=z\in\bbR,
+  \]
+  dann ist $z$ der größte Häufungspunkt von $(a_n)$.
+
+  Falls
+  \[
+    \liminf_{n\to\infty}a_n=y\in\bbR,
+  \]
+  dann ist $y$ der kleinste Häufungspunkt von $(a_n)$.
+}
+
+\begin{myproof}
+  Sei
+  \[
+    z:=\limsup_{n\to\infty}a_n.
+  \]
+
+  Zunächst zeigen wir, dass $z$ ein Häufungspunkt ist.
+
+  Nach der Definition des Limes superior existiert
+  für jedes $k\in\bbN$ ein $N_k\in\bbN$, sodass
+  \[
+    a_n\le z+\frac1k
+    \qquad\forall n\ge N_k.
+  \]
+
+  Außerdem existiert für jedes $n_0\in\bbN$ ein
+  $n\ge n_0$ mit
+  \[
+    a_n>z-\frac1k.
+  \]
+
+  Wir wählen induktiv eine streng wachsende Indexfolge
+  $(n_k)$, sodass
+  \[
+    n_k\ge N_k
+    \qquad\text{und}\qquad
+    a_{n_k}>z-\frac1k.
+  \]
+
+  Damit gilt
+  \[
+    z-\frac1k<a_{n_k}\le z+\frac1k,
+  \]
+  also
+  \[
+    |a_{n_k}-z|\le\frac1k.
+  \]
+
+  Folglich konvergiert $(a_{n_k})$ gegen $z$.
+  Somit ist $z$ ein Häufungspunkt.
+
+  Nun sei $x$ ein beliebiger Häufungspunkt von $(a_n)$.
+  Dann existiert eine Teilfolge $(a_{m_k})$ mit
+  \[
+    a_{m_k}\longrightarrow x.
+  \]
+
+  Angenommen, es wäre $x>z$.
+  Wähle $\varepsilon>0$ mit
+  \[
+    2\varepsilon<x-z.
+  \]
+
+  Wegen $\limsup a_n=z$ gilt für alle hinreichend
+  großen $n$:
+  \[
+    a_n\le z+\varepsilon.
+  \]
+
+  Andererseits gilt wegen $a_{m_k}\to x$
+  für alle hinreichend großen $k$:
+  \[
+    a_{m_k}>x-\varepsilon>z+\varepsilon.
+  \]
+
+  Dies ist ein Widerspruch. Also gilt $x\le z$.
+
+  Somit ist $z$ der größte Häufungspunkt.
+
+  Die Aussage für den Limes inferior folgt analog
+  durch Umkehrung der Ungleichungen.
+\end{myproof}
+
+
+\mlemma{Konvergenz und Limes superior/inferior}{
+  Eine reelle Folge $(a_n)$ konvergiert genau dann
+  gegen $x\in\bbR$, wenn
+  \[
+    \limsup_{n\to\infty}a_n
+    =
+    \liminf_{n\to\infty}a_n
+    =x.
+  \]
+}
+
+\begin{myproof}
+  \textbf{Hinrichtung:}
+
+  Sei $a_n\to x$. Dann existiert für jedes
+  $\varepsilon>0$ ein $n_0\in\bbN$, sodass
+  für alle $n\ge n_0$ gilt:
+  \[
+    x-\varepsilon<a_n<x+\varepsilon.
+  \]
+
+  Somit erfüllt $x$ sowohl die Bedingungen für den
+  Limes superior als auch für den Limes inferior.
+  Also gilt
+  \[
+    \limsup_{n\to\infty}a_n
+    =
+    \liminf_{n\to\infty}a_n=x.
+  \]
+
+  \medskip
+  \textbf{Rückrichtung:}
+
+  Sei
+  \[
+    \limsup_{n\to\infty}a_n
+    =
+    \liminf_{n\to\infty}a_n=x.
+  \]
+
+  Nach der Definition des Limes superior existiert
+  für jedes $\varepsilon>0$ ein $n_1\in\bbN$ mit
+  \[
+    a_n\le x+\varepsilon
+    \qquad\forall n\ge n_1.
+  \]
+
+  Nach der Definition des Limes inferior existiert
+  ein $n_2\in\bbN$ mit
+  \[
+    a_n\ge x-\varepsilon
+    \qquad\forall n\ge n_2.
+  \]
+
+  Setze
+  \[
+    n_0:=\max\{n_1,n_2\}.
+  \]
+
+  Für alle $n\ge n_0$ gilt damit
+  \[
+    x-\varepsilon\le a_n\le x+\varepsilon,
+  \]
+  also
+  \[
+    |a_n-x|\le\varepsilon.
+  \]
+
+  Folglich konvergiert $(a_n)$ gegen $x$.
+\end{myproof}
+
+
+\ex{Häufungspunkte}{
+  Die Folge
+  \[
+    a_n=(-1)^n
+  \]
+  besitzt die beiden Häufungspunkte $-1$ und $1$.
+  Daher gilt
+  \[
+    \liminf_{n\to\infty}a_n=-1,
+    \qquad
+    \limsup_{n\to\infty}a_n=1.
+  \]
+
+  Dagegen besitzt die Folge
+  \[
+    a_n=n
+  \]
+  keinen Häufungspunkt in $\bbR$.
+}
