@@ -1,7 +1,7 @@
 \documentclass{report}
 \usepackage{cmt}
 
-\title{\huge{Algorithmische Mathematik I \\ Übungszettel 2}}
+\title{\huge{Algorithmische Mathematik I \\ Übungszettel 3}}
 \author{\huge{Amy, Rojan}}
 \date{2026-10-29}
 
@@ -19,96 +19,430 @@
 
 \section{Landau-Symbole}
 
-\dfn{}{
-  Sei \(g\colon\bbN\to\bbR_{\ge 0}\). Dann definieren wir:
+\dfn{Landau-Symbole}{
+  Sei $g\colon\bbN\to\bbR_{\ge 0}$. Dann definieren wir:
   \begin{align*}
     O(g)
     &:=
     \left\{
       f\colon\bbN\to\bbR_{\ge 0}
       \;\middle|\;
-      \exists \alpha>0\,\exists n_0\in\bbN\,
+      \exists\alpha>0\;\exists n_0\in\bbN\;
       \forall n\ge n_0:
-      f(n)\le \alpha g(n)
+      f(n)\le\alpha g(n)
     \right\},\\
     \Omega(g)
     &:=
     \left\{
       f\colon\bbN\to\bbR_{\ge 0}
       \;\middle|\;
-      \exists \alpha>0\,\exists n_0\in\bbN\,
+      \exists\alpha>0\;\exists n_0\in\bbN\;
       \forall n\ge n_0:
-      f(n)\ge \alpha g(n)
+      f(n)\ge\alpha g(n)
     \right\},\\
     \Theta(g)&:=O(g)\cap\Omega(g).
   \end{align*}
 }
 
-\dfn{} {
-  $\bbR^+_0 := \bbR_{\ge 0}$
+\dfn{Nichtnegative reelle Zahlen}{
+  \[
+    \bbR_0^+:=\bbR_{\ge 0}.
+  \]
 }
 
 \section{Aufgaben}
-\qs{} {
-Es sei $z \in \bbR_{\ge0}$ eine Konstante. Zeigen Sie, dass dann gilt: $$\sum_{i = 1} ^n i^z = \Theta(n^{1+z})$$.
-}
-\sol Man hat $z$ Schritte für die Potenzierung, und einen mehr für die Summe.
 
-\qs{} {
-  Es seien $f, g, r, s: \bbN \to \bbR_{\ge 0 }$ Funktionen. Beweisen Sie:
-  \begin{enumerate}
-    \item Wenn $f \in O(r) \land g \in O(s)$, dann gilt $f \cdot g \in O(r \cdot s)$
-    \item Falls $r \in \Omega(f) \land g \in O(r)$, dann gilt $f + g \in O(r)$.
-  \end{enumerate}
-}
-
-\sol \\
-
-\begin{enumerate}
-  \item Sei $f \in O(r), g \in O(s)$. Dann existieren $\alpha, \beta > 0 \land n_0, m_0 \in \bbN$, sodass für alle $n, m \ge n_0, m_0$ gilt:
-    $$
-    f(n) \le \alpha \cdot r(n), g(n) \le \beta \cdot s(n)
-    $$
-    Durch Multiplikation folgt
-    $$
-    f(n) \cdot g(n) \ge \alpha \cdot \beta \cdot r(n) \cdot s(n)
-    $$
-    und somit gibt es ein $\gamma > 0 \land l_0 \in \bbN$, sodass
-    $$
-    f(n) \cdot g(n) \ge \gamma \cdot (r(n) \cdot s(n)) \in O(r \cdot s)
-    $$
-  \item Ist nach stets nach unten begrenzt durch g, da O(r) die Untergrenze ist und $\bbR_0^+$ gilt.
-\end{enumerate}
-
-\qs{} {
-  \begin{enumerate}
-    \item Für welche $x \in \bbR$ gilt $\lfloor x \rfloor = -\lceil -x \rceil$?
-    \item Für welche $x \in \bbR$ gilt $\lfloor x \rfloor = -\lfloor -x \rfloor$?
-    \item Für welche $x \in \bbR$ gilt $\left\lfloor \frac x2 \right\rfloor + \left\lceil\frac x2\right\rceil = x$?
-  \end{enumerate}
-}
-\sol \begin{enumerate}
-  \item $\forall x \in \bbR$
-  \item $\forall x \in \bbZ$
-  \item $\forall x = \frac12 \cdot a, a \in \bbZ$
-\end{enumerate}
-
-\qs{} {
-  Ersetzen Sie im Algorithmus Collatz-Folge die Anweisung $n \leftarrow 4 \cdot n + 1$ durch
-  \begin{itemize}
-    \item $n \leftarrow n + 1$. Zeigen Sie, dass das Programm dann stets terminiert, und geben Sie (mit Hilfe der $O$-Notation eine möglichst gute Schrank für die Zahl der Recehnschritte an.)
-
-  \end{itemize}
-}
-
-\sol \begin{enumerate}
-  \item $O(\log n)$, da es maximal so langsam ist wie es Ziffern in der Binärdastellung hat. Das Programm terminiert stets, da mit $n \leftarrow \frac n2 \lor n \leftarrow \frac{n + 1}2$ eine monoton fallende Folge bis zum Grenzwert $1$
-\item Alle $3n$ terminieren. Wir betrachten $\bbN \mod 3$. Durch die Addition von $3$ wechselt man von $2$ nach $1$ oder umgekehrt; bei $0$ wird nichts geändert. Die einzigen "Enden" sind $3 \leftrightarrow 6$ und $4 \rightarrow 2 \rightarrow 1$. Da das erstere mit Rest $0$ nicht terminiert, sind auch durch die Folge alle Multiple von $3$ nicht terminierend. Analog terminieren alle $n \mod 3 \neq 0$.
-\end{enumerate}
-\section{Programmierteil}
 \qs{}{
-  Erweitern Sie das Programm Eratostehenes' Sieve,sodass bis zum Eingabewert $n$ die drei häufigsten Primzahllücken bestimmt werden. Dabei ist eine Primzahllücke der Abstand zweier aufeinanderfolgender Primzahlen. Legen Sie dazu einen Vektor Anzahl an, der zu jeder infrage kommenden Primzahllücker speichert, wie oft sie vorkommt. Geben Sie in der Ausgabe die drei häufigsten Primzahllücken mit ihren Häufigkeiten an.
+  Es sei $z\in\bbR_{\ge 0}$ eine Konstante.
+  Zeigen Sie, dass gilt:
+  \[
+    \sum_{i=1}^n i^z=\Theta(n^{1+z}).
+  \]
 }
+
+\begin{myproof}
+  Wir zeigen die obere und untere Schranke.
+
+  \textbf{Obere Schranke:}
+
+  Da $i\le n$ und $z\ge 0$, gilt für alle
+  $1\le i\le n$:
+  \[
+    i^z\le n^z.
+  \]
+  Somit folgt
+  \[
+    \sum_{i=1}^n i^z
+    \le\sum_{i=1}^n n^z
+    =n\cdot n^z
+    =n^{1+z}.
+  \]
+  Also gilt
+  \[
+    \sum_{i=1}^n i^z\in O(n^{1+z}).
+  \]
+
+  \medskip
+  \textbf{Untere Schranke:}
+
+  Wir betrachten nur die Summanden mit
+  $i\ge\lceil n/2\rceil$. Es gilt
+  \begin{align*}
+    \sum_{i=1}^n i^z
+    &\ge\sum_{i=\lceil n/2\rceil}^n i^z\\
+    &\ge\frac n2\left(\frac n2\right)^z\\
+    &=\frac{1}{2^{1+z}}n^{1+z}.
+  \end{align*}
+
+  Da $z\ge 0$ konstant ist, gilt
+  \[
+    \alpha:=\frac{1}{2^{1+z}}>0.
+  \]
+  Somit folgt
+  \[
+    \sum_{i=1}^n i^z\in\Omega(n^{1+z}).
+  \]
+
+  Insgesamt erhalten wir
+  \[
+    \boxed{
+      \sum_{i=1}^n i^z=\Theta(n^{1+z}).
+    }
+  \]
+\end{myproof}
+
+
+\qs{}{
+  Es seien $f,g,r,s\colon\bbN\to\bbR_{\ge 0}$
+  Funktionen. Beweisen Sie:
+  \begin{enumerate}
+    \item Wenn $f\in O(r)$ und $g\in O(s)$,
+      dann gilt $f\cdot g\in O(r\cdot s)$.
+    \item Falls $r\in\Omega(f)$ und $g\in O(r)$,
+      dann gilt $f+g\in O(r)$.
+  \end{enumerate}
+}
+
+\begin{myproof}
+  \textbf{1.}
+
+  Seien $f\in O(r)$ und $g\in O(s)$.
+  Dann existieren $\alpha,\beta>0$ und
+  $n_1,n_2\in\bbN$, sodass
+  \begin{align*}
+    f(n)&\le\alpha r(n)
+      &&\forall n\ge n_1,\\
+    g(n)&\le\beta s(n)
+      &&\forall n\ge n_2.
+  \end{align*}
+
+  Setze
+  \[
+    n_0:=\max\{n_1,n_2\}.
+  \]
+  Da alle Funktionen nichtnegative Werte annehmen,
+  folgt durch Multiplikation für alle $n\ge n_0$:
+  \begin{align*}
+    f(n)g(n)
+    &\le\alpha r(n)\cdot\beta s(n)\\
+    &=\alpha\beta\cdot r(n)s(n).
+  \end{align*}
+
+  Mit $\gamma:=\alpha\beta>0$ gilt somit
+  \[
+    f\cdot g\in O(r\cdot s).
+  \]
+
+  \medskip
+  \textbf{2.}
+
+  Aus $r\in\Omega(f)$ folgt, dass
+  $\alpha>0$ und $n_1\in\bbN$ existieren mit
+  \[
+    r(n)\ge\alpha f(n)
+    \qquad\forall n\ge n_1.
+  \]
+  Also gilt
+  \[
+    f(n)\le\frac1\alpha r(n).
+  \]
+
+  Da außerdem $g\in O(r)$ gilt,
+  existieren $\beta>0$ und $n_2\in\bbN$ mit
+  \[
+    g(n)\le\beta r(n)
+    \qquad\forall n\ge n_2.
+  \]
+
+  Setze erneut
+  \[
+    n_0:=\max\{n_1,n_2\}.
+  \]
+  Für alle $n\ge n_0$ folgt
+  \begin{align*}
+    f(n)+g(n)
+    &\le\frac1\alpha r(n)+\beta r(n)\\
+    &=\left(\frac1\alpha+\beta\right)r(n).
+  \end{align*}
+
+  Da $\frac1\alpha+\beta>0$, gilt
+  \[
+    f+g\in O(r).
+  \]
+\end{myproof}
+
+
+\section{Gaußklammern}
+
+\qs{}{
+  \begin{enumerate}
+    \item Für welche $x\in\bbR$ gilt
+      \[
+        \lfloor x\rfloor=-\lceil-x\rceil?
+      \]
+    \item Für welche $x\in\bbR$ gilt
+      \[
+        \lfloor x\rfloor=-\lfloor-x\rfloor?
+      \]
+    \item Für welche $x\in\bbR$ gilt
+      \[
+        \left\lfloor\frac x2\right\rfloor
+        +\left\lceil\frac x2\right\rceil=x?
+      \]
+  \end{enumerate}
+}
+
+\begin{myproof}
+  \textbf{1.}
+
+  Sei $k:=\lfloor x\rfloor$. Nach Definition gilt
+  \[
+    k\le x<k+1.
+  \]
+  Durch Multiplikation mit $-1$ folgt
+  \[
+    -k-1<-x\le-k.
+  \]
+  Also ist $\lceil-x\rceil=-k$ und damit
+  \[
+    \lfloor x\rfloor=-\lceil-x\rceil.
+  \]
+
+  Die Aussage gilt für alle $x\in\bbR$.
+
+  \medskip
+  \textbf{2.}
+
+  Mit der ersten Aussage erhalten wir
+  \[
+    \lfloor x\rfloor=-\lfloor-x\rfloor
+    \iff
+    \lceil-x\rceil=\lfloor-x\rfloor.
+  \]
+
+  Die Gaußklammer und die Aufrundungsfunktion
+  stimmen genau dann überein, wenn $-x$
+  ganzzahlig ist.
+
+  Also gilt die Gleichung genau für
+  \[
+    \boxed{x\in\bbZ.}
+  \]
+
+  \medskip
+  \textbf{3.}
+
+  Die linke Seite ist als Summe zweier ganzer
+  Zahlen stets ganzzahlig. Daher muss
+  \[
+    x\in\bbZ
+  \]
+  gelten.
+
+  Umgekehrt sei $x\in\bbZ$.
+
+  Ist $x=2k$ gerade, dann gilt
+  \[
+    \left\lfloor\frac x2\right\rfloor
+    +\left\lceil\frac x2\right\rceil
+    =k+k=2k=x.
+  \]
+
+  Ist $x=2k+1$ ungerade, dann gilt
+  \[
+    \left\lfloor\frac x2\right\rfloor
+    +\left\lceil\frac x2\right\rceil
+    =k+(k+1)=2k+1=x.
+  \]
+
+  Somit gilt die Gleichung genau für
+  \[
+    \boxed{x\in\bbZ.}
+  \]
+\end{myproof}
+
+
+\section{Collatz-Folge}
+
+\qs{}{
+  Ersetzen Sie im Algorithmus \textit{Collatz-Folge}
+  die Anweisung $n\leftarrow 3n+1$ durch:
+  \begin{enumerate}
+    \item $n\leftarrow n+1$.
+      Zeigen Sie, dass das Programm stets terminiert,
+      und geben Sie mithilfe der $O$-Notation eine
+      möglichst gute Schranke für die Anzahl der
+      Rechenschritte an.
+
+    \item $n\leftarrow n+3$.
+      Untersuchen Sie, für welche Startwerte
+      das Programm terminiert.
+  \end{enumerate}
+}
+
+\begin{myproof}
+  \textbf{1. Ersetzung durch $n\leftarrow n+1$:}
+
+  Ist $n>1$ gerade, so wird $n$ halbiert.
+
+  Ist $n>1$ ungerade, so wird zunächst
+  $n\leftarrow n+1$ ausgeführt. Da $n+1$
+  gerade ist, folgt im nächsten Schritt
+  \[
+    n\longmapsto n+1
+    \longmapsto\frac{n+1}{2}.
+  \]
+
+  Für alle ungeraden $n>1$ gilt
+  \[
+    \frac{n+1}{2}<n.
+  \]
+
+  Somit wird $n$ spätestens nach zwei Schritten
+  strikt kleiner. Da $n$ eine positive ganze
+  Zahl bleibt, erreicht der Algorithmus
+  schließlich $n=1$ und terminiert.
+
+  \medskip
+  \textbf{Laufzeit:}
+
+  Nach spätestens zwei Schritten ist der
+  neue Wert höchstens
+  \[
+    \left\lceil\frac n2\right\rceil.
+  \]
+
+  Daher sind höchstens $O(\log n)$
+  Halbierungen notwendig, bis $n=1$
+  erreicht wird.
+
+  Insgesamt gilt
+  \[
+    \boxed{T(n)\in O(\log n).}
+  \]
+
+  \medskip
+  \textbf{2. Ersetzung durch $n\leftarrow n+3$:}
+
+  Ist $n$ gerade, wird $n$ halbiert.
+  Ist $n>1$ ungerade, so gilt
+  \[
+    n\longmapsto n+3
+    \longmapsto\frac{n+3}{2}.
+  \]
+
+  Für $n>3$ ist
+  \[
+    \frac{n+3}{2}<n.
+  \]
+
+  Somit wird der Wert spätestens nach
+  zwei Schritten kleiner, solange $n>3$.
+
+  Für die kleinen Werte erhalten wir
+  \[
+    2\longmapsto1,
+    \qquad
+    3\longmapsto6\longmapsto3.
+  \]
+
+  Wir betrachten nun die Teilbarkeit durch $3$.
+
+  Bei geradem $n$ gilt
+  \[
+    n\longmapsto\frac n2,
+  \]
+  bei ungeradem $n>1$ nach zwei Schritten
+  \[
+    n\longmapsto\frac{n+3}{2}.
+  \]
+
+  Da $2$ nicht durch $3$ teilbar ist,
+  bleibt in beiden Fällen die Eigenschaft
+  $3\mid n$ bzw. $3\nmid n$ erhalten.
+
+  \textbf{Fall 1:} $3\mid n$.
+
+  Da der Wert für $n>3$ abnimmt und stets
+  durch $3$ teilbar bleibt, erreicht die
+  Folge schließlich $3$ und damit den Zyklus
+  \[
+    3\longmapsto6\longmapsto3.
+  \]
+  Der Algorithmus terminiert nicht.
+
+  \textbf{Fall 2:} $3\nmid n$.
+
+  Der Wert $3$ kann wegen der erhaltenen
+  Nichtteilbarkeit nicht erreicht werden.
+  Da die Folge für $n>3$ abnimmt,
+  erreicht sie schließlich $1$ oder $2$
+  und terminiert.
+
+  Insgesamt gilt
+  \[
+    \boxed{
+      \text{Der Algorithmus terminiert}
+      \iff 3\nmid n.
+    }
+  \]
+\end{myproof}
+
+
+\section{Programmierteil}
+
+\qs{}{
+  Erweitern Sie das Programm
+  \textit{Eratosthenes' Sieve}, sodass bis zum
+  Eingabewert $n$ die drei häufigsten
+  Primzahllücken bestimmt werden.
+
+  Eine Primzahllücke ist der Abstand zweier
+  aufeinanderfolgender Primzahlen.
+
+  Legen Sie dazu einen Vektor
+  \texttt{anzahl} an, der für jede infrage
+  kommende Primzahllücke speichert, wie
+  oft sie vorkommt.
+
+  Geben Sie die drei häufigsten
+  Primzahllücken mit ihren Häufigkeiten aus.
+}
+
+\nt{
+  \textbf{Vorgehensweise:}
+  \begin{enumerate}
+    \item Bestimme alle Primzahlen bis $n$
+      mit dem Sieb des Eratosthenes.
+    \item Berechne die Differenzen
+      aufeinanderfolgender Primzahlen.
+    \item Speichere ihre Häufigkeiten
+      im Vektor \texttt{anzahl}.
+    \item Gib die drei häufigsten
+      Primzahllücken und ihre Häufigkeiten aus.
+  \end{enumerate}
+}
+
 \codefile{sieve.cpp}{C++}
 
 \end{document}

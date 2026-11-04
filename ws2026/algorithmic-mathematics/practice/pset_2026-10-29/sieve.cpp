@@ -22,9 +22,9 @@ int main(int argc, char *argv[]) {
 
   // print_filter_vec(primes);
 
-  std::vector<usize> gaps = count_gaps(primes);
+  std::vector<usize> anzahl = count_gaps(primes);
 
-  print_index_vec_biggest(gaps, 3);
+  print_index_vec_biggest(anzahl, 3);
   return 0;
 }
 
