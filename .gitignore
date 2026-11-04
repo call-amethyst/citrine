@@ -35,6 +35,7 @@ main.pdf
 
 # Compiled C++ files
 target/
+temp/
 
 # Temporary and editor files
 *.swp
