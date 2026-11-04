@@ -1,0 +1,114 @@
+\documentclass{report}
+\usepackage{cmt}
+
+\title{\huge{Algorithmische Mathematik I \\ Übungszettel 2}}
+\author{\huge{Amy, Rojan}}
+\date{2026-10-29}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\chapter{Grundlagen}
+
+\nt{
+  Den Übungszettel gibt es
+  \href{run:./pset_2026-10-29.pdf}{hier}.
+}
+
+\section{Landau-Symbole}
+
+\dfn{}{
+  Sei \(g\colon\bbN\to\bbR_{\ge 0}\). Dann definieren wir:
+  \begin{align*}
+    O(g)
+    &:=
+    \left\{
+      f\colon\bbN\to\bbR_{\ge 0}
+      \;\middle|\;
+      \exists \alpha>0\,\exists n_0\in\bbN\,
+      \forall n\ge n_0:
+      f(n)\le \alpha g(n)
+    \right\},\\
+    \Omega(g)
+    &:=
+    \left\{
+      f\colon\bbN\to\bbR_{\ge 0}
+      \;\middle|\;
+      \exists \alpha>0\,\exists n_0\in\bbN\,
+      \forall n\ge n_0:
+      f(n)\ge \alpha g(n)
+    \right\},\\
+    \Theta(g)&:=O(g)\cap\Omega(g).
+  \end{align*}
+}
+
+\dfn{} {
+  $\bbR^+_0 := \bbR_{\ge 0}$
+}
+
+\section{Aufgaben}
+\qs{} {
+Es sei $z \in \bbR_{\ge0}$ eine Konstante. Zeigen Sie, dass dann gilt: $$\sum_{i = 1} ^n i^z = \Theta(n^{1+z})$$.
+}
+\sol Man hat $z$ Schritte für die Potenzierung, und einen mehr für die Summe.
+
+\qs{} {
+  Es seien $f, g, r, s: \bbN \to \bbR_{\ge 0 }$ Funktionen. Beweisen Sie:
+  \begin{enumerate}
+    \item Wenn $f \in O(r) \land g \in O(s)$, dann gilt $f \cdot g \in O(r \cdot s)$
+    \item Falls $r \in \Omega(f) \land g \in O(r)$, dann gilt $f + g \in O(r)$.
+  \end{enumerate}
+}
+
+\sol \\
+
+\begin{enumerate}
+  \item Sei $f \in O(r), g \in O(s)$. Dann existieren $\alpha, \beta > 0 \land n_0, m_0 \in \bbN$, sodass für alle $n, m \ge n_0, m_0$ gilt:
+    $$
+    f(n) \le \alpha \cdot r(n), g(n) \le \beta \cdot s(n)
+    $$
+    Durch Multiplikation folgt
+    $$
+    f(n) \cdot g(n) \ge \alpha \cdot \beta \cdot r(n) \cdot s(n)
+    $$
+    und somit gibt es ein $\gamma > 0 \land l_0 \in \bbN$, sodass
+    $$
+    f(n) \cdot g(n) \ge \gamma \cdot (r(n) \cdot s(n)) \in O(r \cdot s)
+    $$
+  \item Ist nach stets nach unten begrenzt durch g, da O(r) die Untergrenze ist und $\bbR_0^+$ gilt.
+\end{enumerate}
+
+\qs{} {
+  \begin{enumerate}
+    \item Für welche $x \in \bbR$ gilt $\lfloor x \rfloor = -\lceil -x \rceil$?
+    \item Für welche $x \in \bbR$ gilt $\lfloor x \rfloor = -\lfloor -x \rfloor$?
+    \item Für welche $x \in \bbR$ gilt $\left\lfloor \frac x2 \right\rfloor + \left\lceil\frac x2\right\rceil = x$?
+  \end{enumerate}
+}
+\sol \begin{enumerate}
+  \item $\forall x \in \bbR$
+  \item $\forall x \in \bbZ$
+  \item $\forall x = \frac12 \cdot a, a \in \bbZ$
+\end{enumerate}
+
+\qs{} {
+  Ersetzen Sie im Algorithmus Collatz-Folge die Anweisung $n \leftarrow 4 \cdot n + 1$ durch
+  \begin{itemize}
+    \item $n \leftarrow n + 1$. Zeigen Sie, dass das Programm dann stets terminiert, und geben Sie (mit Hilfe der $O$-Notation eine möglichst gute Schrank für die Zahl der Recehnschritte an.)
+
+  \end{itemize}
+}
+
+\sol \begin{enumerate}
+  \item $O(\log n)$, da es maximal so langsam ist wie es Ziffern in der Binärdastellung hat. Das Programm terminiert stets, da mit $n \leftarrow \frac n2 \lor n \leftarrow \frac{n + 1}2$ eine monoton fallende Folge bis zum Grenzwert $1$
+\item Alle $3n$ terminieren. Wir betrachten $\bbN \mod 3$. Durch die Addition von $3$ wechselt man von $2$ nach $1$ oder umgekehrt; bei $0$ wird nichts geändert. Die einzigen "Enden" sind $3 \leftrightarrow 6$ und $4 \rightarrow 2 \rightarrow 1$. Da das erstere mit Rest $0$ nicht terminiert, sind auch durch die Folge alle Multiple von $3$ nicht terminierend. Analog terminieren alle $n \mod 3 \neq 0$.
+\end{enumerate}
+\section{Programmierteil}
+\qs{}{
+  Erweitern Sie das Programm Eratostehenes' Sieve,sodass bis zum Eingabewert $n$ die drei häufigsten Primzahllücken bestimmt werden. Dabei ist eine Primzahllücke der Abstand zweier aufeinanderfolgender Primzahlen. Legen Sie dazu einen Vektor Anzahl an, der zu jeder infrage kommenden Primzahllücker speichert, wie oft sie vorkommt. Geben Sie in der Ausgabe die drei häufigsten Primzahllücken mit ihren Häufigkeiten an.
+}
+\codefile{sieve.cpp}{C++}
+
+\end{document}
