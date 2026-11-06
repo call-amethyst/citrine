@@ -1,0 +1,260 @@
+% !TeX root = ../main.tex
+
+\chapter{Darstellung ganzer Zahlen}
+
+\section{$b$-adische Darstellung natürlicher Zahlen}
+
+Natürliche Zahlen werden in der \textbf{Binärdarstellung}
+(auch $2$-adische Darstellung genannt) gespeichert.
+Diese ist analog zur gewohnten Dezimaldarstellung.
+
+\ex{Dezimal- und Binärdarstellung}{
+  Die Zahl $106$ lässt sich darstellen als
+  \begin{align*}
+    106
+    &=1\cdot10^2+0\cdot10^1+6\cdot10^0\\
+    &=1\cdot2^6+1\cdot2^5+0\cdot2^4
+      +1\cdot2^3+0\cdot2^2+1\cdot2^1+0\cdot2^0.
+  \end{align*}
+
+  In Binärdarstellung schreibt man daher
+  \[
+    106=(1101010)_2.
+  \]
+}
+
+Statt $10$ oder $2$ kann man jede natürliche Zahl
+$b\ge2$ als Basis wählen.
+
+\thm{$b$-adische Darstellung}{
+  Seien $b,n\in\bbN$ mit $b\ge2$.
+
+  Dann existieren eindeutig bestimmte Zahlen
+  $l\in\bbN$ und
+  \[
+    z_i\in\{0,\dots,b-1\}
+    \qquad (i=0,\dots,l-1)
+  \]
+  mit $z_{l-1}\ne0$, sodass
+  \[
+    \boxed{n=\sum_{i=0}^{l-1}z_i b^i.}
+  \]
+
+  Das Wort $z_{l-1}\cdots z_0$ heißt die
+  \textbf{$b$-adische Darstellung} von $n$.
+
+  Man schreibt auch
+  \[
+    n=(z_{l-1}\cdots z_0)_b.
+  \]
+
+  Für die Anzahl der Ziffern gilt
+  \[
+    \boxed{l=1+\lfloor\log_b n\rfloor.}
+  \]
+}
+
+\nt{
+  \textbf{Vollständige Induktion:}
+
+  Um eine Aussage $A(n)$ für alle $n\in\bbN$
+  zu beweisen, genügt es zu zeigen:
+  \begin{enumerate}
+    \item \textbf{Induktionsanfang:} $A(1)$ gilt.
+    \item \textbf{Induktionsschritt:}
+      Für alle $i\in\bbN$ folgt aus $A(i)$
+      die Aussage $A(i+1)$.
+  \end{enumerate}
+
+  Beim Induktionsschritt nennt man $A(i)$
+  die \textbf{Induktionsvoraussetzung}.
+
+  Allgemeiner kann man für eine Menge $M$ eine
+  Aussage $A(m)$ für alle $m\in M$ mittels einer
+  Funktion $f\colon M\to\bbN$ beweisen:
+
+  Man zeigt, dass aus der Annahme, $A(m)$ sei falsch,
+  ein $m'\in M$ mit
+  \[
+    f(m')<f(m)
+    \qquad\text{und}\qquad
+    A(m')\text{ falsch}
+  \]
+  folgt.
+
+  Dies bezeichnet man als \textbf{Induktion über $f$}.
+}
+
+\begin{myproof}
+  Wir zeigen zunächst die Formel für die Anzahl der
+  Ziffern, anschließend die Eindeutigkeit und Existenz.
+
+  \medskip
+  \textbf{1. Anzahl der Ziffern:}
+
+  Sei
+  \[
+    n=\sum_{i=0}^{l-1}z_i b^i
+  \]
+  mit $z_i\in\{0,\dots,b-1\}$ und $z_{l-1}\ne0$.
+
+  Dann gilt
+  \begin{align*}
+    b^{l-1}
+    &\le n\\
+    &\le\sum_{i=0}^{l-1}(b-1)b^i\\
+    &=b^l-1.
+  \end{align*}
+
+  Somit folgt
+  \[
+    b^{l-1}\le n<b^l
+  \]
+  und daher
+  \[
+    l-1=\lfloor\log_b n\rfloor.
+  \]
+
+  \medskip
+  \textbf{2. Eindeutigkeit:}
+
+  Aus der Anzahl der Ziffern folgt, dass $l$
+  eindeutig durch $n$ bestimmt ist.
+
+  Für eine feste Länge $l$ ist die Abbildung
+  \[
+    (z_{l-1},\dots,z_0)
+    \longmapsto
+    \sum_{i=0}^{l-1}z_i b^i
+  \]
+  nach dem Lemma über die Kodierung von Wörtern
+  injektiv.
+
+  Daher sind auch die Ziffern eindeutig bestimmt.
+
+  \medskip
+  \textbf{3. Existenz:}
+
+  Wir führen vollständige Induktion über
+  \[
+    l(n):=1+\lfloor\log_b n\rfloor.
+  \]
+
+  \textbf{Induktionsanfang:}
+
+  Sei $l(n)=1$. Dann gilt
+  \[
+    n\in\{1,\dots,b-1\}.
+  \]
+
+  Mit $z_0:=n$ erhalten wir die Darstellung
+  \[
+    n=z_0b^0.
+  \]
+
+  \textbf{Induktionsvoraussetzung:}
+
+  Für alle natürlichen Zahlen $m$ mit
+  $l(m)<l(n)$ existiere eine $b$-adische
+  Darstellung.
+
+  \textbf{Induktionsschritt:}
+
+  Sei nun $n\in\bbN$ mit $l(n)\ge2$.
+
+  Setze
+  \[
+    n':=\left\lfloor\frac nb\right\rfloor.
+  \]
+
+  Dann gilt
+  \[
+    l':=l(n')=l(n)-1.
+  \]
+
+  Nach Induktionsvoraussetzung besitzt $n'$
+  eine Darstellung
+  \[
+    n'=\sum_{i=0}^{l'-1}z'_i b^i
+  \]
+  mit
+  \[
+    z'_i\in\{0,\dots,b-1\},
+    \qquad z'_{l'-1}\ne0.
+  \]
+
+  Wir definieren
+  \[
+    z_0:=n\bmod b
+  \]
+  und
+  \[
+    z_i:=z'_{i-1}
+    \qquad(i=1,\dots,l').
+  \]
+
+  Damit folgt
+  \begin{align*}
+    n
+    &=b\left\lfloor\frac nb\right\rfloor
+      +(n\bmod b)\\
+    &=bn'+z_0\\
+    &=b\sum_{i=0}^{l'-1}z'_i b^i+z_0\\
+    &=\sum_{i=1}^{l'}z'_{i-1}b^i+z_0\\
+    &=\sum_{i=0}^{l-1}z_i b^i.
+  \end{align*}
+
+  Da $z_{l-1}=z'_{l'-1}\ne0$, ist dies eine
+  gültige $b$-adische Darstellung.
+
+  Damit sind Existenz und Eindeutigkeit bewiesen.
+\end{myproof}
+
+
+\subsection{Horner-Schema}
+
+Liegt eine Zahl in $b$-adischer Darstellung
+$(z_{l-1}\cdots z_0)_b$ vor, so kann man ihren
+Wert mit dem \textbf{Horner-Schema} berechnen:
+
+\[
+  \begin{aligned}
+    \sum_{i=0}^{l-1}z_i b^i
+    =z_0+b\bigl(z_1+b\bigl(z_2+\cdots
+    +b(z_{l-2}+bz_{l-1})\cdots\bigr)\bigr).
+  \end{aligned}
+\]
+
+Dadurch lassen sich Multiplikationen einsparen.
+
+\nt{
+  Umgekehrt liefert der Existenzbeweis einen
+  Algorithmus zur Berechnung der $b$-adischen
+  Darstellung einer natürlichen Zahl:
+
+  Man bestimmt wiederholt den Rest
+  \[
+    z_0=n\bmod b
+  \]
+  und ersetzt anschließend
+  \[
+    n\leftarrow\left\lfloor\frac nb\right\rfloor.
+  \]
+
+  Die aufeinanderfolgenden Reste ergeben die
+  Ziffern der Darstellung in umgekehrter Reihenfolge.
+}
+
+\ex{Übliche Zahlensysteme}{
+  Neben der Dezimaldarstellung werden insbesondere
+  folgende Zahlensysteme verwendet:
+  \begin{itemize}
+    \item \textbf{Binärdarstellung:} $b=2$
+    \item \textbf{Oktaldarstellung:} $b=8$
+    \item \textbf{Hexadezimaldarstellung:} $b=16$
+  \end{itemize}
+
+  Für Basen $b>10$ verwendet man die Buchstaben
+  $\mathrm{A},\mathrm{B},\mathrm{C},\dots$
+  für Ziffern größer als $9$.
+}

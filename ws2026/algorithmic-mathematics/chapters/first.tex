@@ -373,3 +373,312 @@
     f\in\Theta(n^2).
   \]
 }
+
+\section{Nicht alles ist berechenbar}
+
+Mit Algorithmen (bzw. C++-Programmen) kann man vieles berechnen,
+aber nicht alles. Wir wollen zunächst zeigen, dass jede Sprache,
+insbesondere auch die der C++-Programme, abzählbar ist.
+
+Hierzu benötigen wir:
+
+\mlemma{Kodierung von Wörtern}{
+  Seien $k,l\in\bbN$. Definiere
+  \[
+    f_l\colon\{0,\dots,k-1\}^l
+    \to\{0,\dots,k^l-1\}
+  \]
+  durch
+  \[
+    f_l(w):=\sum_{i=1}^l a_i k^{l-i}
+  \]
+  für alle $w=a_1\cdots a_l\in\{0,\dots,k-1\}^l$.
+
+  Dann ist $f_l$ wohldefiniert und bijektiv.
+}
+
+\begin{myproof}
+  Für $w\in\{0,\dots,k-1\}^l$ gilt
+  \[
+    0\le f_l(w)
+    \le\sum_{i=1}^l(k-1)k^{l-i}
+    =k^l-1.
+  \]
+  Somit ist $f_l$ wohldefiniert.
+
+  \medskip
+  \textbf{Injektivität:}
+
+  Seien $w,w'\in\{0,\dots,k-1\}^l$ mit
+  \[
+    w=a_1\cdots a_l,\qquad
+    w'=a'_1\cdots a'_l,\qquad w\ne w'.
+  \]
+
+  Dann existiert ein kleinster Index $j\in\{1,\dots,l\}$
+  mit $a_j\ne a'_j$. Ohne Einschränkung sei $a_j>a'_j$.
+
+  Es gilt
+  \[
+    f_l(w')
+    =\sum_{i=1}^{j-1}a'_i k^{l-i}
+    +a'_j k^{l-j}
+    +\sum_{i=j+1}^l a'_i k^{l-i}.
+  \]
+
+  Wegen
+  \begin{align*}
+    \sum_{i=1}^{j-1}a'_i k^{l-i}
+    &=\sum_{i=1}^{j-1}a_i k^{l-i},\\
+    a'_j k^{l-j}
+    &\le(a_j-1)k^{l-j},\\
+    \sum_{i=j+1}^l a'_i k^{l-i}
+    &\le\sum_{i=j+1}^l(k-1)k^{l-i}
+     =k^{l-j}-1
+  \end{align*}
+  folgt
+  \begin{align*}
+    f_l(w')
+    &\le\sum_{i=1}^{j-1}a_i k^{l-i}
+      +(a_j-1)k^{l-j}+k^{l-j}-1\\
+    &=\sum_{i=1}^{j-1}a_i k^{l-i}
+      +a_j k^{l-j}-1\\
+    &<f_l(w).
+  \end{align*}
+
+  Also gilt $f_l(w')\ne f_l(w)$, und $f_l$ ist injektiv.
+
+  \medskip
+  \textbf{Surjektivität:}
+
+  Da
+  \[
+    |\{0,\dots,k-1\}^l|
+    =k^l
+    =|\{0,\dots,k^l-1\}|
+  \]
+  gilt, ist jede injektive Abbildung zwischen diesen
+  endlichen Mengen auch surjektiv.
+
+  Somit ist $f_l$ bijektiv.
+\end{myproof}
+
+
+\thm{Abzählbarkeit endlicher Wörter}{
+  Sei $A$ eine nichtleere endliche Menge.
+  Dann ist die Menge $A^*$ abzählbar.
+}
+
+\begin{myproof}
+  Sei
+  \[
+    f\colon A\to\{0,\dots,|A|-1\}
+  \]
+  eine Bijektion.
+
+  Wir definieren $g\colon A^*\to\bbN$ durch
+  \[
+    g(a_1\cdots a_l)
+    :=1+\sum_{i=0}^{l-1}|A|^i
+    +\sum_{i=1}^l f(a_i)|A|^{l-i}.
+  \]
+
+  Wir zeigen, dass $g$ injektiv ist.
+
+  Nach dem vorherigen Lemma bildet $g$ die Menge
+  der Wörter der Länge $l$ bijektiv auf
+  \[
+    \left\{
+      1+\sum_{i=0}^{l-1}|A|^i,\,
+      \dots,\,
+      \sum_{i=0}^l|A|^i
+    \right\}
+  \]
+  ab.
+
+  Da diese Mengen für verschiedene Wortlängen
+  disjunkt sind, ist $g$ insgesamt injektiv.
+
+  Somit ist $A^*$ abzählbar.
+\end{myproof}
+
+
+\cor{Abzählbarkeit von C++-Programmen}{
+  Die Menge aller C++-Programme ist abzählbar.
+}
+
+\begin{myproof}
+  C++-Programme sind Wörter über einem endlichen Alphabet.
+
+  Nach dem vorherigen Satz ist die Menge aller
+  Wörter über diesem Alphabet abzählbar.
+
+  Da Teilmengen abzählbarer Mengen ebenfalls
+  abzählbar sind, ist auch die Menge aller
+  C++-Programme abzählbar.
+\end{myproof}
+
+
+\thm{Nicht berechenbare Funktionen}{
+  Es gibt Funktionen
+  \[
+    f\colon\bbN\to\{0,1\},
+  \]
+  die von keinem C++-Programm berechnet werden.
+}
+
+\begin{myproof}
+  Sei $\mathcal P$ die Menge aller C++-Programme,
+  die eine Funktion
+  \[
+    f\colon\bbN\to\{0,1\}
+  \]
+  berechnen.
+
+  Nach dem vorherigen Korollar ist $\mathcal P$
+  abzählbar. Sei daher
+  \[
+    g\colon\mathcal P\to\bbN
+  \]
+  eine injektive Abbildung.
+
+  Für jedes $P\in\mathcal P$ bezeichne $f_P$
+  die von $P$ berechnete Funktion.
+
+  Wir definieren eine Funktion
+  \[
+    f\colon\bbN\to\{0,1\}
+  \]
+  durch
+  \[
+    f(g(P)):=1-f_P(g(P))
+    \qquad\forall P\in\mathcal P.
+  \]
+
+  Für alle übrigen $n\in\bbN$ setzen wir
+  beispielsweise $f(n):=0$.
+
+  Da $g$ injektiv ist, ist $f$ wohldefiniert.
+
+  Für jedes $P\in\mathcal P$ gilt
+  \[
+    f(g(P))=1-f_P(g(P))\ne f_P(g(P)).
+  \]
+
+  Somit ist $f\ne f_P$ für alle $P\in\mathcal P$.
+
+  Folglich wird $f$ von keinem C++-Programm berechnet.
+\end{myproof}
+
+\section{Das Halteproblem}
+
+Sei $\mathcal Q$ die Menge aller C++-Programme, die eine
+natürliche Zahl als Eingabe akzeptieren.
+
+Sei
+\[
+  g\colon\bbN\to\mathcal Q
+\]
+eine surjektive Funktion.
+
+Da $\mathcal Q$ nach dem vorherigen Korollar abzählbar ist,
+existiert eine injektive Funktion
+\[
+  f\colon\mathcal Q\to\bbN.
+\]
+
+Wir können daher
+\[
+  g(f(Q)):=Q
+  \qquad\forall Q\in\mathcal Q
+\]
+setzen und für alle $n\notin f(\mathcal Q)$ definieren:
+\[
+  g(n):=Q_0
+\]
+für ein beliebiges, fest gewähltes $Q_0\in\mathcal Q$.
+
+\dfn{Halteproblem}{
+  Wir definieren die \textbf{Haltefunktion}
+  \[
+    h\colon\bbN\times\bbN\to\{0,1\}
+  \]
+  durch
+  \[
+    h(x,y):=
+    \begin{cases}
+      1, & \text{falls }g(x)\text{ bei Eingabe von }y
+           \text{ nach endlich vielen Schritten hält},\\
+      0, & \text{sonst}.
+    \end{cases}
+  \]
+
+  Das zugehörige Entscheidungsproblem heißt
+  \textbf{Halteproblem}.
+}
+
+\thm{Unentscheidbarkeit des Halteproblems}{
+  Die Haltefunktion $h$ wird von keinem
+  C++-Programm berechnet.
+}
+
+\begin{myproof}
+  Wir führen einen \textbf{Widerspruchsbeweis}.
+
+  Angenommen, es existiert ein C++-Programm $P$,
+  das die Haltefunktion $h$ berechnet.
+
+  Dann können wir ein Programm $Q$ konstruieren,
+  das bei Eingabe von $x\in\bbN$ zunächst
+  $h(x,x)$ berechnet und anschließend:
+  \begin{itemize}
+    \item terminiert, falls $h(x,x)=0$,
+    \item in einer Endlosschleife läuft, falls $h(x,x)=1$.
+  \end{itemize}
+
+  Da $Q\in\mathcal Q$ und $g$ surjektiv ist,
+  existiert ein $q\in\bbN$ mit
+  \[
+    g(q)=Q.
+  \]
+
+  Nach Definition der Haltefunktion gilt
+  \[
+    h(q,q)=1
+    \iff
+    g(q)\text{ terminiert bei Eingabe von }q.
+  \]
+
+  Wegen $g(q)=Q$ folgt
+  \[
+    h(q,q)=1
+    \iff
+    Q\text{ terminiert bei Eingabe von }q.
+  \]
+
+  Nach der Konstruktion von $Q$ gilt jedoch
+  \[
+    Q\text{ terminiert bei Eingabe von }q
+    \iff h(q,q)=0.
+  \]
+
+  Zusammen erhalten wir
+  \[
+    \boxed{h(q,q)=1\iff h(q,q)=0,}
+  \]
+  ein Widerspruch.
+
+  Somit kann kein C++-Programm die Haltefunktion
+  $h$ berechnen.
+\end{myproof}
+
+\nt{
+  Der Satz gilt ebenso für jede andere
+  hinreichend mächtige Programmiersprache und
+  allgemein für Algorithmen.
+
+  Man sagt daher:
+  \[
+    \boxed{\text{Das Halteproblem ist nicht entscheidbar.}}
+  \]
+}
