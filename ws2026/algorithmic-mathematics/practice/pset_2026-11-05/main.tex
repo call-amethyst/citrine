@@ -1,0 +1,525 @@
+\documentclass{report}
+\usepackage{cmt}
+
+\title{\huge{Algorithmische Mathematik I \\ Übungszettel 4}}
+\author{\huge{Amy}}
+\date{2026-11-05}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\chapter{Darstellungen ganzer Zahlen}
+
+\nt{
+  Den Übungszettel gibt es
+  \href{run:./pset_2026-11-05.pdf}{hier}.
+}
+
+\section{Zahlensysteme}
+
+\qs{}{
+  \begin{enumerate}
+    \item Geben Sie die Darstellung der Zahl $(3324)_5$
+      bezüglich der Basis $7$ an.
+    \item Wandeln Sie die Oktalzahl $(6272)_8$ in das
+      Binärsystem um.
+  \end{enumerate}
+}
+
+\begin{myproof}
+  \textbf{1. Umrechnung von Basis $5$ nach Basis $7$:}
+
+  Zunächst rechnen wir in das Dezimalsystem um:
+  \begin{align*}
+    (3324)_5
+    &=3\cdot5^3+3\cdot5^2+2\cdot5+4\\
+    &=375+75+10+4\\
+    &=464.
+  \end{align*}
+
+  Durch Division mit Rest erhalten wir:
+  \begin{align*}
+    464&=7\cdot66+2,\\
+    66&=7\cdot9+3,\\
+    9&=7\cdot1+2,\\
+    1&=7\cdot0+1.
+  \end{align*}
+
+  Die Reste von unten nach oben ergeben
+  \[
+    \boxed{(3324)_5=(1232)_7.}
+  \]
+
+  \medskip
+  \textbf{2. Umrechnung von Basis $8$ nach Basis $2$:}
+
+  Da $8=2^3$, entspricht jede Oktalziffer
+  genau drei Binärziffern:
+  \begin{align*}
+    6&=(110)_2,\\
+    2&=(010)_2,\\
+    7&=(111)_2,\\
+    2&=(010)_2.
+  \end{align*}
+
+  Durch Aneinanderhängen folgt
+  \[
+    \boxed{(6272)_8=(110010111010)_2.}
+  \]
+\end{myproof}
+
+
+\section{Zweierkomplement}
+
+\qs{}{
+  Sei $z$ die Zweierkomplementdarstellung einer
+  negativen Zahl mit $l$ Bits.
+
+  Wie sieht die Darstellung derselben Zahl aus,
+  wenn $2l$ Stellen für die Komplementdarstellung
+  zur Verfügung stehen?
+}
+
+\begin{myproof}
+  Sei
+  \[
+    z=z_{l-1}z_{l-2}\cdots z_0
+  \]
+  die Zweierkomplementdarstellung einer negativen
+  Zahl $x$.
+
+  Da $x<0$, gilt $z_{l-1}=1$.
+
+  Der Zahlenwert ist
+  \[
+    x=-2^{l-1}
+      +\sum_{i=0}^{l-2}z_i2^i.
+  \]
+
+  Mit $2l$ Bits erhalten wir dieselbe Zahl,
+  indem wir vor die ursprüngliche Darstellung
+  $l$ Einsen setzen:
+  \[
+    \boxed{
+      \underbrace{11\cdots1}_{l\text{ Bits}}
+      z_{l-1}\cdots z_0.
+    }
+  \]
+
+  Zum Nachweis betrachten wir den Zahlenwert
+  der erweiterten Darstellung:
+  \begin{align*}
+    x'
+    &=-2^{2l-1}
+      +\sum_{i=l}^{2l-2}2^i
+      +\sum_{i=0}^{l-1}z_i2^i\\
+    &=-2^l+(2^l-1)2^l
+      \cdot 0
+      +\sum_{i=0}^{l-1}z_i2^i.
+  \end{align*}
+
+  Einfacher folgt direkt aus
+  \[
+    \sum_{i=l}^{2l-2}2^i=2^{2l-1}-2^l,
+  \]
+  dass
+  \begin{align*}
+    x'
+    &=-2^{2l-1}
+      +(2^{2l-1}-2^l)
+      +\sum_{i=0}^{l-1}z_i2^i\\
+    &=-2^l+\sum_{i=0}^{l-1}z_i2^i\\
+    &=x.
+  \end{align*}
+
+  Die Umwandlung heißt \textbf{Vorzeichenerweiterung}
+  (\textit{Sign Extension}).
+\end{myproof}
+
+
+\section{Darstellung zur Basis $-10$}
+
+\dfn{Darstellung zur Basis $-10$}{
+  Für Ziffern $a_i\in\{0,\dots,9\}$ definieren wir
+  \[
+    (a_{l-1}\cdots a_0)_{-10}
+    :=\sum_{i=0}^{l-1}a_i(-10)^i.
+  \]
+
+  Das Wort $a_{l-1}\cdots a_0$ heißt
+  \textbf{Darstellung zur Basis $-10$}, falls
+  $a_{l-1}\ne0$ gilt oder die Darstellung
+  aus der einzelnen Ziffer $0$ besteht.
+}
+
+\qs{}{
+  \begin{enumerate}
+    \item Schreiben Sie $(19375573910)_{-10}$
+      als Dezimalzahl.
+    \item Geben Sie eine Darstellung von
+      $(9230753)_{10}$ zur Basis $-10$ an.
+    \item Zeigen Sie, dass es für jede ganze Zahl
+      $x$ eine Darstellung zur Basis $-10$ gibt.
+    \item Ist diese Darstellung immer eindeutig?
+  \end{enumerate}
+}
+
+\begin{myproof}
+  \textbf{1. Umrechnung in das Dezimalsystem:}
+
+  Nach Definition gilt
+  \begin{align*}
+    (19375573910)_{-10}
+    &=1(-10)^{10}+9(-10)^9\\
+    &\quad+3(-10)^8+7(-10)^7\\
+    &\quad+5(-10)^6+5(-10)^5\\
+    &\quad+7(-10)^4+3(-10)^3\\
+    &\quad+9(-10)^2+1(-10)+0\\
+    &=1234567890.
+  \end{align*}
+
+  Somit
+  \[
+    \boxed{(19375573910)_{-10}=1234567890.}
+  \]
+
+  \medskip
+  \textbf{2. Umrechnung zur Basis $-10$:}
+
+  Wir verwenden wiederholt die Darstellung
+  \[
+    x=(-10)q+r,
+    \qquad r\in\{0,\dots,9\}.
+  \]
+
+  Dadurch erhalten wir:
+  \begin{align*}
+    9230753&=(-10)(-923075)+3,\\
+    -923075&=(-10)(92308)+5,\\
+    92308&=(-10)(-9230)+8,\\
+    -9230&=(-10)(923)+0,\\
+    923&=(-10)(-92)+3,\\
+    -92&=(-10)(10)+8,\\
+    10&=(-10)(-1)+0,\\
+    -1&=(-10)(1)+9,\\
+    1&=(-10)(0)+1.
+  \end{align*}
+
+  Die Reste ergeben von unten nach oben
+  \[
+    \boxed{(9230753)_{10}=(190830853)_{-10}.}
+  \]
+
+  \medskip
+  \textbf{3. Existenz:}
+
+  Wir zeigen die Existenz einer Darstellung
+  durch Induktion über $|x|$.
+
+  \textbf{Induktionsanfang:}
+
+  Für $x=0$ gilt die Darstellung $(0)_{-10}$.
+  Für $x=1$ gilt $(1)_{-10}$, und für $x=-1$ gilt
+  \[
+    -1=1\cdot(-10)+9=(19)_{-10}.
+  \]
+
+  \textbf{Induktionsschritt:}
+
+  Sei nun $|x|\ge2$ und angenommen, alle
+  ganzen Zahlen mit kleinerem Betrag besitzen
+  eine Darstellung zur Basis $-10$.
+
+  Nach Division mit Rest existieren eindeutig
+  bestimmte ganze Zahlen $q$ und
+  $r\in\{0,\dots,9\}$ mit
+  \[
+    x=(-10)q+r.
+  \]
+
+  Dabei gilt
+  \[
+    q=\frac{r-x}{10}.
+  \]
+
+  Für $|x|\ge2$ ist $|q|<|x|$.
+  Nach Induktionsvoraussetzung besitzt $q$
+  somit eine Darstellung zur Basis $-10$.
+
+  Sei
+  \[
+    q=\sum_{i=0}^{l-1}a_i(-10)^i.
+  \]
+
+  Dann folgt
+  \begin{align*}
+    x
+    &=(-10)q+r\\
+    &=(-10)\sum_{i=0}^{l-1}a_i(-10)^i+r\\
+    &=r+\sum_{i=1}^{l}a_{i-1}(-10)^i.
+  \end{align*}
+
+  Also besitzt auch $x$ eine Darstellung
+  zur Basis $-10$.
+
+  Damit existiert eine solche Darstellung
+  für jede ganze Zahl $x$.
+
+  \medskip
+  \textbf{4. Eindeutigkeit:}
+
+  Angenommen, $x$ besitze zwei Darstellungen
+  zur Basis $-10$.
+
+  Die letzte Ziffer ist jeweils eindeutig durch
+  \[
+    a_0\equiv x\pmod{10},
+    \qquad a_0\in\{0,\dots,9\}
+  \]
+  bestimmt.
+
+  Daher müssen beide Darstellungen dieselbe
+  letzte Ziffer besitzen.
+
+  Nach Abziehen von $a_0$ und Division
+  durch $-10$ erhalten wir
+  \[
+    \frac{x-a_0}{-10}.
+  \]
+
+  Dieses Argument lässt sich wiederholt
+  anwenden, sodass auch alle weiteren
+  Ziffern übereinstimmen müssen.
+
+  Da führende Nullen ausgeschlossen sind,
+  ist auch die Länge eindeutig.
+
+  Somit ist die Darstellung zur Basis $-10$
+  für jede ganze Zahl eindeutig.
+\end{myproof}
+
+
+\section{Quersummen}
+
+\dfn{Quersumme}{
+  Sei
+  \[
+    n=\sum_{i=0}^{l-1}z_i10^i
+  \]
+  die Dezimaldarstellung einer natürlichen Zahl.
+
+  Dann heißt
+  \[
+    q(n):=\sum_{i=0}^{l-1}z_i
+  \]
+  die \textbf{Quersumme} von $n$.
+
+  Für $t\in\bbN$ definieren wir rekursiv
+  \[
+    q_1(n):=q(n),
+    \qquad
+    q_{t+1}(n):=q(q_t(n)).
+  \]
+
+  Ferner definieren wir
+  \[
+    q^*(n):=q_{t_0}(n),
+  \]
+  wobei $t_0$ der kleinste natürliche Index
+  mit $q_{t_0}(n)\le9$ ist.
+}
+
+\qs{}{
+  Seien $a,b\in\bbN$. Zeigen Sie:
+  \[
+    \boxed{
+      q^*(q^*(a)\cdot q^*(b))
+      =q^*(a\cdot b).
+    }
+  \]
+}
+
+\begin{myproof}
+  Wir verwenden die Kongruenz
+  \[
+    10\equiv1\pmod9.
+  \]
+
+  Sei
+  \[
+    n=\sum_{i=0}^{l-1}z_i10^i.
+  \]
+  Dann folgt
+  \begin{align*}
+    n
+    &\equiv\sum_{i=0}^{l-1}z_i
+      \pmod9\\
+    &\equiv q(n)\pmod9.
+  \end{align*}
+
+  Durch wiederholte Anwendung erhalten wir
+  \[
+    q^*(n)\equiv n\pmod9.
+  \]
+
+  Außerdem gilt für alle $n\in\bbN$:
+  \[
+    q^*(n)\in\{1,\dots,9\}.
+  \]
+
+  Damit ist $q^*(n)$ die eindeutig bestimmte
+  Zahl aus $\{1,\dots,9\}$, die zu $n$
+  modulo $9$ kongruent ist.
+
+  Für $a,b\in\bbN$ folgt
+  \begin{align*}
+    q^*(a)\cdot q^*(b)
+    &\equiv a\cdot b\pmod9.
+  \end{align*}
+
+  Also gilt ebenso
+  \[
+    q^*(q^*(a)\cdot q^*(b))
+    \equiv a\cdot b\pmod9.
+  \]
+
+  Da beide Werte
+  \[
+    q^*(q^*(a)\cdot q^*(b))
+    \quad\text{und}\quad
+    q^*(a\cdot b)
+  \]
+  in $\{1,\dots,9\}$ liegen und modulo $9$
+  kongruent sind, müssen sie gleich sein.
+
+  Somit gilt
+  \[
+    \boxed{
+      q^*(q^*(a)\cdot q^*(b))
+      =q^*(a\cdot b).
+    }
+  \]
+\end{myproof}
+
+
+\section{Rechnen mit rationalen Zahlen}
+
+\qs{}{
+  Zeigen Sie, dass die Addition und Multiplikation
+  zweier rationaler Zahlen, deren Zähler und
+  Nenner jeweils höchstens $l$ Stellen haben,
+  in $O(l^2)$ Rechenschritten durchgeführt werden
+  können.
+}
+
+\begin{myproof}
+  Seien
+  \[
+    x=\frac ab,
+    \qquad
+    y=\frac cd,
+    \qquad b,d\ne0,
+  \]
+  wobei $a,b,c,d$ jeweils höchstens $l$
+  Dezimalstellen besitzen.
+
+  Wir verwenden die schriftlichen
+  Rechenverfahren.
+
+  \medskip
+  \textbf{Addition:}
+
+  Es gilt
+  \[
+    \frac ab+\frac cd
+    =\frac{ad+bc}{bd}.
+  \]
+
+  Dafür müssen wir drei Multiplikationen
+  und eine Addition durchführen.
+
+  Die schriftliche Multiplikation zweier
+  Zahlen mit höchstens $l$ Stellen benötigt
+  $O(l^2)$ Ziffernoperationen.
+
+  Somit benötigen
+  \[
+    ad,\qquad bc,\qquad bd
+  \]
+  jeweils $O(l^2)$ Schritte.
+
+  Die Addition von $ad$ und $bc$ benötigt
+  höchstens $O(l)$ Schritte, da beide Produkte
+  höchstens $2l$ Stellen besitzen.
+
+  Daher gilt insgesamt
+  \[
+    T_{\mathrm{Add}}(l)
+    =3\cdot O(l^2)+O(l)
+    =O(l^2).
+  \]
+
+  \medskip
+  \textbf{Multiplikation:}
+
+  Es gilt
+  \[
+    \frac ab\cdot\frac cd
+    =\frac{ac}{bd}.
+  \]
+
+  Hier sind lediglich zwei schriftliche
+  Multiplikationen nötig.
+
+  Beide benötigen jeweils $O(l^2)$ Schritte.
+  Somit folgt
+  \[
+    T_{\mathrm{Mult}}(l)
+    =2\cdot O(l^2)
+    =O(l^2).
+  \]
+
+  Also können Addition und Multiplikation
+  rationaler Zahlen mit höchstens $l$ Stellen
+  in Zähler und Nenner jeweils in
+  \[
+    \boxed{O(l^2)}
+  \]
+  Ziffernoperationen durchgeführt werden.
+\end{myproof}
+
+\nt{
+  Dabei wird das Ergebnis als Bruch dargestellt.
+  Ein anschließendes vollständiges Kürzen des
+  Bruchs ist für diese Abschätzung nicht erforderlich.
+}
+
+
+\section{Programmierteil}
+
+\qs{}{
+  Schreiben Sie
+  \begin{enumerate}
+    \item das Programm \texttt{prime.cpp}
+      (einfacher Primzahltest) so um, dass
+      anstelle der \texttt{for}-Schleife eine
+      \texttt{while}-Schleife benutzt wird;
+
+    \item das Programm \texttt{collatz.cpp}
+      (Collatz-Folge) so um, dass anstelle der
+      \texttt{while}-Schleife eine
+      \texttt{for}-Schleife benutzt wird.
+  \end{enumerate}
+
+  Es sind nur die in der Vorlesung behandelten
+  C++-Sprachelemente erlaubt.
+}
+
+\subsection{Primzahltest mit while-Schleife}
+\codefile{prime.cpp}{C++}
+
+\subsection{Collatz-Folge mit for-Schleife}
+\codefile{collatz.cpp}{C++}
+\end{document}
