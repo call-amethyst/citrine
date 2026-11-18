@@ -1,0 +1,871 @@
+% !TeX root = ../main.tex
+
+\chapter{Rechnen mit ganzen Zahlen}
+
+Bisher haben wir die Grundrechenarten als elementare
+Rechenoperationen betrachtet, die in konstanter Zeit
+ausgeführt werden können.
+
+Für beliebig große Zahlen ist diese Annahme jedoch
+nicht realistisch. Wir untersuchen daher die Laufzeit
+arithmetischer Operationen in Abhängigkeit von der
+Anzahl der Binärstellen.
+
+Als \textbf{elementare Rechenschritte} betrachten wir
+Operationen und Vergleiche auf Zahlen beschränkter Größe.
+
+
+\section{Addition und Subtraktion}
+
+Die Addition zweier Zahlen mit höchstens $l$ Binärstellen
+kann mit der schriftlichen Additionsmethode durchgeführt
+werden.
+
+Dabei wird jede Stelle höchstens eine konstante Anzahl
+von Malen betrachtet. Somit beträgt die Laufzeit $O(l)$.
+
+Durch die Verwendung der Vorzeichen- oder
+Komplementdarstellung lässt sich dieses Verfahren
+auch auf negative Zahlen und die Subtraktion erweitern.
+
+\thm{Laufzeit von Addition und Subtraktion}{
+  Für zwei ganze Zahlen $x,y\in\bbZ$ können
+  die Summe $x+y$ und die Differenz $x-y$
+  in Laufzeit
+  \[
+    \boxed{O(l)}
+  \]
+  berechnet werden, wobei
+  \[
+    l:=1+\left\lfloor
+      \log_2\bigl(\max\{|x|,|y|,1\}\bigr)
+    \right\rfloor.
+  \]
+}
+
+\begin{myproof}
+  Bei der schriftlichen Addition werden die
+  Binärstellen von rechts nach links durchlaufen.
+
+  Pro Stelle sind nur konstant viele Operationen
+  erforderlich. Daher beträgt die Laufzeit $O(l)$.
+
+  Die Subtraktion kann durch Addition der
+  negierten Zahl durchgeführt werden:
+  \[
+    x-y=x+(-y).
+  \]
+
+  Die Negation mittels Zweierkomplement
+  benötigt ebenfalls höchstens $O(l)$ Schritte.
+
+  Somit können beide Operationen in
+  $O(l)$ Zeit durchgeführt werden.
+\end{myproof}
+
+
+\section{Multiplikation}
+
+Die gewöhnliche schriftliche Multiplikation
+zweier Zahlen mit höchstens $l$ Stellen
+benötigt $O(l^2)$ Rechenschritte.
+
+Mit dem \textbf{Algorithmus von Karatsuba}
+lässt sich diese Laufzeit verbessern.
+
+\subsection{Karatsubas Algorithmus}
+
+Wir zerlegen zwei natürliche Zahlen $x,y$
+in jeweils zwei kleinere Zahlen:
+\[
+  x=x'B+x'',
+  \qquad
+  y=y'B+y'',
+\]
+wobei $B$ eine Potenz der verwendeten Basis ist.
+
+Dann gilt
+\begin{align*}
+  xy
+  &=(x'B+x'')(y'B+y'')\\
+  &=x'y'B^2+(x'y''+x''y')B+x''y''.
+\end{align*}
+
+Eine direkte Berechnung würde vier
+Multiplikationen kleinerer Zahlen benötigen.
+
+Karatsubas Idee besteht darin, nur
+\textbf{drei Multiplikationen} auszuführen.
+
+Wir definieren
+\begin{align*}
+  p&:=x'y',\\
+  q&:=x''y'',\\
+  r&:=(x'+x'')(y'+y'').
+\end{align*}
+
+Wegen
+\[
+  r=p+x'y''+x''y'+q
+\]
+folgt
+\[
+  x'y''+x''y'=r-p-q.
+\]
+
+Somit erhalten wir
+\[
+  \boxed{
+    xy=pB^2+(r-p-q)B+q.
+  }
+\]
+
+\nt{
+  Der entscheidende Vorteil von Karatsubas
+  Algorithmus liegt darin, dass nur drei
+  statt vier rekursive Multiplikationen
+  benötigt werden.
+
+  Die zusätzlichen Additionen und
+  Subtraktionen sind vergleichsweise günstig.
+}
+
+
+\dfn{Karatsubas Algorithmus}{
+  \textbf{Eingabe:} $x,y\in\bbN$ in Binärdarstellung.
+
+  \textbf{Ausgabe:} Das Produkt $xy$.
+
+  \begin{enumerate}
+    \item Falls $x<8$ und $y<8$,
+      berechne $xy$ direkt.
+
+    \item Andernfalls setze
+      \[
+        l:=1+\lfloor\log_2(\max\{x,y\})\rfloor,
+        \qquad
+        k:=\left\lfloor\frac l2\right\rfloor,
+        \qquad
+        B:=2^k.
+      \]
+
+    \item Zerlege die Zahlen:
+      \begin{align*}
+        x'&:=\left\lfloor\frac xB\right\rfloor,
+        &x''&:=x\bmod B,\\
+        y'&:=\left\lfloor\frac yB\right\rfloor,
+        &y''&:=y\bmod B.
+      \end{align*}
+
+    \item Berechne rekursiv
+      \begin{align*}
+        p&:=x'y',\\
+        q&:=x''y'',\\
+        r&:=(x'+x'')(y'+y'').
+      \end{align*}
+
+    \item Gib das Ergebnis
+      \[
+        xy=pB^2+(r-p-q)B+q
+      \]
+      aus.
+  \end{enumerate}
+}
+
+
+\ex{Karatsubas Algorithmus}{
+  Wir berechnen $13\cdot11$ mit $B=4$.
+
+  Zunächst zerlegen wir:
+  \begin{align*}
+    13&=3\cdot4+1,\\
+    11&=2\cdot4+3.
+  \end{align*}
+
+  Also gilt
+  \[
+    x'=3,\quad x''=1,\qquad
+    y'=2,\quad y''=3.
+  \]
+
+  Wir berechnen:
+  \begin{align*}
+    p&=3\cdot2=6,\\
+    q&=1\cdot3=3,\\
+    r&=(3+1)(2+3)=20.
+  \end{align*}
+
+  Damit folgt
+  \begin{align*}
+    13\cdot11
+    &=6\cdot4^2+(20-6-3)\cdot4+3\\
+    &=96+44+3\\
+    &=143.
+  \end{align*}
+}
+
+
+\thm{Laufzeit von Karatsubas Algorithmus}{
+  Die Multiplikation zweier natürlicher Zahlen
+  $x,y$ in Binärdarstellung ist mit
+  Karatsubas Algorithmus in Laufzeit
+  \[
+    \boxed{O(l^{\log_2 3})}
+  \]
+  möglich, wobei
+  \[
+    l:=1+\lfloor\log_2(\max\{x,y\})\rfloor.
+  \]
+}
+
+\begin{myproof}
+  \textbf{Korrektheit:}
+
+  Die Korrektheit folgt unmittelbar aus
+  \[
+    xy=pB^2+(r-p-q)B+q.
+  \]
+
+  \medskip
+  \textbf{Laufzeit:}
+
+  Sei $T(l)$ die maximale Anzahl elementarer
+  Rechenschritte für Eingaben mit höchstens
+  $l$ Binärstellen.
+
+  Die drei rekursiven Multiplikationen
+  erhalten Eingaben mit höchstens
+  \[
+    \left\lceil\frac l2\right\rceil+1
+  \]
+  Binärstellen.
+
+  Alle übrigen Operationen benötigen
+  insgesamt $O(l)$ Zeit.
+
+  Somit existiert eine Konstante $c>0$ mit
+  \[
+    T(l)\le
+    \begin{cases}
+      c,&l\le3,\\[2mm]
+      cl+3T\left(
+        \left\lceil\frac l2\right\rceil+1
+      \right),&l\ge4.
+    \end{cases}
+  \]
+
+  Wir zeigen zunächst durch Induktion über
+  $m\in\bbN_0$, dass
+  \[
+    T(2^m+2)
+    \le c(4\cdot3^m-2\cdot2^m-1).
+  \]
+
+  \textbf{Induktionsanfang:}
+
+  Für $m=0$ gilt
+  \[
+    T(3)\le c
+    =c(4-2-1).
+  \]
+
+  \textbf{Induktionsschritt:}
+
+  Angenommen, die Aussage gilt für $m-1$.
+
+  Dann erhalten wir
+  \begin{align*}
+    T(2^m+2)
+    &\le c(2^m+2)
+      +3T(2^{m-1}+2)\\
+    &\le c(2^m+2)
+      +3c(4\cdot3^{m-1}
+      -2\cdot2^{m-1}-1)\\
+    &=c(4\cdot3^m-2\cdot2^m-1).
+  \end{align*}
+
+  Damit ist die Abschätzung bewiesen.
+
+  Für beliebiges $l>2$ wählen wir
+  \[
+    m:=\lceil\log_2(l-2)\rceil.
+  \]
+
+  Wegen $l\le2^m+2$ folgt, unter Verwendung
+  der monotonen Worst-Case-Schranke,
+  \begin{align*}
+    T(l)
+    &\le T(2^m+2)\\
+    &<4c\cdot3^m\\
+    &<12c\cdot3^{\log_2 l}\\
+    &=12c\cdot l^{\log_2 3}.
+  \end{align*}
+
+  Also gilt
+  \[
+    T(l)\in O(l^{\log_2 3}).
+  \]
+\end{myproof}
+
+\nt{
+  Da
+  \[
+    \log_2 3\approx1{,}585<2,
+  \]
+  ist Karatsubas Algorithmus asymptotisch
+  schneller als die schriftliche Multiplikation:
+  \[
+    O(l^{1{,}585})
+    \quad\text{statt}\quad
+    O(l^2).
+  \]
+
+  In der Praxis werden kleine Zahlen direkt
+  multipliziert. Erst bei größeren Zahlen
+  lohnt sich die rekursive Zerlegung.
+}
+
+
+\section{Euklidischer Algorithmus}
+
+Der \textbf{euklidische Algorithmus}
+berechnet den größten gemeinsamen Teiler
+zweier natürlicher Zahlen.
+
+Insbesondere kann man damit Brüche kürzen.
+
+
+\dfn{Größter gemeinsamer Teiler und kgV}{
+  Für $a,b\in\bbN$ bezeichnet
+  \[
+    \operatorname{ggT}(a,b)
+  \]
+  den größten gemeinsamen Teiler von $a$ und $b$.
+
+  Falls
+  \[
+    \operatorname{ggT}(a,b)=1,
+  \]
+  heißen $a$ und $b$ \textbf{teilerfremd}.
+
+  Für $a\in\bbN$ setzen wir
+  \[
+    \operatorname{ggT}(a,0)
+    =\operatorname{ggT}(0,a):=a
+  \]
+  sowie
+  \[
+    \operatorname{ggT}(0,0):=0.
+  \]
+
+  Das \textbf{kleinste gemeinsame Vielfache}
+  \[
+    \operatorname{kgV}(a,b)
+  \]
+  ist die kleinste natürliche Zahl,
+  die sowohl durch $a$ als auch durch $b$
+  teilbar ist.
+}
+
+
+\mlemma{Eigenschaften von ggT und kgV}{
+  Für alle $a,b\in\bbN$ gilt:
+  \begin{enumerate}
+    \item
+      \[
+        ab=\operatorname{ggT}(a,b)
+        \cdot\operatorname{kgV}(a,b).
+      \]
+
+    \item
+      \[
+        \operatorname{ggT}(a,b)
+        =\operatorname{ggT}(a\bmod b,b).
+      \]
+  \end{enumerate}
+}
+
+\begin{myproof}
+  \textbf{1.}
+
+  Setze
+  \[
+    d:=\operatorname{ggT}(a,b),
+    \qquad a=du,\quad b=dv.
+  \]
+  Dann sind $u$ und $v$ teilerfremd.
+
+  Die Zahl
+  \[
+    duv=\frac{ab}{d}
+  \]
+  ist ein gemeinsames Vielfaches von
+  $a$ und $b$.
+
+  Ist $m$ ein beliebiges gemeinsames
+  Vielfaches, so existieren $s,t\in\bbN$
+  mit
+  \[
+    m=as=bt.
+  \]
+
+  Daraus folgt
+  \[
+    us=vt.
+  \]
+
+  Wegen $\operatorname{ggT}(u,v)=1$
+  gilt $v\mid s$. Somit ist
+  \[
+    duv\mid m.
+  \]
+
+  Daher ist $duv$ das kleinste gemeinsame
+  Vielfache und es folgt
+  \[
+    \operatorname{kgV}(a,b)=\frac{ab}{d}.
+  \]
+
+  Also
+  \[
+    ab=\operatorname{ggT}(a,b)
+       \operatorname{kgV}(a,b).
+  \]
+
+  \medskip
+  \textbf{2.}
+
+  Nach der Division mit Rest gilt
+  \[
+    a=b\left\lfloor\frac ab\right\rfloor
+      +(a\bmod b).
+  \]
+
+  Ist $d$ ein gemeinsamer Teiler von
+  $a$ und $b$, so teilt $d$ auch
+  \[
+    a-b\left\lfloor\frac ab\right\rfloor
+    =a\bmod b.
+  \]
+
+  Umgekehrt teilt jeder gemeinsame Teiler
+  von $a\bmod b$ und $b$ auch
+  \[
+    (a\bmod b)
+    +b\left\lfloor\frac ab\right\rfloor
+    =a.
+  \]
+
+  Somit besitzen $(a,b)$ und
+  $(a\bmod b,b)$ dieselben gemeinsamen
+  Teiler und daher denselben ggT.
+\end{myproof}
+
+
+\dfn{Euklidischer Algorithmus}{
+  \textbf{Eingabe:} $a,b\in\bbN$.
+
+  \textbf{Ausgabe:} $\operatorname{ggT}(a,b)$.
+
+  \begin{enumerate}
+    \item Solange $a>0$ und $b>0$:
+      \begin{itemize}
+        \item Falls $a<b$, setze
+          \[
+            b\leftarrow b\bmod a.
+          \]
+        \item Andernfalls setze
+          \[
+            a\leftarrow a\bmod b.
+          \]
+      \end{itemize}
+
+    \item Gib $\max\{a,b\}$ aus.
+  \end{enumerate}
+}
+
+\nt{
+  Bei jedem Schritt bleibt der größte
+  gemeinsame Teiler unverändert.
+
+  Gleichzeitig wird mindestens eine der
+  beiden Zahlen kleiner. Da alle Werte
+  nichtnegative ganze Zahlen sind,
+  terminiert der Algorithmus.
+
+  Sobald einer der Werte $0$ ist,
+  entspricht der andere dem ggT.
+}
+
+
+\ex{Euklidischer Algorithmus}{
+  Wir berechnen
+  \[
+    \operatorname{ggT}(6314,2800).
+  \]
+
+  Durch wiederholte Division mit Rest:
+  \begin{align*}
+    6314&=2\cdot2800+714,\\
+    2800&=3\cdot714+658,\\
+    714&=1\cdot658+56,\\
+    658&=11\cdot56+42,\\
+    56&=1\cdot42+14,\\
+    42&=3\cdot14+0.
+  \end{align*}
+
+  Somit folgt
+  \[
+    \boxed{\operatorname{ggT}(6314,2800)=14.}
+  \]
+}
+
+
+\subsection{Fibonacci-Zahlen}
+
+Für eine genauere Laufzeitanalyse des
+euklidischen Algorithmus betrachten wir
+die \textbf{Fibonacci-Zahlen}.
+
+\dfn{Fibonacci-Zahlen}{
+  Die Fibonacci-Folge $(F_n)_{n\in\bbN_0}$
+  wird rekursiv definiert durch
+  \[
+    F_0:=0,\qquad F_1:=1
+  \]
+  und
+  \[
+    F_{n+1}:=F_n+F_{n-1}
+    \qquad(n\ge1).
+  \]
+
+  Die ersten Folgenglieder lauten
+  \[
+    0,1,1,2,3,5,8,13,21,34,55,\dots
+  \]
+}
+
+
+\mlemma{Explizite Formel der Fibonacci-Zahlen}{
+  Für alle $n\in\bbN_0$ gilt
+  \[
+    \boxed{
+      F_n=
+      \frac1{\sqrt5}
+      \left(
+        \left(\frac{1+\sqrt5}{2}\right)^n
+        -
+        \left(\frac{1-\sqrt5}{2}\right)^n
+      \right).
+    }
+  \]
+}
+
+\begin{myproof}
+  Wir führen vollständige Induktion über $n$.
+
+  \textbf{Induktionsanfang:}
+
+  Für $n=0$ gilt
+  \[
+    F_0=\frac{1-1}{\sqrt5}=0.
+  \]
+
+  Für $n=1$ erhalten wir
+  \[
+    F_1
+    =\frac1{\sqrt5}
+     \left(
+       \frac{1+\sqrt5}{2}
+       -\frac{1-\sqrt5}{2}
+     \right)
+    =1.
+  \]
+
+  \textbf{Induktionsschritt:}
+
+  Setze
+  \[
+    \varphi:=\frac{1+\sqrt5}{2},
+    \qquad
+    \psi:=\frac{1-\sqrt5}{2}.
+  \]
+
+  Es gilt
+  \[
+    \varphi^2=\varphi+1,
+    \qquad
+    \psi^2=\psi+1.
+  \]
+
+  Angenommen, die Formel gilt für
+  $n-1$ und $n-2$.
+
+  Dann folgt für $n\ge2$:
+  \begin{align*}
+    F_n
+    &=F_{n-1}+F_{n-2}\\
+    &=\frac1{\sqrt5}
+      \left(
+        \varphi^{n-1}-\psi^{n-1}
+        +\varphi^{n-2}-\psi^{n-2}
+      \right)\\
+    &=\frac1{\sqrt5}
+      \left(
+        \varphi^{n-2}(\varphi+1)
+        -\psi^{n-2}(\psi+1)
+      \right)\\
+    &=\frac1{\sqrt5}
+      \left(\varphi^n-\psi^n\right).
+  \end{align*}
+
+  Damit gilt die Formel für alle
+  $n\in\bbN_0$.
+\end{myproof}
+
+
+\subsection{Laufzeit des euklidischen Algorithmus}
+
+\mlemma{Fibonacci-Abschätzung}{
+  Seien $a>b>0$ und durchlaufe der
+  euklidische Algorithmus $k\ge1$
+  Iterationen.
+
+  Dann gilt
+  \[
+    \boxed{
+      a\ge F_{k+2},
+      \qquad
+      b\ge F_{k+1}.
+    }
+  \]
+}
+
+\begin{myproof}
+  Wir führen Induktion über $k$.
+
+  \textbf{Induktionsanfang:}
+
+  Für $k=1$ gilt wegen $a>b>0$:
+  \[
+    a\ge2=F_3,
+    \qquad
+    b\ge1=F_2.
+  \]
+
+  \textbf{Induktionsschritt:}
+
+  Sei $k\ge2$ und die Aussage für
+  $k-1$ Iterationen bereits bewiesen.
+
+  Nach der ersten Iteration betrachten
+  wir die Zahlen
+  \[
+    b,\qquad a\bmod b.
+  \]
+
+  Da noch $k-1$ Iterationen verbleiben,
+  gilt nach Induktionsvoraussetzung
+  \[
+    b\ge F_{k+1},
+    \qquad
+    a\bmod b\ge F_k.
+  \]
+
+  Wegen $a>b$ gilt
+  \[
+    \left\lfloor\frac ab\right\rfloor\ge1.
+  \]
+
+  Somit folgt
+  \begin{align*}
+    a
+    &=\left\lfloor\frac ab\right\rfloor b
+      +(a\bmod b)\\
+    &\ge b+(a\bmod b)\\
+    &\ge F_{k+1}+F_k\\
+    &=F_{k+2}.
+  \end{align*}
+
+  Damit ist die Behauptung bewiesen.
+\end{myproof}
+
+
+\thm{Satz von Lamé}{
+  Seien $a\ge b$ und
+  \[
+    b<F_{k+1}
+  \]
+  für ein $k\in\bbN$.
+
+  Dann benötigt der euklidische Algorithmus
+  \textbf{weniger als $k$ Iterationen}.
+}
+
+\begin{myproof}
+  Falls $b=0$, benötigt der Algorithmus
+  keine Iteration.
+
+  Falls $a=b>0$, benötigt er genau eine
+  Iteration. Für $k\ge2$ ist dies weniger
+  als $k$; für $k=1$ ist die Voraussetzung
+  $b<F_2=1$ nicht erfüllt.
+
+  Sei daher $a>b>0$.
+
+  Angenommen, der Algorithmus benötige
+  mindestens $k$ Iterationen.
+
+  Nach dem vorherigen Lemma würde dann
+  gelten
+  \[
+    b\ge F_{k+1}.
+  \]
+
+  Dies widerspricht der Voraussetzung
+  \[
+    b<F_{k+1}.
+  \]
+
+  Also benötigt der Algorithmus weniger
+  als $k$ Iterationen.
+\end{myproof}
+
+
+\nt{
+  Der Satz von Lamé ist \textbf{bestmöglich}.
+
+  Für zwei aufeinanderfolgende Fibonacci-Zahlen
+  \[
+    a=F_{k+2},
+    \qquad
+    b=F_{k+1}
+  \]
+  benötigt der euklidische Algorithmus
+  genau $k$ Iterationen.
+
+  Denn wegen
+  \[
+    F_{k+2}=F_{k+1}+F_k
+  \]
+  werden die Eingaben bei jeder Iteration
+  auf das vorherige Paar von
+  Fibonacci-Zahlen zurückgeführt.
+}
+
+
+\cor{Laufzeit des euklidischen Algorithmus}{
+  Seien $a\ge b>1$ und
+  \[
+    \varphi:=\frac{1+\sqrt5}{2}.
+  \]
+
+  Dann benötigt der euklidische Algorithmus
+  höchstens
+  \[
+    \boxed{\lceil\log_\varphi b\rceil}
+  \]
+  Iterationen.
+
+  Die Gesamtlaufzeit beträgt
+  \[
+    \boxed{O((\log a)^3).}
+  \]
+}
+
+\begin{myproof}
+  Zunächst zeigen wir durch Induktion,
+  dass für alle $n\ge3$ gilt:
+  \[
+    F_n>\varphi^{n-2}.
+  \]
+
+  \textbf{Induktionsanfang:}
+
+  Für $n=3$ gilt
+  \[
+    F_3=2>\varphi.
+  \]
+
+  \textbf{Induktionsschritt:}
+
+  Für $n\ge4$ folgt aus den
+  Induktionsvoraussetzungen
+  \begin{align*}
+    F_{n+1}
+    &=F_n+F_{n-1}\\
+    &>\varphi^{n-2}
+      +\varphi^{n-3}\\
+    &=\varphi^{n-3}(\varphi+1)\\
+    &=\varphi^{n-1},
+  \end{align*}
+  da $\varphi^2=\varphi+1$.
+
+  Somit gilt die Behauptung.
+
+  \medskip
+  Setze nun
+  \[
+    k:=1+\lceil\log_\varphi b\rceil.
+  \]
+
+  Dann ist $k\ge2$ und
+  \[
+    b\le\varphi^{k-1}<F_{k+1}.
+  \]
+
+  Nach dem Satz von Lamé benötigt
+  der Algorithmus weniger als $k$,
+  also höchstens
+  \[
+    \lceil\log_\varphi b\rceil
+  \]
+  Iterationen.
+
+  \medskip
+  \textbf{Gesamtlaufzeit:}
+
+  In jeder Iteration wird eine Division
+  mit Rest berechnet.
+
+  Für Zahlen mit höchstens
+  $O(\log a)$ Binärstellen benötigt
+  die schriftliche Division höchstens
+  \[
+    O((\log a)^2)
+  \]
+  Rechenschritte.
+
+  Da es höchstens $O(\log a)$
+  Iterationen gibt, folgt insgesamt
+  \[
+    O(\log a)\cdot O((\log a)^2)
+    =\boxed{O((\log a)^3)}.
+  \]
+\end{myproof}
+
+
+\nt{
+  Die Zahl
+  \[
+    \varphi=\frac{1+\sqrt5}{2}
+    \approx1{,}618
+  \]
+  heißt \textbf{goldener Schnitt}.
+
+  Da
+  \[
+    \left|\frac{1-\sqrt5}{2}\right|<1,
+  \]
+  folgt aus der expliziten Fibonacci-Formel
+  die Näherung
+  \[
+    F_n\approx\frac{\varphi^n}{\sqrt5}.
+  \]
+
+  Die Fibonacci-Zahlen wachsen also
+  exponentiell. Deshalb ist die Anzahl
+  der Iterationen des euklidischen
+  Algorithmus nur logarithmisch
+  in der Größe der Eingabe.
+}

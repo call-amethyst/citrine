@@ -1,0 +1,468 @@
+\documentclass{report}
+\usepackage{cmt}
+
+\title{\huge{Algorithmische Mathematik I \\ Übungszettel 5}}
+\author{\huge{Amy, Rojan}}
+\date{2026-11-19}
+
+\begin{document}
+
+\maketitle
+
+\nt{
+  Den Übungszettel gibt es
+  \href{run:./pset_2026-11-12.pdf}{hier}.
+}
+
+\qs{}{
+  Zeigen Sie, dass man mithilfe von Karatsubas Algorithmus
+  zwei natürliche Zahlen mit $k$- bzw. $l$-stelliger
+  Binärdarstellung, wobei $k\le l$ gilt, in
+  \[
+    O\left(k^{\log_2 3-1}\cdot l\right)
+  \]
+  Zeit multiplizieren kann.
+}
+
+\begin{myproof}
+  Seien $a,b\in\bbN$, wobei $a$ höchstens $k$
+  und $b$ höchstens $l$ Binärstellen besitzt.
+
+  Wir zerlegen $b$ in Blöcke mit jeweils
+  höchstens $k$ Binärstellen. Setze
+  \[
+    m:=\left\lceil\frac lk\right\rceil.
+  \]
+  Dann existieren $b_0,\dots,b_{m-1}$ mit
+  $0\le b_i<2^k$, sodass
+  \[
+    b=\sum_{i=0}^{m-1}b_i2^{ik}.
+  \]
+
+  Durch Multiplikation mit $a$ folgt
+  \[
+    ab=\sum_{i=0}^{m-1}(ab_i)2^{ik}.
+  \]
+
+  Jedes Teilprodukt $ab_i$ kann mit Karatsubas
+  Algorithmus in
+  \[
+    O(k^{\log_2 3})
+  \]
+  Zeit berechnet werden, da beide Faktoren
+  höchstens $k$ Binärstellen besitzen.
+
+  Für die insgesamt $m$ Teilprodukte ergibt sich
+  somit eine Laufzeit von
+  \[
+    O\left(mk^{\log_2 3}\right)
+    =
+    O\left(\frac lk\,k^{\log_2 3}\right)
+    =
+    O\left(lk^{\log_2 3-1}\right).
+  \]
+
+  Es bleibt zu zeigen, dass das Zusammensetzen
+  der Teilprodukte nicht mehr Zeit benötigt.
+
+  Jedes Teilprodukt $ab_i$ besitzt höchstens
+  $2k$ Binärstellen.
+
+  Wir teilen die Summe in gerade und ungerade
+  Blockindizes auf:
+  \begin{align*}
+    S_0&:=\sum_{\substack{0\le i<m\\i\text{ gerade}}}
+      (ab_i)2^{ik},\\
+    S_1&:=\sum_{\substack{0\le i<m\\i\text{ ungerade}}}
+      (ab_i)2^{ik}.
+  \end{align*}
+
+  Innerhalb jeder Summe überlappen die
+  Binärblöcke nicht, da aufeinanderfolgende
+  Indizes derselben Parität einen Abstand
+  von mindestens $2$ haben.
+
+  Somit können $S_0$ und $S_1$ durch
+  Aneinanderfügen der Blöcke in $O(l)$
+  Zeit gebildet werden.
+
+  Die abschließende Addition
+  \[
+    ab=S_0+S_1
+  \]
+  benötigt ebenfalls $O(l)$ Zeit.
+
+  Insgesamt gilt daher
+  \begin{align*}
+    T(k,l)
+    &\in O\left(
+      \left\lceil\frac lk\right\rceil
+      k^{\log_2 3}+l
+    \right)\\
+    &=O\left(lk^{\log_2 3-1}\right),
+  \end{align*}
+  da $k\le l$ und $\log_2 3>1$.
+
+  Damit ist die Behauptung bewiesen.
+\end{myproof}
+
+
+\newpage
+
+\qs{}{
+  Zeigen Sie, dass es für alle natürlichen Zahlen
+  $m$ und $n$ ganze Zahlen $s$ und $t$ gibt,
+  für die
+  \[
+    \operatorname{ggT}(m,n)=s\cdot m+t\cdot n
+  \]
+  gilt.
+}
+
+\sol
+\begin{myproof}
+  Wir verwenden den erweiterten euklidischen Algorithmus.
+
+  Zu Beginn gilt
+  \[
+    m=1\cdot m+0\cdot n,
+    \qquad
+    n=0\cdot m+1\cdot n.
+  \]
+
+  Wir zeigen, dass jeder Rest des euklidischen
+  Algorithmus eine ganzzahlige Linearkombination
+  von $m$ und $n$ ist.
+
+  Seien dazu zwei aufeinanderfolgende Reste
+  \[
+    a=s_1m+t_1n,
+    \qquad
+    b=s_2m+t_2n
+  \]
+  mit $s_1,s_2,t_1,t_2\in\bbZ$.
+
+  Nach Division mit Rest gilt für ein $q\in\bbZ$:
+  \[
+    r=a-qb.
+  \]
+
+  Durch Einsetzen erhalten wir
+  \begin{align*}
+    r
+    &=s_1m+t_1n-q(s_2m+t_2n)\\
+    &=(s_1-qs_2)m+(t_1-qt_2)n.
+  \end{align*}
+
+  Da $s_1-qs_2,t_1-qt_2\in\bbZ$,
+  besitzt auch $r$ die gewünschte Darstellung.
+
+  Der letzte von null verschiedene Rest
+  des euklidischen Algorithmus ist
+  $\operatorname{ggT}(m,n)$.
+
+  Somit existieren $s,t\in\bbZ$ mit
+  \[
+    \boxed{\operatorname{ggT}(m,n)=sm+tn.}
+  \]
+\end{myproof}
+\newpage
+
+\qs{}{
+  Beweisen Sie die Korrektheit der folgenden Funktion
+  zur Berechnung des größten gemeinsamen Teilers
+  zweier nichtnegativer ganzer Zahlen.
+
+  Diese Funktion kommt ohne allgemeine Division
+  mit Rest aus. Sie benutzt neben Vergleichen und
+  Subtraktionen nur Multiplikationen und Divisionen
+  mit $2$ sowie Tests auf gerade bzw. ungerade Zahlen,
+  die in Binärdarstellung besonders einfach und schnell
+  realisierbar sind.
+
+  Welche Laufzeit hat diese Funktion für zwei Zahlen
+  mit höchstens $l$ Binärstellen?
+
+  Vergleichen Sie diese mit der Laufzeitschranke
+  für den euklidischen Algorithmus.
+
+  Warum werden in Zeile 10 die Argumente der Funktion
+  \texttt{gcd2} vertauscht und wird nicht
+  \texttt{gcd2(a / 2, b)} aufgerufen?
+}
+
+
+\begin{codeblock}{C++}
+// compute greatest common divisor
+// using the binary Euclidean algorithm
+
+int gcd2(int a, int b) {
+    if (b == 0) {
+        return a;
+    }
+    if (a % 2 == 0 and b % 2 == 0) {
+        // both even
+        return 2 * gcd2(a / 2, b / 2);
+    }
+    if (a % 2 == 0) {
+        // only a even
+        return gcd2(b, a / 2);
+    }
+    if (b % 2 == 0) {
+        // only b even
+        return gcd2(a, b / 2);
+    }
+    if (a < b) {
+        // both odd
+        return gcd2(a, (b - a) / 2);
+    }
+    return gcd2(b, (a - b) / 2);
+}
+\end{codeblock}
+
+\sol
+
+\begin{myproof}
+  Wir zeigen zunächst die Korrektheit und Terminierung
+  des Algorithmus und untersuchen anschließend
+  seine Laufzeit.
+
+  \medskip
+  \textbf{1. Korrektheit:}
+
+  Wir zeigen, dass jeder rekursive Aufruf
+  den größten gemeinsamen Teiler erhält,
+  wobei im ersten Fall ein Faktor $2$
+  berücksichtigt werden muss.
+
+  \textbf{Fall 1:} $b=0$.
+
+  Dann gilt
+  \[
+    \operatorname{ggT}(a,0)=a.
+  \]
+  Der Algorithmus gibt also den korrekten Wert zurück.
+
+  \textbf{Fall 2:} $a$ und $b$ sind gerade.
+
+  Dann gilt
+  \[
+    \operatorname{ggT}(a,b)
+    =2\operatorname{ggT}\left(
+      \frac a2,\frac b2
+    \right).
+  \]
+  Der rekursive Aufruf liefert somit nach
+  Multiplikation mit $2$ den gesuchten ggT.
+
+  \textbf{Fall 3:} Genau eine Zahl ist gerade.
+
+  Ist $a$ gerade und $b$ ungerade, so gilt
+  \[
+    \operatorname{ggT}(a,b)
+    =\operatorname{ggT}\left(
+      b,\frac a2
+    \right).
+  \]
+  Denn jeder gemeinsame Teiler muss ungerade
+  sein, sodass der Faktor $2$ entfernt
+  werden kann.
+
+  Ist dagegen $b$ gerade und $a$ ungerade,
+  gilt entsprechend
+  \[
+    \operatorname{ggT}(a,b)
+    =\operatorname{ggT}\left(
+      a,\frac b2
+    \right).
+  \]
+
+  \textbf{Fall 4:} $a$ und $b$ sind ungerade.
+
+  Für $a<b$ gilt
+  \begin{align*}
+    \operatorname{ggT}(a,b)
+    &=\operatorname{ggT}(a,b-a)\\
+    &=\operatorname{ggT}\left(
+      a,\frac{b-a}{2}
+    \right).
+  \end{align*}
+
+  Analog gilt für $a\ge b$:
+  \[
+    \operatorname{ggT}(a,b)
+    =\operatorname{ggT}\left(
+      b,\frac{a-b}{2}
+    \right).
+  \]
+
+  Somit liefern alle rekursiven Aufrufe
+  den korrekten größten gemeinsamen Teiler.
+
+  \medskip
+  \textbf{2. Terminierung:}
+
+  Bei jedem rekursiven Aufruf mit
+  $a,b>0$ wird mindestens eine der Zahlen
+  echt kleiner, während die andere
+  nicht größer wird.
+
+  Insbesondere sinkt die Summe $a+b$
+  bei jedem solchen Schritt strikt.
+
+  Da $a+b\in\bbN$ ist, kann dies
+  nicht unendlich oft geschehen.
+
+  Falls $a=0$ und $b>0$, so wird
+  entweder $b$ halbiert oder direkt
+  der Aufruf $\operatorname{gcd2}(b,0)$
+  erreicht.
+
+  Damit wird nach endlich vielen Schritten
+  der Abbruchfall $b=0$ erreicht.
+  Der Algorithmus terminiert also.
+
+  Zusammen mit der Korrektheit der
+  rekursiven Schritte folgt, dass
+  die Funktion den ggT berechnet.
+
+  \medskip
+  \textbf{3. Laufzeit:}
+
+  Seien $a$ und $b$ Zahlen mit höchstens
+  $l$ Binärstellen.
+
+  Wir betrachten die Summe der Bitlängen
+  \[
+    L(a,b):=\ell(a)+\ell(b),
+  \]
+  wobei $\ell(0):=0$ gilt.
+
+  Bei jedem rekursiven Aufruf mit
+  $a,b>0$ wird mindestens eine positive
+  Zahl durch eine Zahl ersetzt, die
+  höchstens halb so groß ist.
+
+  Daher sinkt $L(a,b)$ bei jedem
+  solchen Aufruf um mindestens $1$.
+
+  Anfangs gilt
+  \[
+    L(a,b)\le2l.
+  \]
+
+  Folglich gibt es höchstens $O(l)$
+  rekursive Aufrufe.
+
+  Jeder Aufruf benötigt für Vergleiche,
+  Subtraktionen und Halbierungen höchstens
+  $O(l)$ Bitoperationen.
+
+  Somit beträgt die Gesamtlaufzeit
+  \[
+    \boxed{T(l)\in O(l^2).}
+  \]
+
+  Der gewöhnliche euklidische Algorithmus
+  besitzt mit schriftlicher Division die
+  Laufzeitschranke $O(l^3)$.
+
+  Der binäre euklidische Algorithmus
+  hat somit eine bessere asymptotische
+  obere Schranke.
+
+  \medskip
+  \textbf{4. Vertauschung der Argumente:}
+
+  In Zeile 10 wird
+  \[
+    \operatorname{gcd2}\left(b,\frac a2\right)
+  \]
+  statt
+  \[
+    \operatorname{gcd2}\left(\frac a2,b\right)
+  \]
+  aufgerufen.
+
+  Die Vertauschung ist für die
+  Terminierung bei $a=0$ notwendig.
+
+  Beispielsweise würde ohne Vertauschung
+  der Aufruf
+  \[
+    \operatorname{gcd2}(0,3)
+  \]
+  immer wieder sich selbst aufrufen.
+
+  Mit Vertauschung entsteht dagegen
+  \[
+    \operatorname{gcd2}(3,0),
+  \]
+  sodass der Abbruchfall erreicht wird.
+\end{myproof}
+
+\newpage
+
+\qs{}{
+  Beweisen Sie die folgenden Aussagen
+  über die Fibonacci-Zahlen:
+  \begin{enumerate}
+    \item Die \textbf{Cassini-Identität}:
+      \[
+        F_{n+1}F_{n-1}-F_n^2=(-1)^n,
+        \qquad n\ge1.
+      \]
+
+    \item Für $k\ge1$ und $n\ge0$ gilt:
+      \[
+        F_{n+k}
+        =F_kF_{n+1}+F_{k-1}F_n.
+      \]
+
+    \item Für $k\ge1$ ist $F_{kn}$
+      ein Vielfaches von $F_n$.
+
+    \item Für $m,n\ge1$ gilt:
+      \[
+        \operatorname{ggT}(F_m,F_n)
+        =F_{\operatorname{ggT}(m,n)}.
+      \]
+  \end{enumerate}
+
+  \textbf{Hinweis zu (d):}
+
+  Beweisen Sie zunächst unter Verwendung von
+  (b) und (c), dass
+  \[
+    \operatorname{ggT}(F_m,F_n)
+    =\operatorname{ggT}(F_n,F_r)
+  \]
+  gilt, falls $m$ mit Rest $r$ durch $n$
+  teilbar ist.
+
+  Beachten Sie außerdem, dass je zwei
+  aufeinanderfolgende Fibonacci-Zahlen
+  teilerfremd sind.
+}
+
+\newpage
+
+\qs{}{
+  Ergänzen Sie in der \texttt{add}-Funktion
+  der Klasse \texttt{Fraction} einen Test,
+  der vor jeder Rechenoperation prüft,
+  ob ein Überlauf auftreten würde, und
+  in diesem Fall mittels \texttt{throw}
+  eine Ausnahme auslöst.
+
+  Beachten Sie, dass ein Überlauf sowohl
+  in einer der drei Multiplikationen
+  als auch bei der Addition auftreten kann.
+
+  Nennen Sie die so modifizierte
+  \texttt{add}-Funktion \texttt{add\_safe}.
+}
+
+\sol
+
+\end{document}
