@@ -445,6 +445,241 @@ int gcd2(int a, int b) {
   teilerfremd sind.
 }
 
+\sol
+
+\subsection*{a) Cassini-Identität}
+
+\begin{myproof}
+  Wir beweisen die Aussage durch vollständige
+  Induktion über $n$.
+
+  \textbf{Induktionsanfang:} $n=1$.
+
+  \[
+    F_2F_0-F_1^2
+    =1\cdot0-1^2
+    =-1=(-1)^1.
+  \]
+
+  \textbf{Induktionsvoraussetzung:}
+
+  Für ein $n\ge1$ gelte
+  \[
+    F_{n+1}F_{n-1}-F_n^2=(-1)^n.
+  \]
+
+  \textbf{Induktionsschritt:}
+
+  Mit der Rekursionsformel der Fibonacci-Zahlen
+  erhalten wir:
+  \begin{align*}
+    F_{n+2}F_n-F_{n+1}^2
+    &=(F_{n+1}+F_n)F_n-F_{n+1}^2\\
+    &=F_n^2+F_{n+1}(F_n-F_{n+1})\\
+    &=F_n^2-F_{n+1}F_{n-1}\\
+    &=-(F_{n+1}F_{n-1}-F_n^2)\\
+    &=-(-1)^n\\
+    &=(-1)^{n+1}.
+  \end{align*}
+
+  Damit gilt die Behauptung für alle $n\ge1$.
+\end{myproof}
+
+
+\subsection*{b) Additionsformel}
+
+\begin{myproof}
+  Wir beweisen die Aussage durch vollständige
+  Induktion über $k$mit $n\ge0$.
+
+  \textbf{Induktionsanfang:}
+
+  Für $k=1$ gilt:
+  \[
+    F_1F_{n+1}+F_0F_n
+    =1\cdot F_{n+1}+0\cdot F_n
+    =F_{n+1}.
+  \]
+
+  Für $k=2$ gilt:
+  \[
+    F_2F_{n+1}+F_1F_n
+    =F_{n+1}+F_n
+    =F_{n+2}.
+  \]
+
+  \textbf{Induktionsvoraussetzung:}
+
+  Die Behauptung gelte für zwei aufeinanderfolgende
+  Indizes $k$ und $k-1$, wobei $k\ge2$:
+  \begin{align*}
+    F_{n+k}
+    &=F_kF_{n+1}+F_{k-1}F_n,\\
+    F_{n+k-1}
+    &=F_{k-1}F_{n+1}+F_{k-2}F_n.
+  \end{align*}
+
+  \textbf{Induktionsschritt:}
+
+  \begin{align*}
+    F_{n+k+1}
+    &=F_{n+k}+F_{n+k-1}\\
+    &=(F_kF_{n+1}+F_{k-1}F_n)\\
+    &\quad +(F_{k-1}F_{n+1}+F_{k-2}F_n)\\
+    &=F_{n+1}(F_k+F_{k-1})\\
+    &\quad +F_n(F_{k-1}+F_{k-2})\\
+    &=F_{k+1}F_{n+1}+F_kF_n.
+  \end{align*}
+
+  Damit gilt die Behauptung für alle
+  $k\ge1$ und $n\ge0$.
+\end{myproof}
+
+
+\subsection*{c) Teilbarkeit von Fibonacci-Zahlen}
+
+\begin{myproof}
+  Wir beweisen die Aussage durch vollständige
+  Induktion über $k$.
+
+  \textbf{Induktionsanfang:}
+
+  Für $k=1$ gilt
+  \[
+    F_{kn}=F_n=1\cdot F_n.
+  \]
+  Die Behauptung ist somit erfüllt.
+
+  \textbf{Induktionsvoraussetzung:}
+
+  Für ein $k\ge1$ existiere
+  ein $n_0\in\bbN$ mit
+  \[
+    F_{kn}=n_0F_n.
+  \]
+
+  \textbf{Induktionsschritt:}
+
+  Mit der Additionsformel aus (b) gilt:
+  \begin{align*}
+    F_{(k+1)n}
+    &=F_{kn+n}\\
+    &=F_nF_{kn+1}+F_{n-1}F_{kn}\\
+    &=F_nF_{kn+1}+F_{n-1}n_0F_n\\
+    &=(F_{kn+1}+n_0F_{n-1})F_n.
+  \end{align*}
+
+  Da
+  \[
+    F_{kn+1}+n_0F_{n-1}\in\bbN,
+  \]
+  ist auch $F_{(k+1)n}$ ein Vielfaches
+  von $F_n$.
+
+  Somit gilt
+  \[
+    \boxed{F_n\mid F_{kn}}
+  \]
+  für alle $k,n\ge1$.
+\end{myproof}
+
+
+\subsection*{d) Größter gemeinsamer Teiler}
+
+\begin{myproof}
+  Seien $m,n\ge1$.
+
+  Wir zeigen zunächst, dass aufeinanderfolgende
+  Fibonacci-Zahlen teilerfremd sind.
+
+  Mit dem euklidischen Algorithmus gilt:
+  \begin{align*}
+    \operatorname{ggT}(F_{j+1},F_j)
+    &=\operatorname{ggT}(F_j+F_{j-1},F_j)\\
+    &=\operatorname{ggT}(F_{j-1},F_j).
+  \end{align*}
+
+  Durch wiederholte Anwendung folgt
+  \[
+    \operatorname{ggT}(F_{j+1},F_j)
+    =\operatorname{ggT}(F_1,F_0)=1.
+  \]
+
+  \medskip
+  Nun sei
+  \[
+    m=qn+r,
+    \qquad 0\le r<n.
+  \]
+
+  Für $r=0$ gilt nach (c)
+  \[
+    F_n\mid F_m,
+  \]
+  also
+  \[
+    \operatorname{ggT}(F_m,F_n)
+    =F_n.
+  \]
+
+  Sei daher $r\ge1$.
+
+  Nach der Additionsformel aus (b) gilt
+  \[
+    F_m
+    =F_{qn+r}
+    =F_rF_{qn+1}+F_{r-1}F_{qn}.
+  \]
+
+  Nach (c) ist $F_{qn}$ ein Vielfaches
+  von $F_n$. Somit folgt
+  \[
+    \operatorname{ggT}(F_m,F_n)
+    =\operatorname{ggT}(F_rF_{qn+1},F_n).
+  \]
+
+  Da aufeinanderfolgende Fibonacci-Zahlen
+  teilerfremd sind und $F_n\mid F_{qn}$
+  gilt, folgt
+  \[
+    \operatorname{ggT}(F_{qn+1},F_n)=1.
+  \]
+
+  Daher erhalten wir
+  \[
+    \operatorname{ggT}(F_m,F_n)
+    =\operatorname{ggT}(F_r,F_n).
+  \]
+
+  Dies entspricht einem Schritt des
+  euklidischen Algorithmus auf den Indizes
+  $m$ und $n$.
+
+  Durch wiederholte Anwendung erhalten wir
+  schließlich
+  \[
+    \operatorname{ggT}(F_m,F_n)
+    =\operatorname{ggT}(F_d,F_0),
+  \]
+  wobei
+  \[
+    d:=\operatorname{ggT}(m,n).
+  \]
+
+  Da $F_0=0$, gilt
+  \[
+    \operatorname{ggT}(F_d,F_0)=F_d.
+  \]
+
+  Insgesamt folgt
+  \[
+    \boxed{
+      \operatorname{ggT}(F_m,F_n)
+      =F_{\operatorname{ggT}(m,n)}.
+    }
+  \]
+\end{myproof}
+
 \newpage
 
 \qs{}{
@@ -465,4 +700,5 @@ int gcd2(int a, int b) {
 
 \sol
 
+\codefile{fraction.h}{C++}
 \end{document}
