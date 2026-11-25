@@ -201,34 +201,105 @@
 
 \subsection*{1) $\operatorname{eps}(F) \notin F$}
 \begin{myproof}
-  Nach dem Satz über die Maschinengenauigkeit gilt
+  Wir zeigen, dass
+  \[
+    \operatorname{eps}(F)\notin F
+  \]
+  für jeden Maschinenzahlbereich
+  $F=F(b,m,E_{\min},E_{\max})$
+  mit $m>1$ gilt.
+
+  \textbf{Fall 1:} $E_{\min}<E_{\max}$.
+
+  Nach dem Satz über die Maschinengenauigkeit
+  gilt
+  \[
+    \operatorname{eps}(F)
+    =\frac{1}{1+2b^{m-1}}.
+  \]
+
+  \textbf{Fall 2:} $E_{\min}=E_{\max}=E$.
+
+  Da $m>1$, sind insbesondere die beiden
+  aufeinanderfolgenden Maschinenzahlen
+  \[
+    x_1=b^E,
+    \qquad
+    x_2=b^E(1+b^{1-m})
+  \]
+  darstellbar.
+
+  Ihr Mittelpunkt ist
+  \[
+    x=\frac{x_1+x_2}{2}
+    =b^E\left(1+\frac12b^{1-m}\right).
+  \]
+
+  Bei Rundung auf die nächstgelegene
+  Maschinenzahl beträgt der absolute
+  Rundungsfehler
+  \[
+    |x-\operatorname{rd}(x)|
+    =\frac12b^{E+1-m}.
+  \]
+
+  Somit ergibt sich der relative Fehler
+  \begin{align*}
+    \frac{|x-\operatorname{rd}(x)|}{|x|}
+    &=\frac{\frac12b^{E+1-m}}
+      {b^E(1+\frac12b^{1-m})}\\
+    &=\frac{1}{1+2b^{m-1}}.
+  \end{align*}
+
+  Da die Abstände zwischen benachbarten
+  positiven Maschinenzahlen bei festem
+  Exponenten konstant sind, ist der
+  relative Rundungsfehler am Mittelpunkt
+  der beiden kleinsten positiven
+  Maschinenzahlen maximal.
+
+  Also gilt auch in diesem Fall
+  \[
+    \operatorname{eps}(F)
+    =\frac{1}{1+2b^{m-1}}.
+  \]
+
+  \medskip
+  Damit gilt in beiden Fällen
   \[
     \operatorname{eps}(F)
     =\frac{1}{1+2b^{m-1}}.
   \]
 
   Jede Maschinenzahl besitzt eine endliche
-  $b$-adische Darstellung und lässt sich daher
-  als Bruch mit einer Potenz von $b$ im Nenner
-  schreiben.
+  $b$-adische Darstellung und lässt sich
+  daher als Bruch mit einer Potenz von $b$
+  im Nenner schreiben.
 
-  Es gilt jedoch
+  Andererseits gilt wegen $m>1$:
   \[
     1+2b^{m-1}\equiv1\pmod b.
   \]
 
-  Somit ist der Nenner von
-  $\operatorname{eps}(F)$ teilerfremd zu $b$
-  und kann keine Potenz von $b$ teilen.
+  Somit ist
+  \[
+    \operatorname{ggT}(1+2b^{m-1},b)=1.
+  \]
+
+  Der Nenner von $\operatorname{eps}(F)$
+  kann folglich keine Potenz von $b$
+  teilen.
 
   Daher besitzt $\operatorname{eps}(F)$
-  keine endliche $b$-adische Darstellung.
+  keine endliche $b$-adische Darstellung
+  und ist somit keine Maschinenzahl.
 
-  Folglich gilt
+  Insgesamt folgt
   \[
     \boxed{\operatorname{eps}(F)\notin F.}
   \]
 \end{myproof}
+
 
 \subsection*{2) Skalierung von $\operatorname{eps}(F)$}
 \begin{myproof}
